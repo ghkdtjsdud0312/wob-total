@@ -1,6 +1,6 @@
 package com.kh.wob.entity;
 
-import com.wob.wobProject.constant.ChatType;
+import com.kh.wob.constant.ChatType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

@@ -20,7 +20,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/spring-sample?userUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
     username: root
-    password:
+    password: chlrh1!
 
   jpa:
     properties:
@@ -31,5 +31,11 @@ spring:
         level:
           org.hibernate.type.descriptor.sql: trace
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
       dialect: org.hibernate.dialect.MySQL8Dialect
+---
+
+spring:
+  sql:
+    init:
+      mode: always
