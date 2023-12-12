@@ -42,4 +42,7 @@ public class Ad {
         regDate = LocalDateTime.now();
     }
 
+    @ManyToOne
+    @JoinColumn(name = "lesson_id", nullable = false)
+    private Lesson lesson;
 }

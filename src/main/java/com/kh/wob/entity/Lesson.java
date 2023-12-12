@@ -20,6 +20,10 @@ public class Lesson {
     @Column(name = "lesson_id")
     private Long Id;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
     @Column(nullable = false)
     private String title;
 
