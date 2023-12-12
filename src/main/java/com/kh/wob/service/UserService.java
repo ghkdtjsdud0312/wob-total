@@ -37,4 +37,7 @@ public class UserService {
         user.passwordEncode(passwordEncoder);
         userRepository.save(user);
     }
+
+    //회원 상세조회
+//    public User
 }

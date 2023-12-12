@@ -22,6 +22,7 @@ public class User {
     private String email; // 이메일
     private String password; // 비밀번호
     private String nickname; // 닉네임
+    private String image; // 프로필사진
 
 
     @Enumerated(EnumType.STRING)
