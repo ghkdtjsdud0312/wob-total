@@ -20,10 +20,15 @@ import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.logout.LogoutFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import static com.kh.wob.utils.Common.CORS_ORIGIN;
 
 /**
  * 인증은 CustomJsonUsernamePasswordAuthenticationFilter에서 authenticate()로 인증된 사용자로 처리
@@ -46,37 +51,36 @@ public class SecurityConfig implements WebMvcConfigurer {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
 
-                .formLogin().disable() // FormLogin 사용 X
-                .csrf().disable() // csrf 보안 사용 X
-                .httpBasic().disable()
-                .headers().frameOptions().disable()
-                .and()
 //                .formLogin().disable() // FormLogin 사용 X
-//                .httpBasic()
-//                .and()
 //                .csrf().disable() // csrf 보안 사용 X
+//                .httpBasic().disable()
 //                .headers().frameOptions().disable()
 //                .and()
-//
-//
+                .formLogin().disable() // FormLogin 사용 X
+                .httpBasic()
+                .and()
+                .csrf().disable() // csrf 보안 사용 X
+                .headers().frameOptions().disable()
+                .and()
+
 //                // 세션 사용하지 않으므로 STATELESS로 설정
-//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//
-//                .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+
+                .and()
 //
 //                //== URL별 권한 관리 옵션 ==//
-//                .authorizeRequests()
-//
-//                .antMatchers("/ws/**", "/movies/**", "/elastic/**").permitAll()
-//                .antMatchers("/v2/api-docs", "/swagger-resources/**", "/swagger-ui.html", "/webjars/**", "/swagger/**", "/sign-api/exception").permitAll()
-//                // 아이콘, css, js 관련
-//                // 기본 페이지, css, image, js 하위 폴더에 있는 자료들은 모두 접근 가능, h2-console에 접근 가능
-//                .antMatchers("/","/css/**","/images/**","/js/**","/favicon.ico","/h2-console/**").permitAll()
-//                .antMatchers("/sign-up").permitAll() // 회원가입 접근 가능
-//                .anyRequest().authenticated() // 위의 경로 이외에는 모두 인증된 사용자만 접근 가능
-//                .and()
-//                .cors() // .and().cors() 추가 된 부분
-//                .and()
+                .authorizeRequests()
+//                /oauth2/authorization/google , "/oauth2/authorization/**"
+                .antMatchers("/ws/**", "/movies/**", "/elastic/**").permitAll()
+                .antMatchers("/v2/api-docs", "/swagger-resources/**", "/swagger-ui.html", "/webjars/**", "/swagger/**", "/sign-api/exception").permitAll()
+                // 아이콘, css, js 관련
+                // 기본 페이지, css, image, js 하위 폴더에 있는 자료들은 모두 접근 가능, h2-console에 접근 가능
+                .antMatchers("/","/css/**","/images/**","/js/**","/favicon.ico","/h2-console/**").permitAll()
+                .antMatchers("/sign-up").permitAll() // 회원가입 접근 가능
+                .anyRequest().authenticated() // 위의 경로 이외에는 모두 인증된 사용자만 접근 가능
+                .and()
+                .cors() // .and().cors() 추가 된 부분
+                .and()
                 //== 소셜 로그인 설정 ==//
                 .oauth2Login()
                 .successHandler(oAuth2LoginSuccessHandler) // 동의하고 계속하기를 눌렀을 때 Handler 설정
@@ -86,8 +90,8 @@ public class SecurityConfig implements WebMvcConfigurer {
         // 원래 스프링 시큐리티 필터 순서가 LogoutFilter 이후에 로그인 필터 동작
         // 따라서, LogoutFilter 이후에 우리가 만든 필터 동작하도록 설정
         // 순서 : LogoutFilter -> JwtAuthenticationProcessingFilter -> CustomJsonUsernamePasswordAuthenticationFilter
-//        http.addFilterAfter(customJsonUsernamePasswordAuthenticationFilter(), LogoutFilter.class);
-//        http.addFilterBefore(jwtAuthenticationProcessingFilter(), CustomJsonUsernamePasswordAuthenticationFilter.class);
+        http.addFilterAfter(customJsonUsernamePasswordAuthenticationFilter(), LogoutFilter.class);
+        http.addFilterBefore(jwtAuthenticationProcessingFilter(), CustomJsonUsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
@@ -151,13 +155,22 @@ public class SecurityConfig implements WebMvcConfigurer {
         return jwtAuthenticationFilter;
     }
 
-//    @Override  // 메소드 오버라이딩, localhost:3000 번으로 들어오는 요청 허가
+    @Override  // 메소드 오버라이딩, localhost:3000 번으로 들어오는 요청 허가
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+//                .allowedOrigins(CORS_ORIGIN)
+                .allowedOrigins("http://localhost:3000")
+                .allowedMethods("*")
+                .allowedHeaders("*")
+                .exposedHeaders("Authorization") // 클라이언트에 노출할 헤더 지정
+                .allowCredentials(true);
+    }
 //    public void addCorsMappings(CorsRegistry registry) {
 //        registry.addMapping("/**")
-////                .allowedOrigins(CORS_ORIGIN)
-//                .allowedOrigins("http://localhost:3000")
+//                .allowedOrigins("*") // 모든 도메인 허용
 //                .allowedMethods("*")
 //                .allowedHeaders("*")
+//                .exposedHeaders("Authorization")
 //                .allowCredentials(true);
 //    }
 }
