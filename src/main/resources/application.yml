@@ -39,7 +39,6 @@ spring:
   sql:
     init:
       mode: always
-  spring:
-    mvc:
-      pathmatch:
-        matching-strategy: ant_path_matcher
+  mvc:
+    pathmatch:
+     matching-strategy: ant_path_matcher
