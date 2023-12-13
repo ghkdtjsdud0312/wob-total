@@ -52,7 +52,4 @@ public class Post {
     @Column(nullable = false)
     private Boolean active;
 
-    @ManyToOne
-    @JoinColumn(name = "postImage_id")
-    private PostImage postImage;
 }
