@@ -28,8 +28,6 @@ import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import static com.kh.wob.utils.Common.CORS_ORIGIN;
-
 /**
  * 인증은 CustomJsonUsernamePasswordAuthenticationFilter에서 authenticate()로 인증된 사용자로 처리
  * JwtAuthenticationProcessingFilter는 AccessToken, RefreshToken 재발급
@@ -62,15 +60,16 @@ public class SecurityConfig implements WebMvcConfigurer {
                 .csrf().disable() // csrf 보안 사용 X
                 .headers().frameOptions().disable()
                 .and()
-
-//                // 세션 사용하지 않으므로 STATELESS로 설정
+//
+//
+                // 세션 사용하지 않으므로 STATELESS로 설정
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
                 .and()
-//
-//                //== URL별 권한 관리 옵션 ==//
+
+                //== URL별 권한 관리 옵션 ==//
                 .authorizeRequests()
-//                /oauth2/authorization/google , "/oauth2/authorization/**"
+
                 .antMatchers("/ws/**", "/movies/**", "/elastic/**").permitAll()
                 .antMatchers("/v2/api-docs", "/swagger-resources/**", "/swagger-ui.html", "/webjars/**", "/swagger/**", "/sign-api/exception").permitAll()
                 // 아이콘, css, js 관련
@@ -162,15 +161,7 @@ public class SecurityConfig implements WebMvcConfigurer {
                 .allowedOrigins("http://localhost:3000")
                 .allowedMethods("*")
                 .allowedHeaders("*")
-                .exposedHeaders("Authorization") // 클라이언트에 노출할 헤더 지정
+                .exposedHeaders("Authorization") //클라이언트에 노출할 헤더 지정(이거 안하면 토큰 안보임)
                 .allowCredentials(true);
     }
-//    public void addCorsMappings(CorsRegistry registry) {
-//        registry.addMapping("/**")
-//                .allowedOrigins("*") // 모든 도메인 허용
-//                .allowedMethods("*")
-//                .allowedHeaders("*")
-//                .exposedHeaders("Authorization")
-//                .allowCredentials(true);
-//    }
 }

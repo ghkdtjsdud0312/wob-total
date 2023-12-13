@@ -6,9 +6,10 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserEditDto {
+public class UserMyPageDto {
     private String email;
     private String password;
     private String nickname;
     private String image;
+    private String mbti;
 }
