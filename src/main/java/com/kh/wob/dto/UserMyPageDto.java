@@ -7,8 +7,8 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class UserMyPageDto {
+    private Long Id;
     private String email;
-    private String password;
     private String nickname;
     private String image;
     private String mbti;

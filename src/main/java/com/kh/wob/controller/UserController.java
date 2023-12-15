@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -26,18 +28,4 @@ public class UserController {
         return "jwtTest 요청 성공";
     }
 
-    //회원정보 수정 컨트롤러
-    //회원 상세조회(마이페이지)
-    @GetMapping("/detail/{email}")
-    public ResponseEntity<UserMyPageDto> userDetail(@PathVariable String email) {
-        UserMyPageDto userMyPageDto = userService.getUserDetail(email);
-        return ResponseEntity.ok(userMyPageDto);
-    }
-    //회원수정(마이페이지)
-    @PutMapping("modify")
-    public ResponseEntity<Boolean> userModify(@RequestBody UserMyPageDto userMyPageDto) {
-        log.info("userMyPageDto : {}", userMyPageDto.getEmail());
-        boolean isTrue = userService.modifyUser(userMyPageDto);
-        return ResponseEntity.ok(isTrue);
-    }
 }
