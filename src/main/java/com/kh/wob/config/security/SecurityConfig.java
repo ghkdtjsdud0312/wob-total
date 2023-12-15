@@ -161,7 +161,7 @@ public class SecurityConfig implements WebMvcConfigurer {
                 .allowedOrigins("http://localhost:3000")
                 .allowedMethods("*")
                 .allowedHeaders("*")
-                .exposedHeaders("Authorization") //클라이언트에 노출할 헤더 지정(이거 안하면 토큰 안보임)
+                .exposedHeaders("Authorization", "Authorization-refresh") //클라이언트에 노출할 헤더 지정(이거 안하면 토큰 안보임)
                 .allowCredentials(true);
     }
 }

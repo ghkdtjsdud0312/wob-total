@@ -6,8 +6,11 @@ import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
+import java.util.List;
 
-@Getter @Setter
+
+@Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Builder
@@ -23,10 +26,17 @@ public class User {
     private String password; // 비밀번호
     private String nickname; // 닉네임
     private String image; // 프로필사진
-    private String mbti; //mbti 설정
+    private String mbti; // MBTI 설정
 
+    @ElementCollection
+    @CollectionTable(name = "user_interest_sports", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "interest_sports")
+    private List<String> interestSports; // 관심 운동
 
-
+    @ElementCollection
+    @CollectionTable(name = "user_interest_area", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "interest_area")
+    private List<String> interestArea; // 관심 지역
 
     @Enumerated(EnumType.STRING)
     private Role role;

@@ -113,4 +113,12 @@ public class UserService {
             userMyPageDto.setMbti(user.getMbti());
             return userMyPageDto;
     }
+
+    public void updateUserInterestSports(String email, List<String> interestSports) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("해당회원이 존재하지 않습니다."));
+
+        user.setInterestSports(interestSports);
+        userRepository.save(user);
+    }
 }
