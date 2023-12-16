@@ -37,6 +37,9 @@ public class Ad {
 
     private LocalDateTime regDate;
 
+    @Column(nullable = false)
+    private String isActive;
+
     @PrePersist
     public void prePersist () {
         regDate = LocalDateTime.now();

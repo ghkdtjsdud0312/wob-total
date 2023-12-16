@@ -7,42 +7,24 @@ import com.kh.wob.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class CategoryService {
-    private static CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
     private final UserRepository memberRepository;
 
-    // 게시글 등록
-//    public boolean saveBoard(BoardDto boardDto) {
-//        try {
-//            Board board = new Board();
-//            Long memberId = getCurrentMemberId();
-//            Member member = memberRepository.findById(memberId).orElseThrow(
-//                    () -> new RuntimeException("해당 회원이 존재하지 않습니다.")
-//            );
-//            Category category = categoryRepository.findById(boardDto.getCategoryId()).orElseThrow(
-//                    () -> new RuntimeException("해당 카테고리가 존재하지 않습니다.")
-//            );
-//            board.setTitle(boardDto.getTitle());
-//            board.setCategory(category);
-//            board.setContent(boardDto.getContent());
-//            board.setImgPath(boardDto.getImg());
-//            board.setMember(member);
-//            boardRepository.save(board);
-//            return true;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return false;
-//        }
-//    }
-
-    // 카테고리 목록 조회
+    // 게시물 목록 조회
     public List<CategoryDto> getCategoryList() {
         List<Category> categories = categoryRepository.findAll();
         List<CategoryDto> categoryDtos = new ArrayList<>();
@@ -60,7 +42,7 @@ public class CategoryService {
         return convertEntityToDto(category);
     }
     // 게시글 수정
-    public static boolean modifyCategory(Long id, CategoryDto categoryDto) {
+    public  boolean modifyCategory(Long id, CategoryDto categoryDto) {
         try {
             Category category = categoryRepository.findById(id).orElseThrow(
                     () -> new RuntimeException("해당 게시글이 존재하지 않습니다.")
@@ -77,7 +59,7 @@ public class CategoryService {
         }
     }
     // 게시글 삭제
-    public static boolean deleteCategory(Long id) {
+    public  boolean deleteCategory(Long id) {
         try {
             categoryRepository.deleteById(id);
             return true;
@@ -86,7 +68,8 @@ public class CategoryService {
             return false;
         }
     }
-//    // 게시글 검색
+
+    // 게시글 검색
 //    public List<CategoryDto> searchCategory(String keyword) {
 //        List<Category> categorys = categoryRepository.findByTitleContaining(keyword);
 //        List<CategoryDto> boardDtos = new ArrayList<>();
@@ -104,6 +87,32 @@ public class CategoryService {
             boardDtos.add(convertEntityToDto(category));
         }
         return boardDtos;
+    }
+
+    // 게시글 활성 비활성화
+    @Transactional
+    public boolean setIsActive(String isActive, Long id) {
+        try {
+            Optional<Category> optionalCategory = categoryRepository.findById(id);
+            if (optionalCategory.isPresent()) {
+                Category category = optionalCategory.get();
+                category.setIsActive(isActive);
+                categoryRepository.save(category);
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    // 게시물 활성화 비활성화 예외처리
+    @ControllerAdvice
+    public class GlobalExceptionHandler {
+        @ExceptionHandler(Exception.class)
+        public ResponseEntity<String> handleException(Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
     }
 
     // 엔티티를 DTO로 변환하는 메서드
@@ -125,22 +134,8 @@ public class CategoryService {
         return true;
     }
 
-    // 게시글 엔티티를 DTO로 변환
-//    private BoardDto convertEntityToDto(Board board) {
-//        BoardDto boardDto = new BoardDto();
-//        boardDto.setBoardId(board.getBoardId());
-//        boardDto.setTitle(board.getTitle());
-//        boardDto.setCategoryId(board.getCategory().getCategoryId());
-//        boardDto.setContent(board.getContent());
-//        boardDto.setImg(board.getImgPath());
-//        boardDto.setEmail(board.getMember().getEmail());
-//        boardDto.setRegDate(board.getRegDate());
-//        return boardDto;
-//    }
-
     // 페이지 수 조회
     public int getCategorys(Pageable pageable) {
         return categoryRepository.findAll(pageable).getTotalPages();
     }
-
 }

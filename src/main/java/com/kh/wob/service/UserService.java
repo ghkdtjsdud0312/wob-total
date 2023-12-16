@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -121,4 +122,19 @@ public class UserService {
         user.setInterestSports(interestSports);
         userRepository.save(user);
     }
-}
+
+    // 활성화 비활성화
+        public boolean setIsActive(String isActive, Long id) {
+            try {
+                User user = userRepository.findById(id).orElseThrow(null);
+                if (user != null ) {
+                    user.setIsActive(isActive);
+                    userRepository.save(user);
+                    return true;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+    }

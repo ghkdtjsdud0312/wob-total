@@ -40,6 +40,8 @@ public class Chat {
 
     private LocalDateTime regDate;
 
+    private String isActive;
+
     @PrePersist
     public void prePersist() {
         regDate = LocalDateTime.now();

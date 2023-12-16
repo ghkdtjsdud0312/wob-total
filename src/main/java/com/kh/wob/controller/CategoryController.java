@@ -30,16 +30,23 @@ public class CategoryController {
         List<CategoryDto> list = categoryTestService.getCategoryList();
         return ResponseEntity.ok(list);
     }
+    // 활성화 비활성화 get
+    @GetMapping("/active/category/state")
+    public ResponseEntity<String> handleGetRequest() {
+
+        return ResponseEntity.ok("Success");
+    }
+
     // 게시글 수정
     @PutMapping("/modify/{id}")
     public ResponseEntity<Boolean> modifyCategory(@PathVariable Long id, @RequestBody CategoryDto categoryDto) {
-        boolean isTrue = CategoryService.modifyCategory(id, categoryDto);
+        boolean isTrue = categoryTestService.modifyCategory(id, categoryDto);
         return ResponseEntity.ok(isTrue);
     }
     // 게시글 삭제
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Boolean> deleteCategory(@PathVariable Long id) {
-        boolean isTrue = CategoryService.deleteCategory(id);
+        boolean isTrue = categoryTestService.deleteCategory(id);
         return ResponseEntity.ok(isTrue);
     }
     // 게시글 목록 페이징
@@ -55,6 +62,7 @@ public class CategoryController {
         CategoryDto boardDto = categoryTestService.getCategoryDetail(id);
         return ResponseEntity.ok(boardDto);
     }
+
 //    // 게시글 검색
 //    @GetMapping("/search")
 //    public ResponseEntity<List<CategoryDto>> searchCategory(@RequestParam String keyword) {

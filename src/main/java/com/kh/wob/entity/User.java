@@ -27,6 +27,7 @@ public class User {
     private String nickname; // 닉네임
     private String image; // 프로필사진
     private String mbti; // MBTI 설정
+    private String isActive;
 
     @ElementCollection
     @CollectionTable(name = "user_interest_sports", joinColumns = @JoinColumn(name = "user_id"))
