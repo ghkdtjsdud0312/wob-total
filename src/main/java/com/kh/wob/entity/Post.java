@@ -6,7 +6,9 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 @Entity
 @Table(name = "post")
@@ -23,9 +25,6 @@ public class Post {
     @Column(nullable = false)
     private String title;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false)
-    private Category category;
 
     @Column(nullable = false)
     private String place;
@@ -33,23 +32,40 @@ public class Post {
     @Column(nullable = false)
     private int people;
 
-    @Column(nullable = false)
     private int joiners;
 
     private Long expectationCost;
     private String introduction;
 
+    @Column(nullable = false)
+    private String date;
 
-    private LocalDateTime date;
+    @Column(nullable = false)
+    private String time;
+
     private LocalDateTime regDate;
 
     @PrePersist
     public void prePersist() {
-        date = LocalDateTime.now();
         regDate = LocalDateTime.now();
+
+//        // date와 time을 문자열에서 localdatetime으로 파싱
+//        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//        LocalDateTime parsedDate = LocalDateTime.parse(date, dateFormatter);
+//        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+//        LocalDateTime parsedTime = LocalDateTime.parse(time, timeFormatter);
+
+//        // UTC 시간을 한국 시간으로 변환
+//        ZonedDateTime zonedDateTimeDate = parsedDate.atZone(ZoneId.of("Asia/Seoul"));
+//        ZonedDateTime zonedDateTimeTime = parsedTime.atZone(ZoneId.of("Asia/Seoul"));
+
+        // UTC 시간을 한국 시간으로 변환
+//         date = date.atZone(ZoneId.of("UTC")).withZoneSameInstant(ZoneId.of("Asia/Seoul")).toLocalDateTime();
+//         time = time.atZone(ZoneId.of("UTC")).withZoneSameInstant(ZoneId.of("Asia/Seoul")).toLocalDateTime();
+
     }
 
-    @Column(nullable = false)
-    private Boolean active;
+
+    private boolean active;
 
 }
