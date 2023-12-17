@@ -94,10 +94,11 @@ public class UserService {
                     () -> new RuntimeException("회원수정 : 해당 회원이 존재하지 않습니다.")
             );
 //            user.setEmail(userMyPageDto.getEmail());
-            System.out.println("회원 수정 유저서비스 : " + userMyPageDto.getEmail());
+            System.out.println("회원 수정 유저서비스 : " + user.getEmail());
+            System.out.println("회원 수정 유저서비스 getMbti : " + user.getMbti());
             user.setNickname(userMyPageDto.getNickname());
-//            user.setMbti(userMyPageDto.getMbti());
             user.setImage(userMyPageDto.getImage());
+            user.setMbti(userMyPageDto.getMbti());
             userRepository.save(user);
             return true;
         } catch (Exception e) {
@@ -106,13 +107,13 @@ public class UserService {
         }
     }
     //엔티티 -> Dto 전환
-        private UserMyPageDto convertEntityToDto(User user){
-            UserMyPageDto userMyPageDto = new UserMyPageDto();
-            userMyPageDto.setEmail(user.getEmail());
-            userMyPageDto.setNickname(user.getNickname());
-            userMyPageDto.setImage(user.getImage());
-            userMyPageDto.setMbti(user.getMbti());
-            return userMyPageDto;
+    private UserMyPageDto convertEntityToDto(User user){
+        UserMyPageDto userMyPageDto = new UserMyPageDto();
+        userMyPageDto.setEmail(user.getEmail());
+        userMyPageDto.setNickname(user.getNickname());
+        userMyPageDto.setImage(user.getImage());
+        userMyPageDto.setMbti(user.getMbti());
+        return userMyPageDto;
     }
 
     public void updateUserInterestSports(String email, List<String> interestSports) {
