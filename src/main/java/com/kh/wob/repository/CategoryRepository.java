@@ -7,6 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 
 public interface CategoryRepository extends JpaRepository<Category, Long> {
-//    List<Category> findByTitleContaining(String keyword);
     Page<Category> findAll(Pageable pageable); // 모든 목록
 }
