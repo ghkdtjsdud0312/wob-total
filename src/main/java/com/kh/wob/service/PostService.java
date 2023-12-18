@@ -30,14 +30,14 @@ public class PostService {
     private final PostRepository postRepository;
     private final CategoryRepository categoryRepository;
 
-    private static ZonedDateTime convertToSeoulTime(LocalDateTime utcDateTime) {
-        try {
-            return ZonedDateTime.of(utcDateTime, ZoneId.of("UTC")).withZoneSameInstant(ZoneId.of("Asia/Seoul"));
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+//    private static ZonedDateTime convertToSeoulTime(LocalDateTime utcDateTime) {
+//        try {
+//            return ZonedDateTime.of(utcDateTime, ZoneId.of("UTC")).withZoneSameInstant(ZoneId.of("Asia/Seoul"));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
 
     // 게시글 등록
     public boolean savePost(PostDto postDto) {
@@ -47,23 +47,27 @@ public class PostService {
 
             log.info("Date Type: {}", postDto.getDate().getClass());
             log.info("Time Type: {}", postDto.getTime().getClass());
-            log.info("Time : {}", postDto.getTime());
             log.info("Date : {}", postDto.getDate());
+            log.info("Time : {}", postDto.getTime());
 
-            LocalDateTime timeTime = postDto.getTime();
-            LocalDateTime dateDate = postDto.getDate();
-
-            LocalDateTime seoulDateTime1 = Objects.requireNonNull(convertToSeoulTime(timeTime)).toLocalDateTime();
-            LocalDateTime seoulDateTime2 = Objects.requireNonNull(convertToSeoulTime(dateDate)).toLocalDateTime();
+//            LocalDateTime timeTime = postDto.getTime();
+//            LocalDateTime dateDate = postDto.getDate();
+//
+//            LocalDateTime seoulDateTime1 = Objects.requireNonNull(convertToSeoulTime(timeTime)).toLocalDateTime();
+//            LocalDateTime seoulDateTime2 = Objects.requireNonNull(convertToSeoulTime(dateDate)).toLocalDateTime();
 
 
             // 날짜와 시간을 원하는 형태로 변환
+//            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//            String formattedDate = seoulDateTime1.format(dateFormatter);
+//            System.out.println("날짜 : " + formattedDate);
+//            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+//            String formattedTime = seoulDateTime2.format(timeFormatter);
+//            System.out.println("시간 : " + formattedTime);
+
+            // LocalDateTime을 받아서 필요한 포맷으로 변환
             DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            String formattedDate = seoulDateTime1.format(dateFormatter);
-            System.out.println("날짜 : " + formattedDate);
             DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-            String formattedTime = seoulDateTime2.format(timeFormatter);
-            System.out.println("시간 : " + formattedTime );
 
             // PostDto로부터 받은 정보로 post 객체를 초기화.
             post.setTitle(postDto.getTitle());
@@ -73,9 +77,11 @@ public class PostService {
             post.setJoiners(postDto.getJoiners());
             post.setExpectationCost(postDto.getExpectationCost());
             post.setIntroduction(postDto.getIntroduction());
-            post.setDate(formattedDate);
-            post.setTime(formattedTime);
-
+//            post.setDate(formattedDate);
+//            post.setTime(formattedTime);
+            // LocalDateTime을 받아서 필요한 포맷으로 변환하여 저장
+            post.setDate(postDto.getDate().format(dateFormatter));
+            post.setTime(postDto.getTime().format(timeFormatter));
 
             // 포스트 객체를 저장.
             postRepository.save(post);
