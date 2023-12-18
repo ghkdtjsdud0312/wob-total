@@ -35,6 +35,7 @@ public class UserMyPageController {
     public ResponseEntity<Boolean> userModify(@RequestBody UserMyPageDto userMyPageDto) {
         boolean isTrue = userService.modifyUser(userMyPageDto);
         System.out.println("userMyPage dto !!회원수정!! 이메일 들어왔나 확인!! : " + userMyPageDto.getEmail());
+        System.out.println("userMyPage dto !!회원수정!! mbti 들어왔나 확인!! : " + userMyPageDto.getMbti());
         return ResponseEntity.ok(isTrue);
     }
 }
