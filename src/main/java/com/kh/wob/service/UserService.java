@@ -94,6 +94,14 @@ public class UserService {
             return false;
         }
     }
+    // 사용자의 관심 운동 정보 가져오기
+    public List<String> getUserInterestSports(Long id) {
+        User user = userRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("해당 사용자를 찾을 수 없습니다.")
+        );
+
+        return user.getInterestSports();
+    }
     //엔티티 -> Dto 전환
     private UserMyPageDto convertEntityToDto(User user){
         UserMyPageDto userMyPageDto = new UserMyPageDto();

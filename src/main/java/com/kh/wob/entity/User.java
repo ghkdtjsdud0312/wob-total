@@ -58,6 +58,10 @@ public class User {
     public void passwordEncode(PasswordEncoder passwordEncoder) {
         this.password = passwordEncoder.encode(this.password);
     }
+    //관심 운동정보 가져오기 메서드
+    public List<String> getInterestSports() {
+        return this.interestSports;
+    }
 
     public void updateRefreshToken(String updateRefreshToken) {
         this.refreshToken = updateRefreshToken;
