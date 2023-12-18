@@ -55,6 +55,15 @@ public class CategoryController {
         return ResponseEntity.ok(list);
     }
 
+    // 페이지 수 조회
+    @GetMapping("/count")
+    public ResponseEntity<Integer> listCategory(@RequestParam(defaultValue = "0") int page,
+                                                @RequestParam(defaultValue = "5") int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Integer pageCnt = categoryTestService.getCategorys(pageRequest);
+        return ResponseEntity.ok(pageCnt);
+    }
+
 //    // 게시글 검색
 //    @GetMapping("/search")
 //    public ResponseEntity<List<CategoryDto>> searchCategory(@RequestParam String keyword) {
@@ -62,12 +71,4 @@ public class CategoryController {
 //        return ResponseEntity.ok(list);
 //    }
 
-    // 페이지 수 조회
-    @GetMapping("/count")
-    public ResponseEntity<Integer> listCategory(@RequestParam(defaultValue = "0") int page,
-                                              @RequestParam(defaultValue = "5") int size) {
-        PageRequest pageRequest = PageRequest.of(page, size);
-        Integer pageCnt = categoryTestService.getCategorys(pageRequest);
-        return ResponseEntity.ok(pageCnt);
-    }
 }

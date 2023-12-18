@@ -28,9 +28,7 @@ public class Category {
     @Column(nullable = false)
     private String image;
 
+    @Column(nullable = true)
     private String isActive;
-
-    @Column(nullable = false)
-    private String email;
 
 }

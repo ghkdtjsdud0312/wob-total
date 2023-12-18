@@ -99,6 +99,7 @@ public class CategoryService {
         categoryDto.setImage(category.getImage());
         categoryDto.setName(category.getName());
         categoryDto.setLogo(category.getLogo());
+        categoryDto.setIsActive(category.getIsActive());
         return categoryDto;
     }
 
