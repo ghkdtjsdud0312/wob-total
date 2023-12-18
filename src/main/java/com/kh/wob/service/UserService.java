@@ -129,7 +129,7 @@ public class UserService {
             try {
                 User user = userRepository.findById(id).orElseThrow(null);
                 if (user != null ) {
-                    user.setIsActive(isActive);
+//                    user.setIsActive(isActive);
                     userRepository.save(user);
                     return true;
                 }
