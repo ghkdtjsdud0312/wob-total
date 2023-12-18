@@ -28,14 +28,9 @@ public class Category {
     @Column(nullable = false)
     private String image;
 
-    private boolean inActive;
-    private boolean active;
+    private String isActive;
 
     @Column(nullable = false)
     private String email;
-
-    public void setInActive(boolean isActive) {
-        this.inActive =inActive;
-    }
 
 }

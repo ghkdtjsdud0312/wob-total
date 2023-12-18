@@ -70,7 +70,7 @@ public class SecurityConfig implements WebMvcConfigurer {
                 //== URL별 권한 관리 옵션 ==//
                 .authorizeRequests()
 
-                .antMatchers("/ws/**", "/movies/**", "/elastic/**").permitAll()
+                .antMatchers("/ws/**", "/movies/**", "/elastic/**", "/category/**").permitAll()
                 .antMatchers("/v2/api-docs", "/swagger-resources/**", "/swagger-ui.html", "/webjars/**", "/swagger/**", "/sign-api/exception").permitAll()
                 // 아이콘, css, js 관련
                 // 기본 페이지, css, image, js 하위 폴더에 있는 자료들은 모두 접근 가능, h2-console에 접근 가능

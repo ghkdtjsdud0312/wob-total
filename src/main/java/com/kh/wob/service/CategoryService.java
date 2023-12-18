@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -31,15 +30,8 @@ public class CategoryService {
         return categoryDtos;
     }
 
-    // 게시글 상세 조회
-    public CategoryDto getCategoryDetail(Long id) {
-        Category category = categoryRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("해당 게시글이 존재하지 않습니다.")
-        );
-        return convertEntityToDto(category);
-    }
     // 게시글 수정
-    public  boolean modifyCategory(Long id, CategoryDto categoryDto) {
+    public boolean modifyCategory(Long id, CategoryDto categoryDto) {
         try {
             Category category = categoryRepository.findById(id).orElseThrow(
                     () -> new RuntimeException("해당 게시글이 존재하지 않습니다.")
@@ -56,7 +48,7 @@ public class CategoryService {
         }
     }
     // 게시글 삭제
-    public  boolean deleteCategory(Long id) {
+    public boolean deleteCategory(Long id) {
         try {
             categoryRepository.deleteById(id);
             return true;
@@ -86,39 +78,18 @@ public class CategoryService {
         return boardDtos;
     }
 
-    // 모든 게시판 목록
-    public List<Category> getAllCategorys() {
-        return categoryRepository.findAll();
-    }
-
-    // 아이디
-    public Optional<Category> getCategoryById(Long id) {
-        return categoryRepository.findById(id);
-    }
-
-    // 게시판 비활성화
-    public List<Category> getInActiveCategorys()
-    {
-        return categoryRepository.findByInActive(false);
-    }
-
-    // 게시판 활성화
-    public List<Category> getActiveCategorys()
-    {
-        return categoryRepository.findByActive(true);
-    }
-
-    // 게시판 목록 활성화할지 비활성화 할지
-    public boolean manageCategoryListState(Long id,boolean state) {
-        Optional<Category> optionalCategory = categoryRepository.findById(id);
-        if (optionalCategory.isPresent()) {
-            Category category = optionalCategory.get();
-            category.setActive(state);
-            category.setInActive(state);
+//     게시판 목록 활성화할지 비활성화 선택
+    public boolean updateCategoryIsActive(CategoryDto categoryDto) {
+        try {
+            Category category = categoryRepository.findById(categoryDto.getCategoryId())
+                    .orElseThrow( () -> new RuntimeException("해당 카테고리가 존재하지 않습니다."));
+            category.setIsActive(categoryDto.getIsActive());
             categoryRepository.save(category);
             return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
-        return false;
     }
 
     // 엔티티를 DTO로 변환하는 메서드
