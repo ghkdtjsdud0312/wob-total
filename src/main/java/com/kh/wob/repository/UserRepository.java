@@ -1,15 +1,19 @@
 package com.kh.wob.repository;
 
 import com.kh.wob.constant.SocialType;
+import com.kh.wob.entity.Category;
 import com.kh.wob.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByEmail(String email);
     boolean existsByEmail(String email); //이메일이 db에 존재하는지 확인하는 메서드
+
+    List<Category> findByIsActive(boolean isActive);
 
     Optional<User> findByNickname(String nickname);
 

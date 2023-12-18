@@ -40,7 +40,7 @@ public class Chat {
 
     private LocalDateTime regDate;
 
-    private String isActive;
+    private boolean isActive;
 
     @PrePersist
     public void prePersist() {

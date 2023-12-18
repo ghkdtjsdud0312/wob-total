@@ -38,7 +38,7 @@ public class Ad {
     private LocalDateTime regDate;
 
     @Column(nullable = false)
-    private String isActive;
+    private boolean isActive;
 
     @PrePersist
     public void prePersist () {

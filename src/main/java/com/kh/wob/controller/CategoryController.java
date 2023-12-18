@@ -1,6 +1,7 @@
 package com.kh.wob.controller;
 
 import com.kh.wob.dto.CategoryDto;
+import com.kh.wob.entity.Category;
 import com.kh.wob.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,10 +10,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @Slf4j
 @RestController
-@RequestMapping("/category")
+@RequestMapping("/category") // get 형식
 @RequiredArgsConstructor
 public class CategoryController {
     private final CategoryService categoryTestService;
@@ -30,11 +33,37 @@ public class CategoryController {
         List<CategoryDto> list = categoryTestService.getCategoryList();
         return ResponseEntity.ok(list);
     }
-    // 활성화 비활성화 get
-    @GetMapping("/active/category/state")
-    public ResponseEntity<String> handleGetRequest() {
-
-        return ResponseEntity.ok("Success");
+    // 활성화 비활성화 내용2(모든 목록)
+    @GetMapping("/allList")
+    public ResponseEntity<List<Category>> getAllPosts() {
+        List<Category> categorys = categoryTestService.getAllCategorys();
+        return ResponseEntity.ok(categorys);
+    }
+    // 활성화 비활성화 (아이디)
+    @GetMapping("/{id}")
+    public ResponseEntity<Category> getCategoryById(@PathVariable Long id) {
+        Optional<Category> category = categoryTestService.getCategoryById(id);
+        return category.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+    // 활성화 비활성화 (활성화)
+    @GetMapping("/active")
+    public ResponseEntity<List<Category>> getActiveCategorys() {
+        List<Category> activeCategorys = categoryTestService.getActiveCategorys();
+        return ResponseEntity.ok(activeCategorys);
+    }
+    // 활성화 비활성화 (비활성화)
+    @GetMapping("/inActive")
+    public ResponseEntity<List<Category>> getInActiveCategorys() {
+        List<Category> inActiveCategorys = categoryTestService.getInActiveCategorys();
+        return ResponseEntity.ok(inActiveCategorys);
+    }
+    // 활성화 비활성화 post (수정)
+    @PostMapping("/status")
+    public ResponseEntity<String> manageCategoryListState(@RequestBody Map<String,Object> requestData) {
+        Long id = Long.parseLong(requestData.get("id").toString());
+        boolean state = (boolean) requestData.get("state");
+        boolean result = categoryTestService.manageCategoryListState(id,state);
+        return  result ? ResponseEntity.ok("successful") : ResponseEntity.status(500).body("failed");
     }
 
     // 게시글 수정

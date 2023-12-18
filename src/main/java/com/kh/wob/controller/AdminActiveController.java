@@ -17,7 +17,7 @@ import java.util.Map;
 
 @Slf4j
 @RestController
-@RequestMapping("/active")
+@RequestMapping("/active") // post 형식
 @RequiredArgsConstructor
 public class AdminActiveController {
 
@@ -29,14 +29,14 @@ public class AdminActiveController {
     // POST : user is_Active(회원)
     @PostMapping("/user/state")
     public ResponseEntity<Boolean> updateUserIsActive(@RequestBody Map<String, String> userData) {
-        String isActive = userData.get("isActive");
+        String isActive = userData.get("inActive");
         Long id = Long.parseLong(userData.get("email"));
         System.out.println("ISACTIVE : " + isActive);
         System.out.println("ID : " + id);
 
         User user = userRepository.findById(id).orElse(null);
         if (user != null) {
-            user.setIsActive(isActive);
+//            user.setIsActive(isActive);
             userRepository.save(user);
             return new ResponseEntity<>(true, HttpStatus.OK);
         } else {
@@ -90,7 +90,7 @@ public class AdminActiveController {
 
         Category category = categoryRepository.findById(id).orElse(null);
         if (category != null) {
-            category.setIsActive(isActive);
+//            category.setIsActive(isActive);
             categoryRepository.save(category);
             return new ResponseEntity<>(true, HttpStatus.OK);
         } else {

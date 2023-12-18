@@ -7,12 +7,9 @@ import com.kh.wob.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +19,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CategoryService {
     private final CategoryRepository categoryRepository;
-    private final UserRepository memberRepository;
+    private UserRepository userRepository;
 
     // 게시물 목록 조회
     public List<CategoryDto> getCategoryList() {
@@ -89,30 +86,39 @@ public class CategoryService {
         return boardDtos;
     }
 
-    // 게시글 활성 비활성화
-    @Transactional
-    public boolean setIsActive(String isActive, Long id) {
-        try {
-            Optional<Category> optionalCategory = categoryRepository.findById(id);
-            if (optionalCategory.isPresent()) {
-                Category category = optionalCategory.get();
-                category.setIsActive(isActive);
-                categoryRepository.save(category);
-                return true;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
+    // 모든 게시판 목록
+    public List<Category> getAllCategorys() {
+        return categoryRepository.findAll();
     }
 
-    // 게시물 활성화 비활성화 예외처리
-    @ControllerAdvice
-    public class GlobalExceptionHandler {
-        @ExceptionHandler(Exception.class)
-        public ResponseEntity<String> handleException(Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+    // 아이디
+    public Optional<Category> getCategoryById(Long id) {
+        return categoryRepository.findById(id);
+    }
+
+    // 게시판 비활성화
+    public List<Category> getInActiveCategorys()
+    {
+        return categoryRepository.findByInActive(false);
+    }
+
+    // 게시판 활성화
+    public List<Category> getActiveCategorys()
+    {
+        return categoryRepository.findByActive(true);
+    }
+
+    // 게시판 목록 활성화할지 비활성화 할지
+    public boolean manageCategoryListState(Long id,boolean state) {
+        Optional<Category> optionalCategory = categoryRepository.findById(id);
+        if (optionalCategory.isPresent()) {
+            Category category = optionalCategory.get();
+            category.setActive(state);
+            category.setInActive(state);
+            categoryRepository.save(category);
+            return true;
         }
+        return false;
     }
 
     // 엔티티를 DTO로 변환하는 메서드
@@ -136,6 +142,8 @@ public class CategoryService {
 
     // 페이지 수 조회
     public int getCategorys(Pageable pageable) {
+
         return categoryRepository.findAll(pageable).getTotalPages();
     }
+
 }
