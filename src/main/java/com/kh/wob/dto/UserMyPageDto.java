@@ -2,6 +2,8 @@ package com.kh.wob.dto;
 
 import lombok.*;
 
+import java.util.List;
+
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -12,4 +14,5 @@ public class UserMyPageDto {
     private String nickname;
     private String image;
     private String mbti;
+    private List<String> interestSports;
 }
