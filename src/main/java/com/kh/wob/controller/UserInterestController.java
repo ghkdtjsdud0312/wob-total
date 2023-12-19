@@ -24,6 +24,14 @@ public class UserInterestController {
             log.info("Interest sports 업데이트 성공");
             return ResponseEntity.ok(true);
     }
+    @PostMapping("/areas")
+    public ResponseEntity<Boolean> updateUserInterestAreas(
+            @RequestBody List<String> interestAreas,
+            @RequestParam String email) {
+        userService.updateUserInterestAreas(email, interestAreas);
+        log.info("Interest sports 업데이트 성공");
+        return ResponseEntity.ok(true);
+    }
 }
 
 

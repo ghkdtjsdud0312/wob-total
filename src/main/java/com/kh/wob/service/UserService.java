@@ -94,6 +94,7 @@ public class UserService {
             return false;
         }
     }
+
 //    // 사용자의 관심 운동 정보 가져오기
 //    public UserMyPageDto getUserInterestSports(String email) {
 //        User user = userRepository.findByEmail(email).orElseThrow(
@@ -118,6 +119,13 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("해당회원이 존재하지 않습니다."));
 
         user.setInterestSports(interestSports);
+        userRepository.save(user);
+    }
+    public void updateUserInterestAreas(String email, List<String> interestAreas) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("해당회원이 존재하지 않습니다."));
+
+        user.setInterestArea(interestAreas);
         userRepository.save(user);
     }
 
