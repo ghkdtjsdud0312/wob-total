@@ -30,34 +30,6 @@ public class CategoryService {
         return categoryDtos;
     }
 
-    // 게시글 수정
-    public boolean modifyCategory(Long id, CategoryDto categoryDto) {
-        try {
-            Category category = categoryRepository.findById(id).orElseThrow(
-                    () -> new RuntimeException("해당 게시글이 존재하지 않습니다.")
-            );
-            category.setId(categoryDto.getCategoryId());
-            category.setName(categoryDto.getName());
-            category.setLogo(categoryDto.getLogo());
-            category.setImage(categoryDto.getImage());
-            categoryRepository.save(category);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-    // 게시글 삭제
-    public boolean deleteCategory(Long id) {
-        try {
-            categoryRepository.deleteById(id);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
     // 게시글 검색
 //    public List<CategoryDto> searchCategory(String keyword) {
 //        List<Category> categorys = categoryRepository.findByTitleContaining(keyword);
@@ -71,14 +43,19 @@ public class CategoryService {
     public List<CategoryDto> getCategoryList(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         List<Category> categorys = categoryRepository.findAll(pageable).getContent();
-        List<CategoryDto> boardDtos = new ArrayList<>();
+        List<CategoryDto> categoryDtos = new ArrayList<>();
         for(Category category : categorys) {
-            boardDtos.add(convertEntityToDto(category));
+            categoryDtos.add(convertEntityToDto(category));
         }
-        return boardDtos;
+        return categoryDtos;
     }
 
-//     게시판 목록 활성화할지 비활성화 선택
+    // 페이지 수 조회
+    public int getCategorys(Pageable pageable) {
+        return categoryRepository.findAll(pageable).getTotalPages();
+    }
+
+    // 게시판 목록 활성화할지 비활성화 선택
     public boolean updateCategoryIsActive(CategoryDto categoryDto) {
         try {
             Category category = categoryRepository.findById(categoryDto.getCategoryId())
@@ -110,12 +87,6 @@ public class CategoryService {
         category.setLogo(categoryDto.getLogo());
         categoryRepository.save(category);
         return true;
-    }
-
-    // 페이지 수 조회
-    public int getCategorys(Pageable pageable) {
-
-        return categoryRepository.findAll(pageable).getTotalPages();
     }
 
 }

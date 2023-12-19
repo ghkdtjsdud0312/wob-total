@@ -22,10 +22,6 @@ import java.util.Optional;
 public class CategoryController {
     private final CategoryService categoryTestService;
 
-//    public CategoryController(CategoryRepository categoryRepository) {
-//        this.categoryRepository = categoryRepository;
-//    }
-
     // 게시글 등록
     @PostMapping("/add")
     public ResponseEntity<Boolean> categorySave(@RequestBody CategoryDto categoryDto) {
