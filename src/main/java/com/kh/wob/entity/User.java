@@ -28,6 +28,7 @@ public class User {
     private String image; // 프로필사진
     private String mbti; // MBTI 설정
     private Boolean isActive ;
+    private String withdrawal; // 회원 탈퇴 이유 숫자로 표기
 
     @ElementCollection
     @CollectionTable(name = "user_interest_sports", joinColumns = @JoinColumn(name = "user_id"))

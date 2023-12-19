@@ -30,11 +30,12 @@ public class UserMyPageController {
         System.out.println("userMyPageDto controller 회원상세조회 닉네임 들어오는지 확인 : " + userMyPageDto.getNickname());
         return ResponseEntity.ok(userMyPageDto);
     }
-    //회원수정(마이페이지)
-    @PutMapping("modify")
+    //회원수정(마이페이지 & 환경설정)
+    @PutMapping("/modify")
     public ResponseEntity<Boolean> userModify(@RequestBody UserMyPageDto userMyPageDto) {
         boolean isTrue = userService.modifyUser(userMyPageDto);
         System.out.println("userMyPage dto !!회원수정!! mbti 들어왔나 확인!! : " + userMyPageDto.getMbti());
+        System.out.println("userMyPage dto email, 탈퇴사유 : " + userMyPageDto.getEmail()+userMyPageDto.getWithdrawal());
         return ResponseEntity.ok(isTrue);
     }
 //    //관심 종목(마이페이지)
@@ -44,4 +45,5 @@ public class UserMyPageController {
 //        System.out.println("관심종목 가져오기 이메일 : " + email);
 //        return ResponseEntity.ok(interestSports);
 //    }
+
 }

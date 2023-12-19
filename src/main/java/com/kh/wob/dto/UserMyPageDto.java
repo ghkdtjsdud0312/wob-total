@@ -16,4 +16,5 @@ public class UserMyPageDto {
     private String image;
     private String mbti;
     private List<String> interestSports;
+    private String withdrawal;
 }
