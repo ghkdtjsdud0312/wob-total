@@ -81,14 +81,21 @@ public class UserService {
             User user = userRepository.findByEmail(userMyPageDto.getEmail()).orElseThrow(
                     () -> new RuntimeException("회원수정 : 해당 회원이 존재하지 않습니다.")
             );
-            System.out.println("회원 수정 유저서비스 : " + user.getEmail());
-            System.out.println("회원 수정 유저서비스 *!*!*! getMbti : " + user.getMbti());
-            user.setNickname(userMyPageDto.getNickname());
-            user.setImage(userMyPageDto.getImage());
-            user.setMbti(userMyPageDto.getMbti());
+            if(userMyPageDto.getPassword() == null) {
+                user.setEmail(userMyPageDto.getEmail());
+                System.out.println("회원 수정 유저서비스 : " + user.getEmail());
+                System.out.println("회원 수정 유저서비스 getMbti : " + user.getMbti());
+                user.setNickname(userMyPageDto.getNickname());
+                user.setImage(userMyPageDto.getImage());
+                user.setMbti(userMyPageDto.getMbti());
+            } else {
+                System.out.println("변경할 비밀번호 : " + userMyPageDto.getPassword());
+                user.setPassword(userMyPageDto.getPassword());
+                user.passwordEncode(passwordEncoder);
+            }
             userRepository.save(user);
-            System.out.println("회원수정 유저 정보 mbti ; " + user.getMbti());
             return true;
+//
         } catch (Exception e) {
             e.printStackTrace();
             return false;
