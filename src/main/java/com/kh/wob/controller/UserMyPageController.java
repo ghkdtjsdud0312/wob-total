@@ -34,7 +34,14 @@ public class UserMyPageController {
     @PutMapping("modify")
     public ResponseEntity<Boolean> userModify(@RequestBody UserMyPageDto userMyPageDto) {
         boolean isTrue = userService.modifyUser(userMyPageDto);
-        System.out.println("userMyPage dto !!회원수정!! 이메일 들어왔나 확인!! : " + userMyPageDto.getEmail());
+        System.out.println("userMyPage dto !!회원수정!! mbti 들어왔나 확인!! : " + userMyPageDto.getMbti());
         return ResponseEntity.ok(isTrue);
     }
+//    //관심 종목(마이페이지)
+//    @GetMapping("/sports/{email}")
+//    public ResponseEntity<List<String>> UserInterestSports(@PathVariable String email) {
+//        List<String> interestSports = userService.interestSports(email);
+//        System.out.println("관심종목 가져오기 이메일 : " + email);
+//        return ResponseEntity.ok(interestSports);
+//    }
 }

@@ -66,18 +66,6 @@ public class UserService {
     }
     // 회원 상세조회
     public UserMyPageDto getUserDetail(String email) {
-//        Optional<User> optionalUser = userRepository.findByEmail(email);
-//        System.out.println("email in UserService : " + email);
-//        User user = optionalUser.orElseThrow(() -> new NoSuchElementException("해당 이메일 사용자가 없습니다."));
-//
-//        UserMyPageDto userMyPageDto = new UserMyPageDto();
-//        userMyPageDto.setEmail(user.getEmail());
-//        userMyPageDto.setNickname(user.getNickname());
-//        userMyPageDto.setImage(user.getImage());
-//        userMyPageDto.setMbti(user.getMbti());
-//
-//        System.out.println("getNickname in userService : " + user.getNickname());
-//            return userMyPageDto;
 
         System.out.println("userService 회원상세조회 이메일 : " + email);
         User user = userRepository.findByEmail(email).orElseThrow(
@@ -93,19 +81,27 @@ public class UserService {
             User user = userRepository.findByEmail(userMyPageDto.getEmail()).orElseThrow(
                     () -> new RuntimeException("회원수정 : 해당 회원이 존재하지 않습니다.")
             );
-//            user.setEmail(userMyPageDto.getEmail());
             System.out.println("회원 수정 유저서비스 : " + user.getEmail());
-            System.out.println("회원 수정 유저서비스 getMbti : " + user.getMbti());
+            System.out.println("회원 수정 유저서비스 *!*!*! getMbti : " + user.getMbti());
             user.setNickname(userMyPageDto.getNickname());
             user.setImage(userMyPageDto.getImage());
             user.setMbti(userMyPageDto.getMbti());
             userRepository.save(user);
+            System.out.println("회원수정 유저 정보 mbti ; " + user.getMbti());
             return true;
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
+//    // 사용자의 관심 운동 정보 가져오기
+//    public UserMyPageDto getUserInterestSports(String email) {
+//        User user = userRepository.findByEmail(email).orElseThrow(
+//                () -> new RuntimeException("해당 사용자를 찾을 수 없습니다.")
+//        );
+//
+//        return convertEntityToDto(user);
+//    }
     //엔티티 -> Dto 전환
     private UserMyPageDto convertEntityToDto(User user){
         UserMyPageDto userMyPageDto = new UserMyPageDto();
@@ -113,6 +109,7 @@ public class UserService {
         userMyPageDto.setNickname(user.getNickname());
         userMyPageDto.setImage(user.getImage());
         userMyPageDto.setMbti(user.getMbti());
+        userMyPageDto.setInterestSports(user.getInterestSports());
         return userMyPageDto;
     }
 
