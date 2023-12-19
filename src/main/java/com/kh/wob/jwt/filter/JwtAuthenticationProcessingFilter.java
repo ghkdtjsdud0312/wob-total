@@ -124,27 +124,27 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
      */
     public void checkAccessTokenAndAuthentication(HttpServletRequest request, HttpServletResponse response,
                                                   FilterChain filterChain) throws ServletException, IOException {
-        log.info("checkAccessTokenAndAuthentication() 호출");
-        jwtService.extractAccessToken(request)
-                .filter(jwtService::isTokenValid)
-                .ifPresent(accessToken -> jwtService.extractEmail(accessToken)
-                        .ifPresent(email -> userRepository.findByEmail(email)
-                                .ifPresent(this::saveAuthentication)));
+//        log.info("checkAccessTokenAndAuthentication() 호출");
+//        jwtService.extractAccessToken(request)
+//                .filter(jwtService::isTokenValid)
+//                .ifPresent(accessToken -> jwtService.extractEmail(accessToken)
+//                        .ifPresent(email -> userRepository.findByEmail(email)
+//                                .ifPresent(this::saveAuthentication)));
+//
+//        filterChain.doFilter(request, response);
+        Optional<String> accessTokenOpt = jwtService.extractAccessToken(request);
 
-        filterChain.doFilter(request, response);
-//        Optional<String> accessTokenOpt = jwtService.extractAccessToken(request);
-//
-//        if (accessTokenOpt.isPresent() && jwtService.isTokenValid(accessTokenOpt.get())) {
-//            // 유효한 토큰이 있는 경우
-//            accessTokenOpt.flatMap(jwtService::extractEmail)
-//                    .ifPresent(email -> userRepository.findByEmail(email)
-//                            .ifPresent(this::saveAuthentication));
-//
-//            filterChain.doFilter(request, response);
-//        } else {
-//            // 유효하지 않은 토큰이나 토큰이 없는 경우
-//            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401 Unauthorized
-//        }
+        if (accessTokenOpt.isPresent() && jwtService.isTokenValid(accessTokenOpt.get())) {
+            // 유효한 토큰이 있는 경우
+            accessTokenOpt.flatMap(jwtService::extractEmail)
+                    .ifPresent(email -> userRepository.findByEmail(email)
+                            .ifPresent(this::saveAuthentication));
+
+            filterChain.doFilter(request, response);
+        } else {
+            // 유효하지 않은 토큰이나 토큰이 없는 경우
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401 Unauthorized
+        }
     }
 
     /**

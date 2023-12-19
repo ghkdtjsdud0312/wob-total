@@ -12,10 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +40,7 @@ public class PostService {
 
             // PostDto로부터 받은 정보로 post 객체를 초기화.
             post.setTitle(postDto.getTitle());
-//          post.setCategory(category);
+//            post.setCategory(category);
             post.setPlace(postDto.getPlace());
             post.setPeople(postDto.getPeople());
             post.setJoiners(postDto.getJoiners());
