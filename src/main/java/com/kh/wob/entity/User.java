@@ -26,9 +26,12 @@ public class User {
     private String password; // 비밀번호
     private String nickname; // 닉네임
     private String image; // 프로필사진
+    private String introduce; //소개글
     private String mbti; // MBTI 설정
+    @Column(nullable = false)
     private Boolean isActive ;
     private String withdrawal; // 회원 탈퇴 이유 숫자로 표기
+
 
     @ElementCollection
     @CollectionTable(name = "user_interest_sports", joinColumns = @JoinColumn(name = "user_id"))

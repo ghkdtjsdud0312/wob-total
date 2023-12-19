@@ -13,6 +13,7 @@ public class UserMyPageDto {
     private String email;
     private String password;
     private String nickname;
+    private String introduce;
     private String image;
     private String mbti;
     private List<String> interestSports;

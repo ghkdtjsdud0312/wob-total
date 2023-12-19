@@ -46,6 +46,7 @@ public class UserService {
                 .password(userSignUpDto.getPassword())
                 .nickname(userSignUpDto.getNickname())
                 .role(Role.USER)
+                .isActive(false)
                 .build();
 
         user.passwordEncode(passwordEncoder);
@@ -95,6 +96,7 @@ public class UserService {
                 user.setNickname(userMyPageDto.getNickname());
                 user.setImage(userMyPageDto.getImage());
                 user.setMbti(userMyPageDto.getMbti());
+                user.setInterestSports(userMyPageDto.getInterestSports());
             }
             userRepository.save(user);
             return true;
