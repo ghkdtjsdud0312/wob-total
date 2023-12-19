@@ -48,4 +48,6 @@ public class Payment {
     @Column(nullable = false)
     private String orderNum;
 
+    private String active;
+
 }

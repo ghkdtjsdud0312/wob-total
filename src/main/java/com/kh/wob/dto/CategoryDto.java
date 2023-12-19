@@ -10,5 +10,5 @@ public class CategoryDto {
     private String name;
     private String logo;
     private String image;
-    private String isActive;
+    private String active;
 }

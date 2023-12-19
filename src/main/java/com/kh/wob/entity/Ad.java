@@ -32,13 +32,10 @@ public class Ad {
     @Column(nullable = false)
     private String image;
 
-    @Column(nullable = false)
-    private Boolean active;
+
 
     private LocalDateTime regDate;
-
-    @Column(nullable = false)
-    private boolean isActive;
+    private String active;
 
     @PrePersist
     public void prePersist () {

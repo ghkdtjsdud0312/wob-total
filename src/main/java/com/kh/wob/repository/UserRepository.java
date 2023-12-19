@@ -13,7 +13,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByEmail(String email);
     boolean existsByEmail(String email); //이메일이 db에 존재하는지 확인하는 메서드
 
-    List<Category> findByIsActive(boolean isActive);
+    List<Category> findByActive(String active);
 
     Optional<User> findByNickname(String nickname);
 

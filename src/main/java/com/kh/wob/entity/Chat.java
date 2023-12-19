@@ -40,14 +40,12 @@ public class Chat {
 
     private LocalDateTime regDate;
 
-    private boolean isActive;
+    private String active;
 
     @PrePersist
     public void prePersist() {
         regDate = LocalDateTime.now();
     }
-
-    private Boolean active;
     private String chatUuid;
 
     @Enumerated(EnumType.STRING)

@@ -49,6 +49,6 @@ public class Post {
         regDate = LocalDateTime.now();
 
     }
-    private boolean active;
+    private String active;
 
 }

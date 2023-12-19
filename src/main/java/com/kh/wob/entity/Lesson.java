@@ -54,7 +54,6 @@ public class Lesson {
         regDate = LocalDateTime.now();
     }
 
-    @Column(nullable = false)
-    private Boolean active;
+    private String active;
 
 }

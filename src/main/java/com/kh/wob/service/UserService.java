@@ -46,7 +46,7 @@ public class UserService {
                 .password(userSignUpDto.getPassword())
                 .nickname(userSignUpDto.getNickname())
                 .role(Role.USER)
-                .isActive(false)
+                .active("active")
                 .build();
 
         user.passwordEncode(passwordEncoder);
@@ -89,6 +89,7 @@ public class UserService {
             } else if(userMyPageDto.getWithdrawal() != null) { // 회원 탈퇴 입력 됐을 때,
                 System.out.println("회원 탈퇴 사유 : " + userMyPageDto.getWithdrawal());
                 user.setWithdrawal(userMyPageDto.getWithdrawal());
+                user.setActive("quit");
             } else { // 비밀번호, 회원 탈퇴 입력 안 됐을 때
 //                user.setEmail(userMyPageDto.getEmail());
                 System.out.println("회원 수정 유저서비스 : " + user.getEmail());

@@ -60,7 +60,7 @@ public class CategoryService {
         try {
             Category category = categoryRepository.findById(categoryDto.getCategoryId())
                     .orElseThrow( () -> new RuntimeException("해당 카테고리가 존재하지 않습니다."));
-            category.setIsActive(categoryDto.getIsActive());
+            category.setActive(categoryDto.getActive());
             categoryRepository.save(category);
             return true;
         } catch (Exception e) {
@@ -76,7 +76,7 @@ public class CategoryService {
         categoryDto.setImage(category.getImage());
         categoryDto.setName(category.getName());
         categoryDto.setLogo(category.getLogo());
-        categoryDto.setIsActive(category.getIsActive());
+        categoryDto.setActive(category.getActive());
         return categoryDto;
     }
 

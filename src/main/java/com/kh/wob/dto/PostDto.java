@@ -20,6 +20,6 @@ public class PostDto {
     private String date;
     private String time;
     private LocalDateTime regDate;
-    private Boolean active;
+    private String active;
 }
 
