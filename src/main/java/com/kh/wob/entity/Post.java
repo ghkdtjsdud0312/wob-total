@@ -7,8 +7,6 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.*;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 @Entity
 @Table(name = "post")
@@ -22,9 +20,10 @@ public class Post {
     @Column(name = "post_id")
     private Long Id;
 
+    // 카테고리 넣기
+
     @Column(nullable = false)
     private String title;
-
 
     @Column(nullable = false)
     private String place;
@@ -49,23 +48,7 @@ public class Post {
     public void prePersist() {
         regDate = LocalDateTime.now();
 
-//        // date와 time을 문자열에서 localdatetime으로 파싱
-//        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//        LocalDateTime parsedDate = LocalDateTime.parse(date, dateFormatter);
-//        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-//        LocalDateTime parsedTime = LocalDateTime.parse(time, timeFormatter);
-
-//        // UTC 시간을 한국 시간으로 변환
-//        ZonedDateTime zonedDateTimeDate = parsedDate.atZone(ZoneId.of("Asia/Seoul"));
-//        ZonedDateTime zonedDateTimeTime = parsedTime.atZone(ZoneId.of("Asia/Seoul"));
-
-        // UTC 시간을 한국 시간으로 변환
-//         date = date.atZone(ZoneId.of("UTC")).withZoneSameInstant(ZoneId.of("Asia/Seoul")).toLocalDateTime();
-//         time = time.atZone(ZoneId.of("UTC")).withZoneSameInstant(ZoneId.of("Asia/Seoul")).toLocalDateTime();
-
     }
-
-
     private boolean active;
 
 }

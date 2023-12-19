@@ -14,10 +14,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Slf4j
 @Service
@@ -30,15 +31,6 @@ public class PostService {
     private final PostRepository postRepository;
     private final CategoryRepository categoryRepository;
 
-//    private static ZonedDateTime convertToSeoulTime(LocalDateTime utcDateTime) {
-//        try {
-//            return ZonedDateTime.of(utcDateTime, ZoneId.of("UTC")).withZoneSameInstant(ZoneId.of("Asia/Seoul"));
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
-
     // 게시글 등록
     public boolean savePost(PostDto postDto) {
         try {
@@ -50,25 +42,6 @@ public class PostService {
             log.info("Date : {}", postDto.getDate());
             log.info("Time : {}", postDto.getTime());
 
-//            LocalDateTime timeTime = postDto.getTime();
-//            LocalDateTime dateDate = postDto.getDate();
-//
-//            LocalDateTime seoulDateTime1 = Objects.requireNonNull(convertToSeoulTime(timeTime)).toLocalDateTime();
-//            LocalDateTime seoulDateTime2 = Objects.requireNonNull(convertToSeoulTime(dateDate)).toLocalDateTime();
-
-
-            // 날짜와 시간을 원하는 형태로 변환
-//            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//            String formattedDate = seoulDateTime1.format(dateFormatter);
-//            System.out.println("날짜 : " + formattedDate);
-//            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-//            String formattedTime = seoulDateTime2.format(timeFormatter);
-//            System.out.println("시간 : " + formattedTime);
-
-            // LocalDateTime을 받아서 필요한 포맷으로 변환
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-
             // PostDto로부터 받은 정보로 post 객체를 초기화.
             post.setTitle(postDto.getTitle());
 //          post.setCategory(category);
@@ -77,11 +50,9 @@ public class PostService {
             post.setJoiners(postDto.getJoiners());
             post.setExpectationCost(postDto.getExpectationCost());
             post.setIntroduction(postDto.getIntroduction());
-//            post.setDate(formattedDate);
-//            post.setTime(formattedTime);
-            // LocalDateTime을 받아서 필요한 포맷으로 변환하여 저장
-            post.setDate(postDto.getDate().format(dateFormatter));
-            post.setTime(postDto.getTime().format(timeFormatter));
+            post.setDate(postDto.getDate());
+            post.setTime(postDto.getTime());
+
 
             // 포스트 객체를 저장.
             postRepository.save(post);
@@ -97,6 +68,31 @@ public class PostService {
             e.printStackTrace();
             return false;
         }
+    }
+
+    // 게시글 전체 조회
+    public List<PostDto> getPostList() {
+        List<Post> posts = postRepository.findAll();
+        List<PostDto> postDtos = new ArrayList<>();
+        for(Post post : posts) {
+            postDtos.add(convertEntityToDto(post));
+        }
+        return postDtos;
+    }
+
+  // 게시글 엔티티를 dto로 변환
+    private PostDto convertEntityToDto(Post post) {
+        PostDto postDto = new PostDto();
+        postDto.setId(post.getId());
+        postDto.setTitle(post.getTitle());
+        postDto.setPlace(post.getPlace());
+        postDto.setPeople(post.getPeople());
+        postDto.setExpectationCost(post.getExpectationCost());
+        postDto.setIntroduction(post.getIntroduction());
+        postDto.setDate(post.getDate());
+        postDto.setTime(post.getTime());
+        postDto.setRegDate(post.getRegDate());
+        return postDto;
     }
 
 }
