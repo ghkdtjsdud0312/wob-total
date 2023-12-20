@@ -84,6 +84,12 @@ public class UserService {
         return convertEntityToDto(user);
     }
 
+    // 닉네임 조회
+    public boolean isNickName(String nickName) {
+        return userRepository.findByNickname(nickName).isPresent();
+    }
+
+
     //회원 수정
     public boolean modifyUser(UserMyPageDto userMyPageDto) {
         try {

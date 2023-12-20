@@ -2,8 +2,8 @@ jwt:
   secretKey: jks2024!@#!!23456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
 
   access:
-    expiration: 3600000
-#    expiration: 3600000 # 1시간(60분) (1000L(ms -> s) * 60L(s -> m) * 60L(m -> h))
+#    expiration: 6000
+    expiration: 3600000 # 1시간(60분) (1000L(ms -> s) * 60L(s -> m) * 60L(m -> h))
     header: Authorization
 
   refresh:

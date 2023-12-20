@@ -10,6 +10,13 @@ spring:
     active : local
 
 ---
+
+logging:
+  level:
+    org:
+      springframework:
+        security=DEBUG:
+---
 spring:
   config:
     activate:
@@ -20,7 +27,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/spring-sample?userUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
     username: root
-    password:
+    password: 15963214
 
   jpa:
     properties:
@@ -31,7 +38,7 @@ spring:
         level:
           org.hibernate.type.descriptor.sql: trace
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
       dialect: org.hibernate.dialect.MySQL8Dialect
 ---
 
@@ -42,3 +49,23 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+
+---
+
+spring:
+  mail:
+    host: smtp.naver.com
+    port: 465
+    username:
+    password:
+    properties:
+      debug: true
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enable: true
+            trust: smtp.naver.com
+          starttls:
+            enable: true
+

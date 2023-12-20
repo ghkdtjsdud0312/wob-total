@@ -28,4 +28,11 @@ public class UserController {
         return "jwtTest 요청 성공";
     }
 
+    @GetMapping("/check-nickname")
+    public Boolean checkNickName(@RequestParam String nickName) throws Exception {
+        return userService.isNickName(nickName);
+    }
+
+
+
 }
