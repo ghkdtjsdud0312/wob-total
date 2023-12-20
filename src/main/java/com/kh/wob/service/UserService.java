@@ -84,12 +84,6 @@ public class UserService {
         return convertEntityToDto(user);
     }
 
-    // 닉네임 조회
-    public boolean isNickName(String nickName) {
-        return userRepository.findByNickname(nickName).isPresent();
-    }
-
-
     //회원 수정
     public boolean modifyUser(UserMyPageDto userMyPageDto) {
         try {
@@ -133,13 +127,13 @@ public class UserService {
     //엔티티 -> Dto 전환
     private UserMyPageDto convertEntityToDto(User user) {
         UserMyPageDto userMyPageDto = new UserMyPageDto();
-        userMyPageDto.setId(user.getId());
+        userMyPageDto.setId(user.getId()); // 회원 목록에 사용
         userMyPageDto.setEmail(user.getEmail());
         userMyPageDto.setNickname(user.getNickname());
         userMyPageDto.setImage(user.getImage());
         userMyPageDto.setMbti(user.getMbti());
         userMyPageDto.setInterestSports(user.getInterestSports());
-        userMyPageDto.setActive(user.getActive());
+        userMyPageDto.setActive(user.getActive()); // 회원 목록에 사용
         return userMyPageDto;
     }
 
@@ -174,7 +168,7 @@ public class UserService {
         return false;
     }
 
-    // 회원 페이징
+    // 회원 페이징(관리자-회원목록)
     public List<UserMyPageDto> getUserList(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         List<User> users = userRepository.findAll(pageable).getContent();
@@ -185,24 +179,13 @@ public class UserService {
         return userMyPageDtos;
     }
 
-    // 페이지 수 조회
+    // 페이지 수 조회(관리자-회원목록)
     public int getUserList(Pageable pageable) {
         return userRepository.findAll(pageable).getTotalPages();
     }
 
-    // 게시판 목록 활성화할지 비활성화 선택
-//    public boolean updateUserActive(UserMyPageDto userMyPageDto) {
-//        try {
-//            User user = userRepository.findById(userMyPageDto.getId())
-//                    .orElseThrow( () -> new RuntimeException("해당 회원이 존재하지 않습니다."));
-//            user.setActive(userMyPageDto.getActive());
-//            userRepository.save(user);
-//            return true;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return false;
-//        }
-//    }
+    // 회원 목록 활성화할지 비활성화 선택(관리자-회원 목록)
+
     public boolean updateUserActive(UserMyPageDto userMyPageDto) {
         try {
             Optional<User> optionalUser = userRepository.findById(userMyPageDto.getId());
@@ -222,3 +205,4 @@ public class UserService {
         }
     }
 }
+
