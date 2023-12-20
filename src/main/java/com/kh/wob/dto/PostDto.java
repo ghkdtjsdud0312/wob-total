@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 public class PostDto {
     private Long id;
     private String title;
-    private String categoryName;
+//    private String categoryName;
     private String place;
     private int people;
     private int joiners;

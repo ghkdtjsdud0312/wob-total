@@ -3,6 +3,8 @@ package com.kh.wob.repository;
 import com.kh.wob.constant.SocialType;
 import com.kh.wob.entity.Category;
 import com.kh.wob.entity.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -20,6 +22,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByImage(String image);
 
     Optional<User> findByRefreshToken(String refreshToken);
+
+    Page<User> findAll(Pageable pageable); // 모든 목록
+
 
     /**
      * 소셜 타입과 소셜의 식별값으로 회원 찾는 메소드

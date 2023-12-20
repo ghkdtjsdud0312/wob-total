@@ -1,8 +1,10 @@
 package com.kh.wob.service;
 
 import com.kh.wob.constant.Role;
+import com.kh.wob.dto.CategoryDto;
 import com.kh.wob.dto.UserMyPageDto;
 import com.kh.wob.dto.UserSignUpDto;
+import com.kh.wob.entity.Category;
 import com.kh.wob.entity.User;
 import com.kh.wob.repository.UserRepository;
 import lombok.Getter;
@@ -11,6 +13,8 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,16 +59,20 @@ public class UserService {
 
     //    UserMyPage
     // 회원가입 여부 확인
-    public boolean isUser(String email) {return userRepository.existsByEmail(email); }
+    public boolean isUser(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
     //회원 전체 조회
     public List<UserMyPageDto> getUserList() {
         List<User> users = userRepository.findAll();
         List<UserMyPageDto> userMyPageDtos = new ArrayList<>();
-        for(User user : users) {
+        for (User user : users) {
             userMyPageDtos.add(convertEntityToDto(user));
         }
         return userMyPageDtos;
     }
+
     // 회원 상세조회
     public UserMyPageDto getUserDetail(String email) {
 
@@ -77,16 +85,16 @@ public class UserService {
     }
 
     //회원 수정
-    public boolean modifyUser(UserMyPageDto userMyPageDto){
-        try{
+    public boolean modifyUser(UserMyPageDto userMyPageDto) {
+        try {
             User user = userRepository.findByEmail(userMyPageDto.getEmail()).orElseThrow(
                     () -> new RuntimeException("회원수정 : 해당 회원이 존재하지 않습니다.")
             );
-            if(userMyPageDto.getPassword() != null) { // 비밀번호가 널이 아닐 때, -> 입력됐을 때
+            if (userMyPageDto.getPassword() != null) { // 비밀번호가 널이 아닐 때, -> 입력됐을 때
                 System.out.println("변경할 비밀번호 : " + userMyPageDto.getPassword());
                 user.setPassword(userMyPageDto.getPassword());
                 user.passwordEncode(passwordEncoder);
-            } else if(userMyPageDto.getWithdrawal() != null) { // 회원 탈퇴 입력 됐을 때,
+            } else if (userMyPageDto.getWithdrawal() != null) { // 회원 탈퇴 입력 됐을 때,
                 System.out.println("회원 탈퇴 사유 : " + userMyPageDto.getWithdrawal());
                 user.setWithdrawal(userMyPageDto.getWithdrawal());
                 user.setActive("quit");
@@ -108,7 +116,7 @@ public class UserService {
         }
     }
 
-//    // 사용자의 관심 운동 정보 가져오기
+    //    // 사용자의 관심 운동 정보 가져오기
 //    public UserMyPageDto getUserInterestSports(String email) {
 //        User user = userRepository.findByEmail(email).orElseThrow(
 //                () -> new RuntimeException("해당 사용자를 찾을 수 없습니다.")
@@ -117,13 +125,15 @@ public class UserService {
 //        return convertEntityToDto(user);
 //    }
     //엔티티 -> Dto 전환
-    private UserMyPageDto convertEntityToDto(User user){
+    private UserMyPageDto convertEntityToDto(User user) {
         UserMyPageDto userMyPageDto = new UserMyPageDto();
+        userMyPageDto.setId(user.getId());
         userMyPageDto.setEmail(user.getEmail());
         userMyPageDto.setNickname(user.getNickname());
         userMyPageDto.setImage(user.getImage());
         userMyPageDto.setMbti(user.getMbti());
         userMyPageDto.setInterestSports(user.getInterestSports());
+        userMyPageDto.setActive(user.getActive());
         return userMyPageDto;
     }
 
@@ -134,6 +144,7 @@ public class UserService {
         user.setInterestSports(interestSports);
         userRepository.save(user);
     }
+
     public void updateUserInterestAreas(String email, List<String> interestAreas) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("해당회원이 존재하지 않습니다."));
@@ -143,17 +154,65 @@ public class UserService {
     }
 
     // 활성화 비활성화
-        public boolean setIsActive(String isActive, Long id) {
-            try {
-                User user = userRepository.findById(id).orElseThrow(null);
-                if (user != null ) {
-//                    user.setIsActive(isActive);
-                    userRepository.save(user);
-                    return true;
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+    public boolean setActive(String active, Long id) {
+        try {
+            User user = userRepository.findById(id).orElseThrow(null);
+            if (user != null) {
+//                    user.setActive(active);
+                userRepository.save(user);
+                return true;
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    // 회원 페이징
+    public List<UserMyPageDto> getUserList(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        List<User> users = userRepository.findAll(pageable).getContent();
+        List<UserMyPageDto> userMyPageDtos = new ArrayList<>();
+        for (User user : users) {
+            userMyPageDtos.add(convertEntityToDto(user));
+        }
+        return userMyPageDtos;
+    }
+
+    // 페이지 수 조회
+    public int getUserList(Pageable pageable) {
+        return userRepository.findAll(pageable).getTotalPages();
+    }
+
+    // 게시판 목록 활성화할지 비활성화 선택
+//    public boolean updateUserActive(UserMyPageDto userMyPageDto) {
+//        try {
+//            User user = userRepository.findById(userMyPageDto.getId())
+//                    .orElseThrow( () -> new RuntimeException("해당 회원이 존재하지 않습니다."));
+//            user.setActive(userMyPageDto.getActive());
+//            userRepository.save(user);
+//            return true;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return false;
+//        }
+//    }
+    public boolean updateUserActive(UserMyPageDto userMyPageDto) {
+        try {
+            Optional<User> optionalUser = userRepository.findById(userMyPageDto.getId());
+
+            if (optionalUser.isPresent()) {
+                User user = optionalUser.get();
+                user.setActive(userMyPageDto.getActive());
+                userRepository.save(user);
+                return true;
+            } else {
+                log.error("해당 유저를 찾을 수 없음 id: {}", userMyPageDto.getId());
+                return false;
+            }
+        } catch (Exception e) {
+            log.error("유저 활성화/비활성화 업데이트 중 오류 발생", e);
             return false;
         }
     }
+}

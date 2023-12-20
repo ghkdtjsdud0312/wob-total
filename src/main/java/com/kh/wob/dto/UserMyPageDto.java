@@ -9,7 +9,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class UserMyPageDto {
-    private Long Id;
+    private Long id;
     private String email;
     private String password;
     private String nickname;
@@ -18,4 +18,5 @@ public class UserMyPageDto {
     private String mbti;
     private List<String> interestSports;
     private String withdrawal;
+    private String active;
 }

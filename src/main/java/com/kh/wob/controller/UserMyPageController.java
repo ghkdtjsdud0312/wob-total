@@ -1,9 +1,11 @@
 package com.kh.wob.controller;
 
+import com.kh.wob.dto.CategoryDto;
 import com.kh.wob.dto.UserMyPageDto;
 import com.kh.wob.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,5 +47,30 @@ public class UserMyPageController {
 //        System.out.println("관심종목 가져오기 이메일 : " + email);
 //        return ResponseEntity.ok(interestSports);
 //    }
+
+    // 회원 활성화 비활성화 상태 바꾸기
+    @PutMapping("/state")
+    public ResponseEntity<Boolean> updateUserActive(@RequestBody UserMyPageDto userMyPageDto) {
+        log.info("userDto: {}", userMyPageDto);
+        boolean isTrue = userService.updateUserActive(userMyPageDto);
+        return ResponseEntity.ok(isTrue);
+    }
+
+    // 회원 목록 페이징
+    @GetMapping("/list/page")
+    public ResponseEntity<List<UserMyPageDto>> getUserList(@RequestParam(defaultValue = "0") int page,
+                                                             @RequestParam(defaultValue = "5") int size) {
+        List<UserMyPageDto> list = userService.getUserList(page, size);
+        return ResponseEntity.ok(list);
+    }
+
+    // 회원 페이지 수 조회
+    @GetMapping("/count")
+    public ResponseEntity<Integer> listUser(@RequestParam(defaultValue = "0") int page,
+                                                @RequestParam(defaultValue = "5") int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Integer pageCnt = userService.getUserList(pageRequest);
+        return ResponseEntity.ok(pageCnt);
+    }
 
 }
