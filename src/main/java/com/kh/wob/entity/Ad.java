@@ -18,24 +18,25 @@ public class Ad {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ad_id")
-    private Long Id;
+    private Long id;
 
     @Column(nullable = false)
-    private String title;
+    private String title; // 제목
 
     @Column(nullable = false)
-    private String schedule;
+    private String name; // 종목
 
     @Column(nullable = false)
-    private Long fee;
+    private Long fee; // 비용
 
     @Column(nullable = false)
-    private String image;
+    private String period; // 광고 게시기간
 
+    @Column(nullable = false)
+    private String image; // 이미지
 
-
-    private LocalDateTime regDate;
-    private String active;
+    private LocalDateTime regDate; // 작성일
+    private String active; // 비활성화, 활성화
 
     @PrePersist
     public void prePersist () {

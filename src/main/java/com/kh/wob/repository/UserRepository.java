@@ -15,6 +15,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByEmail(String email);
     boolean existsByEmail(String email); //이메일이 db에 존재하는지 확인하는 메서드
 
+    // 관리자 활성화,비활성화-회원목록
     List<Category> findByActive(String active);
 
     Optional<User> findByNickname(String nickname);
@@ -23,6 +24,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByRefreshToken(String refreshToken);
 
+    // 관리자 활성화,비활성화-회원목록
     Page<User> findAll(Pageable pageable); // 모든 목록
 
 

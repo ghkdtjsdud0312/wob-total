@@ -48,7 +48,7 @@ public class UserMyPageController {
 //        return ResponseEntity.ok(interestSports);
 //    }
 
-    // 회원 활성화 비활성화 상태 바꾸기
+    // 회원 활성화 비활성화 상태 바꾸기(회원목록)
     @PutMapping("/state")
     public ResponseEntity<Boolean> updateUserActive(@RequestBody UserMyPageDto userMyPageDto) {
         log.info("userDto: {}", userMyPageDto);
@@ -56,7 +56,7 @@ public class UserMyPageController {
         return ResponseEntity.ok(isTrue);
     }
 
-    // 회원 목록 페이징
+    // 회원 목록 페이징(회원목록)
     @GetMapping("/list/page")
     public ResponseEntity<List<UserMyPageDto>> getUserList(@RequestParam(defaultValue = "0") int page,
                                                              @RequestParam(defaultValue = "5") int size) {
@@ -64,7 +64,7 @@ public class UserMyPageController {
         return ResponseEntity.ok(list);
     }
 
-    // 회원 페이지 수 조회
+    // 회원 페이지 수 조회(회원목록)
     @GetMapping("/count")
     public ResponseEntity<Integer> listUser(@RequestParam(defaultValue = "0") int page,
                                                 @RequestParam(defaultValue = "5") int size) {

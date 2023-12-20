@@ -18,5 +18,5 @@ public class UserMyPageDto {
     private String mbti;
     private List<String> interestSports;
     private String withdrawal;
-    private String active;
+    private String active; // 관리자 활성화,비활성화-회원목록
 }
