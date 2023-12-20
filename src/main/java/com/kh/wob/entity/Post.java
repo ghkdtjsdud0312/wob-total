@@ -1,9 +1,6 @@
 package com.kh.wob.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.*;
@@ -20,10 +17,15 @@ public class Post {
     @Column(name = "post_id")
     private Long Id;
 
-    // 카테고리 넣기
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     @Column(nullable = false)
     private String title;
+
+    @Column(nullable = false)
+    private String local;
 
     @Column(nullable = false)
     private String place;
