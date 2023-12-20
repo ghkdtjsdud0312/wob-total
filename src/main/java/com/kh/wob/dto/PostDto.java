@@ -20,6 +20,7 @@ public class PostDto {
     private String date;
     private String time;
     private LocalDateTime regDate;
+    private String roomId; // 채팅방 roomId
     private String active;
 }
 

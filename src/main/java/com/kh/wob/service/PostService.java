@@ -50,6 +50,7 @@ public class PostService {
             post.setTime(postDto.getTime());
 
 
+
             // 포스트 객체를 저장.
             postRepository.save(post);
 

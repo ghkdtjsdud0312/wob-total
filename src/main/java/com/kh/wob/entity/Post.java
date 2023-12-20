@@ -49,6 +49,11 @@ public class Post {
         regDate = LocalDateTime.now();
 
     }
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "room_id")
+    private ChatRoom chatRoom; // 일반 게시글과 연결된 채팅방
+
     private String active;
 
 }

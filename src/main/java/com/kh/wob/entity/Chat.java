@@ -1,54 +1,33 @@
 package com.kh.wob.entity;
 
-import com.kh.wob.constant.ChatType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "chat")
 @Getter
 @Setter
-@ToString
-@NoArgsConstructor
+@Table(name = "chat")
 public class Chat {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "chat_id")
-    private Long Id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+
+    @Column(name = "sender")
+    private String sender; // 보내는 이
+
+    @Column(name = "message")
+    private String message; // 보내는 내용
+
+    @Column(name = "sent_at")
+    private LocalDateTime sentAt; // 보낸 시간
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id", nullable = false)
-    private Post post;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lesson_id", nullable = false)
-    private Lesson lesson;
-
-    @Column(name = "post_title", nullable = false)
-    private String postTitle;
-
-    private String content;
-
-    private LocalDateTime regDate;
-
-    private String active;
-
-    @PrePersist
-    public void prePersist() {
-        regDate = LocalDateTime.now();
-    }
-    private String chatUuid;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "chat_type", nullable = false)
-    private ChatType chatType;
+    @JoinColumn(name = "room_id")
+    @JsonIgnore
+    private ChatRoom chatRoom; // 채팅방과 조인
 }
