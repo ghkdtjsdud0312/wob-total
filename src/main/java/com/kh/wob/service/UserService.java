@@ -115,6 +115,10 @@ public class UserService {
             return false;
         }
     }
+    // 닉네임 조회
+    public boolean isNickName(String nickName) {
+        return userRepository.findByNickname(nickName).isPresent();
+    }
 
     //    // 사용자의 관심 운동 정보 가져오기
 //    public UserMyPageDto getUserInterestSports(String email) {
