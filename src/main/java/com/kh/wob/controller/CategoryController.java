@@ -26,6 +26,8 @@ public class CategoryController {
     @PostMapping("/add")
     public ResponseEntity<Boolean> categorySave(@RequestBody CategoryDto categoryDto) {
         log.info("CategoryTestDto: {}", categoryDto);
+        categoryDto.setActive("active");
+        log.info("category.active : {}", categoryDto.getActive());
         boolean isTrue = categoryTestService.saveCategory(categoryDto);
         return ResponseEntity.ok(isTrue);
     }

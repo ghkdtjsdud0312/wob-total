@@ -95,6 +95,7 @@ public class CategoryService {
         category.setName(categoryDto.getName());
         category.setImage(categoryDto.getImage());
         category.setLogo(categoryDto.getLogo());
+        category.setActive(categoryDto.getActive());
         categoryRepository.save(category);
         return true;
     }

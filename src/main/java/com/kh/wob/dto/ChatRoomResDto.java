@@ -44,16 +44,16 @@ public class ChatRoomResDto {
     public void handlerActions(WebSocketSession session, ChatMessageDto chatMessage, ChatService chatService) {
         if (chatMessage.getType() != null && chatMessage.getType().equals(ChatMessageDto.MessageType.ENTER)) {
             sessions.add(session);
-            if (chatMessage.getSender() != null) {
-                chatMessage.setMessage(chatMessage.getSender() + "님이 입장했습니다.");
-            }
+//            if (chatMessage.getSender() != null) {
+//                chatMessage.setMessage(chatMessage.getSender() + "님이 입장했습니다.");
+//            }
 
             log.debug("New session added : " + session);
         } else if (chatMessage.getType() != null && chatMessage.getType().equals(ChatMessageDto.MessageType.CLOSE)) {
             sessions.remove(session);
-            if (chatMessage.getSender() != null) {
-                chatMessage.setMessage(chatMessage.getSender() + "님이 퇴장했습니다.");
-            }
+//            if (chatMessage.getSender() != null) {
+//                chatMessage.setMessage(chatMessage.getSender() + "님이 퇴장했습니다.");
+//            }
             log.debug("Message removed : " + session);
         } else {
             // 입장과 퇴장이 아닌 경우 => 메세지를 보내는 경우 -> 보낼 때마다 메세지 저장
