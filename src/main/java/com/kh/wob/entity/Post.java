@@ -62,7 +62,6 @@ public class Post {
 
     private String image;
 
-    @Column(nullable = false)
     private String type;
 
     private String active;
