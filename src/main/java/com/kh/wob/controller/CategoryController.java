@@ -35,6 +35,14 @@ public class CategoryController {
         List<CategoryDto> list = categoryTestService.getCategoryList();
         return ResponseEntity.ok(list);
     }
+
+    // 카테고리 목록 활성화인것만 들고오기
+    @GetMapping("/listactive")
+    public ResponseEntity<List<CategoryDto>> categoryActive() {
+        List<CategoryDto> list = categoryTestService.getCategoryActive();
+        return ResponseEntity.ok(list);
+    }
+
     // 활성화 비활성화 상태 바꾸기
     @PutMapping("/state")
     public ResponseEntity<Boolean> updateCategoryIsActive(@RequestBody CategoryDto categoryDto) {

@@ -30,6 +30,16 @@ public class CategoryService {
         return categoryDtos;
     }
 
+    // 카테고리 목록 중 active 활성화인것만 조회
+    public List<CategoryDto> getCategoryActive() {
+        List<Category> categories = categoryRepository.findByActive("active");
+        List<CategoryDto> categoryDtos = new ArrayList<>();
+        for (Category category : categories) {
+            categoryDtos.add(convertEntityToDto(category));
+        }
+        return categoryDtos;
+    }
+
     // 게시글 검색
 //    public List<CategoryDto> searchCategory(String keyword) {
 //        List<Category> categorys = categoryRepository.findByTitleContaining(keyword);
