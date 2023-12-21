@@ -17,12 +17,16 @@ public class Post {
     @Column(name = "post_id")
     private Long Id;
 
+    @Column(nullable = false)
+    private String title;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User User;
+
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
-
-    @Column(nullable = false)
-    private String title;
 
     @Column(nullable = false)
     private String local;
@@ -35,7 +39,7 @@ public class Post {
 
     private int joiners;
 
-    private Long expectationCost;
+    private Long fee;
     private String introduction;
 
     @Column(nullable = false)
@@ -55,6 +59,11 @@ public class Post {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_id")
     private ChatRoom chatRoom; // 일반 게시글과 연결된 채팅방
+
+    private String image;
+
+    @Column(nullable = false)
+    private String type;
 
     private String active;
 

@@ -3,8 +3,10 @@ package com.kh.wob.service;
 import com.kh.wob.dto.PostDto;
 import com.kh.wob.entity.Category;
 import com.kh.wob.entity.Post;
+import com.kh.wob.entity.User;
 import com.kh.wob.repository.CategoryRepository;
 import com.kh.wob.repository.PostRepository;
+import com.kh.wob.repository.UserRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -27,6 +29,7 @@ import java.util.List;
 public class PostService {
     private final PostRepository postRepository;
     private final CategoryRepository categoryRepository;
+    private final UserRepository userRepository;
 
     // 게시글 등록
     public boolean savePost(PostDto postDto) {
@@ -37,6 +40,9 @@ public class PostService {
             Category category = categoryRepository.findByName(postDto.getCategoryName()).orElseThrow(
                     () -> new RuntimeException("category not found")
             );
+            User user = userRepository.findByEmail(postDto.getUserEmail()).orElseThrow(
+                    () -> new RuntimeException("user not found")
+            );
 
             log.info("Date Type: {}", postDto.getDate().getClass());
             log.info("Time Type: {}", postDto.getTime().getClass());
@@ -45,15 +51,19 @@ public class PostService {
 
             // PostDto로부터 받은 정보로 post 객체를 초기화.
             post.setTitle(postDto.getTitle());
+            post.setUser(user);
             post.setCategory(category);
             post.setLocal(postDto.getLocal());
             post.setPlace(postDto.getPlace());
             post.setPeople(postDto.getPeople());
             post.setJoiners(postDto.getJoiners());
-            post.setExpectationCost(postDto.getExpectationCost());
+            post.setFee(postDto.getFee());
             post.setIntroduction(postDto.getIntroduction());
             post.setDate(postDto.getDate());
             post.setTime(postDto.getTime());
+            post.setImage(postDto.getImage());
+            post.setType(postDto.getType());
+            post.setActive(postDto.getActive());
 
             // 포스트 객체를 저장.
             postRepository.save(post);
@@ -86,15 +96,19 @@ public class PostService {
         PostDto postDto = new PostDto();
         postDto.setId(post.getId());
         postDto.setTitle(post.getTitle());
+        postDto.setUserEmail(post.getUser().getEmail());
         postDto.setCategoryName(post.getCategory().getName());
         postDto.setLocal(post.getLocal());
         postDto.setPlace(post.getPlace());
         postDto.setPeople(post.getPeople());
-        postDto.setExpectationCost(post.getExpectationCost());
+        postDto.setFee(post.getFee());
         postDto.setIntroduction(post.getIntroduction());
         postDto.setDate(post.getDate());
         postDto.setTime(post.getTime());
         postDto.setRegDate(post.getRegDate());
+        postDto.setImage(post.getImage());
+        postDto.setType(post.getType());
+        postDto.setActive(post.getActive());
         return postDto;
     }
 

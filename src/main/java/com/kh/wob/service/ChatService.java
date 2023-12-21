@@ -140,7 +140,7 @@ public class ChatService {
         postDto.setTitle(post.getTitle());
         postDto.setPlace(post.getPlace());
         postDto.setPeople(post.getPeople());
-        postDto.setExpectationCost(post.getExpectationCost());
+        postDto.setFee(post.getFee());
         postDto.setIntroduction(post.getIntroduction());
         postDto.setDate(post.getDate());
         postDto.setTime(post.getTime());
