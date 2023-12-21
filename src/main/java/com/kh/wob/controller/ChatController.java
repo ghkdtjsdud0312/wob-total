@@ -33,6 +33,8 @@ public class ChatController {
     // 방 정보 가져오기
     @GetMapping("/room/{roomId}")
     public ResponseEntity<ChatRoomResDto> findRoomById(@PathVariable String roomId) {
+        System.out.println("room/{roomId}:"+roomId);
+        System.out.println("방 정보 가져오기 : " + chatService.findRoomById(roomId));
         return ResponseEntity.ok(chatService.findRoomById(roomId));
     }
 
@@ -54,7 +56,7 @@ public class ChatController {
     @PutMapping("/modify")
     public ResponseEntity<Boolean> postAddRoomId(@RequestBody PostDto postDto) {
         boolean isTrue = chatService.postAddRoomId(postDto);
-        System.out.println("잘 실행 되는가? ");
+        System.out.println("잘 실행 되는가? " + postDto.getRoomId());
         return ResponseEntity.ok(isTrue);
     }
 

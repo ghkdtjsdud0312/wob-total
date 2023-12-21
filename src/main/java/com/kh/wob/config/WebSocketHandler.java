@@ -35,19 +35,25 @@ public class WebSocketHandler extends TextWebSocketHandler {
 
         System.out.println("chatRoom getRegDate() : " + chatRoom.getRegDate());
         sessionRoomIdMap.put(session, chatMessage.getRoomId()); // 세션과 채팅방 ID를 매핑
+        System.out.println("sessionRoomIdMap : "+ sessionRoomIdMap);
         chatRoom.handlerActions(session, chatMessage, chatService);
 
     }
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         // 세션과 매핑된 채팅방 ID 가져오기
-        log.warn("afterConnectionClosed : {}", session);
-        String roomId = sessionRoomIdMap.remove(session);
-        ChatRoomResDto chatRoom = chatService.findRoomById(roomId);
-        if (chatRoom != null) {
-            chatRoom.handleSessionClosed(session, chatService);
-        } else {
-            log.warn("Chat room not found for ID: : {}", roomId);
+        try {
+            // 세션과 매핑된 채팅방 ID 가져오기
+            log.warn("afterConnectionClosed: {}", session);
+            String roomId = sessionRoomIdMap.remove(session);
+            ChatRoomResDto chatRoom = chatService.findRoomById(roomId);
+            if (chatRoom != null) {
+                chatRoom.handleSessionClosed(session, chatService);
+            } else {
+                log.warn("Chat room not found for ID: {}", roomId);
+            }
+        } catch (Exception e) {
+            log.error("Error in afterConnectionClosed", e);
         }
     }
 }

@@ -3,6 +3,8 @@ package com.kh.wob.dto;
 import com.kh.wob.service.ChatService;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.socket.WebSocketSession;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -14,7 +16,9 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Getter
+@Setter
 @Slf4j
+@NoArgsConstructor
 public class ChatRoomResDto {
     private String roomId; // 채팅방 ID
     private String name; // 채팅방 이름

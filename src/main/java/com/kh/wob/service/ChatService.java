@@ -40,7 +40,19 @@ public class ChatService {
         return new ArrayList<>(chatRooms.values());
     }
     public ChatRoomResDto findRoomById(String roomId) {
+        System.out.println("findRoomById : "+ chatRooms.get(roomId));
         return chatRooms.get(roomId);
+    }
+    public ChatRoomResDto findRoomById_2(String roomId) {
+
+        ChatRoom chatRoom = chatRoomRepository.findById(roomId).orElseThrow(
+                () -> new RuntimeException("해당 채팅방이 존재하지 않습니다.")
+        );
+        System.out.println("채팅방 이름은 : " + chatRoom.getRoomName());
+        ChatRoomResDto roomName = new ChatRoomResDto();
+        roomName.setName(chatRoom.getRoomName());
+
+        return roomName;
     }
 
     // 방 개설하기
@@ -53,9 +65,14 @@ public class ChatService {
                 .postId(postId)
                 .regDate(LocalDateTime.now())
                 .build();
+
+        Post post = postRepository.findById(postId).orElseThrow(
+                () -> new RuntimeException("해당 포스트가 없습니다.")
+        );
         ChatRoom chatRoomEntity = new ChatRoom(); // ChatRoom 엔티티 객체 생성 (채팅방 정보 DB에 저장하기 위해)
         chatRoomEntity.setRoomId(randomId);
         chatRoomEntity.setRoomName(name);
+        chatRoomEntity.setPost(post);
         chatRoomEntity.setCreatedAt(LocalDateTime.now());
         chatRoomRepository.save(chatRoomEntity); // 채팅방 정보 DB에 저장
         chatRooms.put(randomId, chatRoom);  // 방 생성, 키를 UUID로 하고 방 정보를 값으로 저장
@@ -104,6 +121,7 @@ public class ChatService {
 
     // Post에 roomId 추가
     public boolean postAddRoomId(PostDto postDto) {
+        // 게시글과 채팅방 서로 조인하는 메소드
         System.out.println("testtest : " + postDto.getRoomId());
         try {
             Post post = postRepository.findById(postDto.getId()).orElseThrow(
@@ -115,8 +133,11 @@ public class ChatService {
             System.out.println("post : " + postDto.getId());
             System.out.println("roomID : " + postDto.getRoomId());
 
+
+            // Post(게시글)에 roomId값을 이용해서 ChatRoom과 연결
             post.setChatRoom(chatRoom);
             postRepository.save(post);
+
             return true;
 //
         } catch (Exception e) {
@@ -148,7 +169,22 @@ public class ChatService {
         // 게시글에 연결된 채팅방이 있으면 ?
         if(post.getChatRoom() != null) {
             postDto.setRoomId(post.getChatRoom().getRoomId());
+        } else {
+            return postDto;
         }
         return postDto;
+    }
+    // ChatRoom 엔티티를 dto로 변환
+    private ChatRoomResDto convertEntityToRoomDto(ChatRoom chatRoom) {
+        ChatRoomResDto chatRoomResDto = new ChatRoomResDto();
+        chatRoomResDto.setRoomId(chatRoom.getRoomId());
+        chatRoomResDto.setName(chatRoom.getRoomName());
+        // 게시글에 연결된 채팅방이 있으면 ?
+        if(chatRoom.getPost() != null) {
+            chatRoomResDto.setPostId(chatRoom.getPost().getId());
+        } else {
+            return chatRoomResDto;
+        }
+        return chatRoomResDto;
     }
 }
