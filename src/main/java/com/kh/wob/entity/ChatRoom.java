@@ -32,8 +32,5 @@ public class ChatRoom {
     @JoinColumn(name = "post_id")
     private Post post; // 채팅방과 연결된 일반 게시글
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lesson_id")
-    private Lesson lesson; // 채팅방과 연결된 클래스 게시글
 
 }
