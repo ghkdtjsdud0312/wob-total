@@ -1,6 +1,7 @@
 package com.kh.wob.service;
 
 import com.kh.wob.dto.PostDto;
+import com.kh.wob.entity.Category;
 import com.kh.wob.entity.Post;
 import com.kh.wob.repository.CategoryRepository;
 import com.kh.wob.repository.PostRepository;
@@ -32,6 +33,10 @@ public class PostService {
         try {
             // 게시글과 관련된 필요한 객체들을 생성하고 초기화
             Post post = new Post();
+            // 카테고리 ID로부터 카테고리 찾기
+            Category category = categoryRepository.findByName(postDto.getCategoryName()).orElseThrow(
+                    () -> new RuntimeException("category not found")
+            );
 
             log.info("Date Type: {}", postDto.getDate().getClass());
             log.info("Time Type: {}", postDto.getTime().getClass());
@@ -40,7 +45,8 @@ public class PostService {
 
             // PostDto로부터 받은 정보로 post 객체를 초기화.
             post.setTitle(postDto.getTitle());
-//            post.setCategory(category);
+            post.setCategory(category);
+            post.setLocal(postDto.getLocal());
             post.setPlace(postDto.getPlace());
             post.setPeople(postDto.getPeople());
             post.setJoiners(postDto.getJoiners());
@@ -80,6 +86,8 @@ public class PostService {
         PostDto postDto = new PostDto();
         postDto.setId(post.getId());
         postDto.setTitle(post.getTitle());
+        postDto.setCategoryName(post.getCategory().getName());
+        postDto.setLocal(post.getLocal());
         postDto.setPlace(post.getPlace());
         postDto.setPeople(post.getPeople());
         postDto.setExpectationCost(post.getExpectationCost());

@@ -20,9 +20,9 @@ public class PostController {
     @PostMapping("/new")
     public ResponseEntity<Boolean> postResister(@RequestBody PostDto postDto) {
         log.debug("PostDto : {}", postDto);
-        System.out.println("PostDto : {}" + postDto);
+        System.out.println("PostDto.categoryName : " + postDto.getCategoryName());
         boolean isTrue = postService.savePost(postDto);
-        return ResponseEntity.ok(true);
+        return ResponseEntity.ok(isTrue);
     }
 
     // 게시글 조회
