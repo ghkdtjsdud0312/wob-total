@@ -13,7 +13,6 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
     Page<Category> findAll(Pageable pageable); // 모든 목록
     // active 상태가 활성화 상태인 것만 들고 오기
     List<Category> findByActive(String active);
-
     Optional<Category> findByName(String categoryName);
 
 }

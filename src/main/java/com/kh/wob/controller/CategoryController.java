@@ -38,6 +38,13 @@ public class CategoryController {
         return ResponseEntity.ok(list);
     }
 
+    // 게시글 삭제
+    @DeleteMapping("/delete/{categoryId}")
+    public ResponseEntity<Boolean> categoryDelete(@PathVariable Long id) {
+        boolean isTrue = categoryTestService.deletecCategory(id);
+        return ResponseEntity.ok(isTrue);
+    }
+
     // 카테고리 목록 활성화인것만 들고오기
     @GetMapping("/listactive")
     public ResponseEntity<List<CategoryDto>> categoryActive() {

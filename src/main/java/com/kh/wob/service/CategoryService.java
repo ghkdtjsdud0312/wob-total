@@ -5,6 +5,7 @@ import com.kh.wob.entity.Category;
 import com.kh.wob.repository.CategoryRepository;
 import com.kh.wob.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class CategoryService {
@@ -28,6 +30,18 @@ public class CategoryService {
             categoryDtos.add(convertEntityToDto(category));
         }
         return categoryDtos;
+    }
+
+    // 게시글 삭제
+    public boolean deletecCategory(Long id) {
+        try {
+            categoryRepository.deleteById(id);
+            log.info("해당 게시글이 삭제되었습니다. : ", id);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     // 카테고리 목록 중 active 활성화인것만 조회
