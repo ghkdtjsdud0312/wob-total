@@ -2,6 +2,7 @@ package com.kh.wob.service;
 
 import com.kh.wob.constant.Role;
 import com.kh.wob.dto.CategoryDto;
+import com.kh.wob.dto.ForgotPasswordDto;
 import com.kh.wob.dto.UserMyPageDto;
 import com.kh.wob.dto.UserSignUpDto;
 import com.kh.wob.entity.Category;
@@ -51,6 +52,7 @@ public class UserService {
                 .nickname(userSignUpDto.getNickname())
                 .role(Role.USER)
                 .active("active")
+                .selectedAgreement(userSignUpDto.getSelectedAgreement())
                 .build();
 
         user.passwordEncode(passwordEncoder);
@@ -205,6 +207,22 @@ public class UserService {
             }
         } catch (Exception e) {
             log.error("유저 활성화/비활성화 업데이트 중 오류 발생", e);
+            return false;
+        }
+    }
+
+    public boolean modifyPasswordInForgotPw(ForgotPasswordDto forgotPasswordDto) {
+        try {
+            User user = userRepository.findByEmail(forgotPasswordDto.getEmail()).orElseThrow(
+                    () -> new RuntimeException("회원수정 : 해당 회원이 존재하지 않습니다.")
+            );
+            log.info("이메일 인증으로 변경할 비밀번호 : " + forgotPasswordDto.getPassword());
+            user.setPassword(forgotPasswordDto.getPassword());
+            user.passwordEncode(passwordEncoder);
+            userRepository.save(user);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }

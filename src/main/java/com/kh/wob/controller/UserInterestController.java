@@ -22,6 +22,8 @@ public class UserInterestController {
             @RequestParam String email) {
             userService.updateUserInterestSports(email, interestSports);
             log.info("Interest sports 업데이트 성공");
+            log.info(interestSports.toString());
+
             return ResponseEntity.ok(true);
     }
     @PostMapping("/areas")
@@ -29,7 +31,8 @@ public class UserInterestController {
             @RequestBody List<String> interestAreas,
             @RequestParam String email) {
         userService.updateUserInterestAreas(email, interestAreas);
-        log.info("Interest sports 업데이트 성공");
+        log.info("Interest areas 업데이트 성공");
+        log.info(interestAreas.toString());
         return ResponseEntity.ok(true);
     }
 }
