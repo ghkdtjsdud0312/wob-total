@@ -91,6 +91,17 @@ public class PostService {
         return postDtos;
     }
 
+    // postId로 게시글 상세 조회
+    public PostDto getPostListById(Long postId) {
+        System.out.println("chatService에서 받은 postId : " + postId);
+        Post post = postRepository.findById(postId).orElseThrow(
+                () -> new RuntimeException("해당 게시글이 존재하지 않습니다.")
+        );
+        return convertEntityToDto(post);
+    }
+
+
+
   // 게시글 엔티티를 dto로 변환
     private PostDto convertEntityToDto(Post post) {
         PostDto postDto = new PostDto();

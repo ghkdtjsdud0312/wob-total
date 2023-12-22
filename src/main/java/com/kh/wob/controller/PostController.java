@@ -32,5 +32,13 @@ public class PostController {
         List<PostDto> list = postService.getPostList();
         return ResponseEntity.ok(list);
     }
+
+    // postId로 게시글 상세 조회
+    @GetMapping("/postListById/{postId}")
+    public ResponseEntity<PostDto> getPostListById(@PathVariable Long postId) {
+        System.out.println("postId로 게시글 상세 조회 : " + postId);
+        return ResponseEntity.ok(postService.getPostListById(postId));
+    }
+
 }
 
