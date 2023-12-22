@@ -43,17 +43,6 @@ public class ChatService {
         System.out.println("findRoomById : "+ chatRooms.get(roomId));
         return chatRooms.get(roomId);
     }
-    public ChatRoomResDto findRoomById_2(String roomId) {
-
-        ChatRoom chatRoom = chatRoomRepository.findById(roomId).orElseThrow(
-                () -> new RuntimeException("해당 채팅방이 존재하지 않습니다.")
-        );
-        System.out.println("채팅방 이름은 : " + chatRoom.getRoomName());
-        ChatRoomResDto roomName = new ChatRoomResDto();
-        roomName.setName(chatRoom.getRoomName());
-
-        return roomName;
-    }
 
     // 방 개설하기
     public ChatRoomResDto createRoom(String name, Long postId) {
