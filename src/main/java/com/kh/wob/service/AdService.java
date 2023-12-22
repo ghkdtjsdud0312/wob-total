@@ -70,8 +70,6 @@ public class AdService {
     private AdDto convertEntityToDto(Ad ad) {
         AdDto adDto = new AdDto();
         adDto.setId(ad.getId());
-        adDto.setTitle(ad.getTitle());
-        adDto.setName(ad.getName());
         adDto.setFee(ad.getFee());
         adDto.setPeriod(ad.getPeriod());
         adDto.setImage(ad.getImage());

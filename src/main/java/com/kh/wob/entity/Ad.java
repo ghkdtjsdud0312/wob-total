@@ -20,11 +20,9 @@ public class Ad {
     @Column(name = "ad_id")
     private Long id;
 
-    @Column(nullable = false)
-    private String title; // 제목
-
-    @Column(nullable = false)
-    private String name; // 종목
+    @ManyToOne
+    @JoinColumn(name = "post_id")
+    private Post post;
 
     @Column(nullable = false)
     private Long fee; // 비용
