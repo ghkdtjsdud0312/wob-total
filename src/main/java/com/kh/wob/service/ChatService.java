@@ -1,6 +1,7 @@
 package com.kh.wob.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kh.wob.dto.ChatRoomReqDto;
 import com.kh.wob.dto.ChatRoomResDto;
 import com.kh.wob.dto.PostDto;
 import com.kh.wob.dto.UserMyPageDto;
@@ -39,33 +40,56 @@ public class ChatService {
     public List<ChatRoomResDto> findAllRoom() { // 채팅방 리스트 반환
         return new ArrayList<>(chatRooms.values());
     }
+    public List<ChatRoomResDto> findFreeRoom() { // 채팅방 리스트 반환
+        List<ChatRoomResDto> chatRoomResDtoList = new ArrayList<>();
+        for (ChatRoomResDto chatRoomDto : chatRooms.values()) {
+            if (chatRoomDto.getPostId() == null) {
+                chatRoomResDtoList.add(chatRoomDto);
+            }
+        }
+        return chatRoomResDtoList;
+    }
     public ChatRoomResDto findRoomById(String roomId) {
         System.out.println("findRoomById : "+ chatRooms.get(roomId));
         return chatRooms.get(roomId);
     }
 
     // 방 개설하기
-    public ChatRoomResDto createRoom(String name, Long postId) {
+    public ChatRoomResDto createRoom(ChatRoomReqDto chatRoomDto) {
         String randomId = UUID.randomUUID().toString();
         log.info("UUID : " + randomId);
-        ChatRoomResDto chatRoom = ChatRoomResDto.builder() // 채팅방 DTO 생성
-                .roomId(randomId)
-                .name(name)
-                .postId(postId)
-                .regDate(LocalDateTime.now())
-                .build();
-
-        Post post = postRepository.findById(postId).orElseThrow(
-                () -> new RuntimeException("해당 포스트가 없습니다.")
-        );
         ChatRoom chatRoomEntity = new ChatRoom(); // ChatRoom 엔티티 객체 생성 (채팅방 정보 DB에 저장하기 위해)
-        chatRoomEntity.setRoomId(randomId);
-        chatRoomEntity.setRoomName(name);
-        chatRoomEntity.setPost(post);
-        chatRoomEntity.setCreatedAt(LocalDateTime.now());
-        chatRoomRepository.save(chatRoomEntity); // 채팅방 정보 DB에 저장
-        chatRooms.put(randomId, chatRoom);  // 방 생성, 키를 UUID로 하고 방 정보를 값으로 저장
-        return chatRoom;
+        if(chatRoomDto.getPostId() == null) { // postId가 없으면 = 자유 채팅방
+            ChatRoomResDto chatRoom = ChatRoomResDto.builder() // 채팅방 DTO 생성
+                    .roomId(randomId)
+                    .name(chatRoomDto.getName())
+                    .regDate(LocalDateTime.now())
+                    .build();
+            chatRoomEntity.setRoomId(randomId);
+            chatRoomEntity.setRoomName(chatRoomDto.getName());
+            chatRoomEntity.setCreatedAt(LocalDateTime.now());
+            chatRoomRepository.save(chatRoomEntity); // 채팅방 정보 DB에 저장
+            chatRooms.put(randomId, chatRoom);  // 방 생성, 키를 UUID로 하고 방 정보를 값으로 저장
+            return chatRoom;
+        } else { // 게시글 채팅방
+            ChatRoomResDto chatRoom = ChatRoomResDto.builder() // 채팅방 DTO 생성
+                    .roomId(randomId)
+                    .name(chatRoomDto.getName())
+                    .postId(chatRoomDto.getPostId())
+                    .regDate(LocalDateTime.now())
+                    .build();
+            Post post = postRepository.findById(chatRoomDto.getPostId()).orElseThrow(
+                    () -> new RuntimeException("해당 포스트가 없습니다.")
+            );
+            chatRoomEntity.setPost(post);
+            chatRoomEntity.setRoomId(randomId);
+            chatRoomEntity.setRoomName(chatRoomDto.getName());
+            chatRoomEntity.setCreatedAt(LocalDateTime.now());
+            chatRoomRepository.save(chatRoomEntity); // 채팅방 정보 DB에 저장
+            chatRooms.put(randomId, chatRoom);  // 방 생성, 키를 UUID로 하고 방 정보를 값으로 저장
+            return chatRoom;
+        }
+
     }
 
     // 방 삭제하기

@@ -18,16 +18,34 @@ import java.util.List;
 public class ChatController {
     private final ChatService chatService;
     private final PostService postService;
+    // 게시글 채팅방 생성
     @PostMapping("/new")
     public ResponseEntity<String> createRoom(@RequestBody ChatRoomReqDto chatRoomDto) {
         log.warn("chatRoomDto : {}", chatRoomDto);
-        ChatRoomResDto room = chatService.createRoom(chatRoomDto.getName(), chatRoomDto.getPostId());
+        ChatRoomResDto room = chatService.createRoom(chatRoomDto);
         System.out.println(room.getRoomId());
         return ResponseEntity.ok(room.getRoomId());
     }
+
+    // 자유 채팅방 생성
+    @PostMapping("/freeNew")
+    public ResponseEntity<String> createFreeRoom(@RequestBody ChatRoomReqDto chatRoomDto) {
+        log.warn("chatRoomDto : {}", chatRoomDto);
+        ChatRoomResDto room = chatService.createRoom(chatRoomDto);
+        System.out.println(room.getRoomId());
+        return ResponseEntity.ok(room.getRoomId());
+    }
+
+    // 모든 채팅방 리스트
     @GetMapping("/list")
     public ResponseEntity<List<ChatRoomResDto>> findAllRoom() {
         return ResponseEntity.ok(chatService.findAllRoom());
+    }
+
+    // 자유 채팅방 리스트 (postId 없음)
+    @GetMapping("/freeList")
+    public ResponseEntity<List<ChatRoomResDto>> findByFreeRoom() {
+        return ResponseEntity.ok(chatService.findFreeRoom());
     }
 
     // 방 정보 가져오기
