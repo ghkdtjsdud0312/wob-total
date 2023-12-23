@@ -13,6 +13,7 @@ public class PostDto {
     private String title;
     private String userEmail;
     private String categoryName;
+    private String categoryImage;
     private String local;
     private String place;
     private int people;

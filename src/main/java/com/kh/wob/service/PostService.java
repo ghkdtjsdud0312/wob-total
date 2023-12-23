@@ -109,6 +109,7 @@ public class PostService {
         postDto.setTitle(post.getTitle());
         postDto.setUserEmail(post.getUser().getEmail());
         postDto.setCategoryName(post.getCategory().getName());
+        postDto.setCategoryImage(post.getCategory().getImage());
         postDto.setLocal(post.getLocal());
         postDto.setPlace(post.getPlace());
         postDto.setPeople(post.getPeople());
