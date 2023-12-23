@@ -100,9 +100,17 @@ public class PostService {
         return convertEntityToDto(post);
     }
 
+    // postId로 운동 장소 가져오기
+    public String getPostPlaceAddress(Long postId) {
+        Post post = postRepository.findById(postId).orElseThrow(
+                () -> new RuntimeException("해당 주소가 존재하지 않습니다.")
+        );
+        PostDto postDto = convertEntityToDto(post);
+        return postDto.getPlace();
+    }
 
 
-  // 게시글 엔티티를 dto로 변환
+        // 게시글 엔티티를 dto로 변환
     private PostDto convertEntityToDto(Post post) {
         PostDto postDto = new PostDto();
         postDto.setId(post.getId());

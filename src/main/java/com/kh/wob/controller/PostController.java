@@ -40,5 +40,22 @@ public class PostController {
         return ResponseEntity.ok(postService.getPostListById(postId));
     }
 
+    // postId로 운동 장소 가져 오기
+    @GetMapping("/postPlaceAddress/{postId}")
+    public ResponseEntity<PostDto> getPostPlaceAddress(@PathVariable Long postId) {
+        try {
+            String placeAddress = postService.getPostPlaceAddress(postId);
+
+            // 가져온 주소를 PostDto에 담아서 반환
+            PostDto postDto = new PostDto();
+            postDto.setPlace(placeAddress);
+
+            return ResponseEntity.ok(postDto);
+        } catch (RuntimeException e) {
+            // 해당 postId에 해당하는 주소가 존재하지 않는 경우 예외 처리
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }
 
