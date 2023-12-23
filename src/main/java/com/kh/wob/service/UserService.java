@@ -105,9 +105,11 @@ public class UserService {
                 System.out.println("회원 수정 유저서비스 : " + user.getEmail());
                 System.out.println("회원 수정 유저서비스 getMbti : " + user.getMbti());
                 user.setNickname(userMyPageDto.getNickname());
+                user.setIntroduce(userMyPageDto.getIntroduce());
                 user.setImage(userMyPageDto.getImage());
                 user.setMbti(userMyPageDto.getMbti());
                 user.setInterestSports(userMyPageDto.getInterestSports());
+                user.setInterestArea(userMyPageDto.getInterestArea());
             }
             userRepository.save(user);
             return true;
@@ -138,7 +140,9 @@ public class UserService {
         userMyPageDto.setNickname(user.getNickname());
         userMyPageDto.setImage(user.getImage());
         userMyPageDto.setMbti(user.getMbti());
+        userMyPageDto.setIntroduce(user.getIntroduce());
         userMyPageDto.setInterestSports(user.getInterestSports());
+        userMyPageDto.setInterestArea(user.getInterestArea());
         userMyPageDto.setActive(user.getActive()); // 회원 목록에 사용
         return userMyPageDto;
     }
