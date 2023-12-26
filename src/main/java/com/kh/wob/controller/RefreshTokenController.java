@@ -16,7 +16,7 @@ public class RefreshTokenController {
 //    private JwtService jwtService;
 
     @GetMapping("/refresh")
-    public ResponseEntity<?> refreshAccessToken(@RequestHeader("Authorization-refresh") String refreshToken) {
+    public ResponseEntity<String> refreshAccessToken(@RequestHeader("Authorization-refresh") String refreshToken) {
         return ResponseEntity.ok("refresh token 전달 완료");
     }
 }
