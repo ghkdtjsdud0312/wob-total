@@ -57,5 +57,13 @@ public class PostController {
         }
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<PostDto>> getSearch(@RequestParam String keyword) {
+        log.info("keyword : " + keyword);
+        List<PostDto> list = postService.getSearch(keyword);
+        return ResponseEntity.ok(list);
+    }
+
+
 }
 

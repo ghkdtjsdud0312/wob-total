@@ -27,5 +27,8 @@ public class PostDto {
     private String image;
     private String type;
     private String active;
+
+    private double latitude; // 지도 경도
+    private double longitude; // 지도 위도
 }
 

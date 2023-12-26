@@ -39,7 +39,7 @@ public class CategoryController {
     }
 
     // 게시글 삭제
-    @DeleteMapping("/delete/{categoryId}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Boolean> categoryDelete(@PathVariable Long id) {
         boolean isTrue = categoryTestService.deletecCategory(id);
         return ResponseEntity.ok(isTrue);
@@ -60,7 +60,7 @@ public class CategoryController {
         return ResponseEntity.ok(isTrue);
     }
 
-    // 게시글 목록 페이징
+    // 카테고리 목록 페이징
     @GetMapping("/list/page")
     public ResponseEntity<List<CategoryDto>> getCategoryList(@RequestParam(defaultValue = "0") int page,
                                                     @RequestParam(defaultValue = "5") int size) {
@@ -77,11 +77,6 @@ public class CategoryController {
         return ResponseEntity.ok(pageCnt);
     }
 
-//    // 게시글 검색
-//    @GetMapping("/search")
-//    public ResponseEntity<List<CategoryDto>> searchCategory(@RequestParam String keyword) {
-//        List<CategoryDto> list = categoryTestService.searchCategory(keyword);
-//        return ResponseEntity.ok(list);
-//    }
+
 
 }

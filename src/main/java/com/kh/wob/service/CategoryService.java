@@ -54,15 +54,6 @@ public class CategoryService {
         return categoryDtos;
     }
 
-    // 게시글 검색
-//    public List<CategoryDto> searchCategory(String keyword) {
-//        List<Category> categorys = categoryRepository.findByTitleContaining(keyword);
-//        List<CategoryDto> boardDtos = new ArrayList<>();
-//        for(Category category : categorys) {
-//            boardDtos.add(convertEntityToDto(category));
-//        }
-//        return boardDtos;
-//    }
     // 게시글 페이징
     public List<CategoryDto> getCategoryList(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);

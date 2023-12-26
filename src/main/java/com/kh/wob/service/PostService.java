@@ -109,6 +109,15 @@ public class PostService {
         return postDto.getPlace();
     }
 
+    public List<PostDto> getSearch(String keyword) {
+        List<Post> posts = postRepository.findByTitleContaining(keyword);
+        List<PostDto> postDtos = new ArrayList<>();
+        for(Post post : posts) {
+            postDtos.add(convertEntityToDto(post));
+        }
+        return postDtos;
+    }
+
 
         // 게시글 엔티티를 dto로 변환
     private PostDto convertEntityToDto(Post post) {
@@ -129,6 +138,8 @@ public class PostService {
         postDto.setImage(post.getImage());
         postDto.setType(post.getType());
         postDto.setActive(post.getActive());
+        postDto.setLongitude(post.getLongitude());
+        postDto.setLatitude(post.getLatitude());
         return postDto;
     }
 
