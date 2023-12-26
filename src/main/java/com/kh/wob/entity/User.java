@@ -31,6 +31,8 @@ public class User {
     private String active ; // 관리자 활성화,비활성화-회원목록
     private String withdrawal; // 회원 탈퇴 이유 숫자로 표기
     private Boolean selectedAgreement; // 약관동의 선택사항
+    private String name;
+    private String phoneNumber;
 
 
     @ElementCollection

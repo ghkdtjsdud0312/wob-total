@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Setter
 public class AdDto {
     private Long id;
-    private String name; // 종목
+    private String categoryName; // 종목
     private Long fee; // 비용
     private String period;  // 광고 게시 기간
     private String image; // 이미지

@@ -42,6 +42,13 @@ public class UserController {
         return ResponseEntity.ok(userService.modifyPasswordInForgotPw(forgotPasswordDto));
     }
 
+    // 레슨 등록시 입력된 강사명, 전화번호 등록하기
+    @PostMapping("/teacherinfo")
+    public ResponseEntity<Boolean> teacherInfoResiter(@RequestBody UserSignUpDto userSignUpDto) {
+        log.debug("userSingupDto는!!!!! {}", userSignUpDto);
+        boolean isTrue = userService.saveTeacherInfo(userSignUpDto);
+        return ResponseEntity.ok(isTrue);
+    }
 
 
 }

@@ -1,10 +1,15 @@
 package com.kh.wob.service;
 
 import com.kh.wob.dto.AdDto;
+import com.kh.wob.dto.PostDto;
 import com.kh.wob.dto.UserMyPageDto;
 import com.kh.wob.entity.Ad;
+import com.kh.wob.entity.Category;
+import com.kh.wob.entity.Post;
 import com.kh.wob.entity.User;
 import com.kh.wob.repository.AdRepository;
+import com.kh.wob.repository.CategoryRepository;
+import com.kh.wob.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
@@ -20,6 +25,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AdService {
     private final AdRepository adRepository;
+    private final PostRepository postRepository;
+    private final CategoryRepository categoryRepository;
 
     // 광고 목록 조회
     public List<AdDto> getAdList() {
@@ -65,6 +72,35 @@ public class AdService {
         }
     }
     // 광고 검색
+
+    // 광고 등록
+    public boolean saveAd(AdDto adDto) {
+        try {
+            // Post 저장
+            Post post = new Post();
+            post.setTitle(adDto.getCategoryName());
+            postRepository.save(post);
+
+            // Category 저장
+            Category category = new Category();
+            category.setName(adDto.getCategoryName());
+            categoryRepository.save(category);
+
+            // Ad 저장
+            Ad ad = new Ad();
+            ad.setPost(post);
+            ad.setImage(adDto.getImage());
+            ad.setPeriod(adDto.getPeriod());
+            ad.setFee(adDto.getFee());
+            adRepository.save(ad);
+
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
     // 엔티티를 dto로 변환하는 메서드
     private AdDto convertEntityToDto(Ad ad) {

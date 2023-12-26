@@ -47,4 +47,12 @@ public class AdController {
         return ResponseEntity.ok(pageCnt);
     }
     // 광고 검색
+
+    // 광고 등록
+    @PostMapping("/new")
+    public ResponseEntity<Boolean> adResister(@RequestBody AdDto adDto) {
+        log.debug("AdDto : {}", adDto);
+        boolean isTrue = adService.saveAd(adDto);
+        return ResponseEntity.ok(isTrue);
+    }
 }

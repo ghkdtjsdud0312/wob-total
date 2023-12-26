@@ -15,5 +15,6 @@ public class UserSignUpDto {
     private String nickname;
     private SocialType socialType;
     private Boolean selectedAgreement;
-
+    private String name;
+    private String phoneNumber;
 }

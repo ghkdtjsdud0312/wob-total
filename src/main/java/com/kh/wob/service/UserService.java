@@ -230,5 +230,26 @@ public class UserService {
             return false;
         }
     }
+
+    // 레슨 일정 등록시 강사명, 전화번호 등록하기
+    public boolean saveTeacherInfo(UserSignUpDto userSignUpDto) {
+        try{
+            User user = userRepository.findByEmail(userSignUpDto.getEmail()).orElseThrow(
+                    () -> new RuntimeException("회원이 존재하지 않습니다.")
+            );
+            log.info("등록 회원 이메일 : " + userSignUpDto.getEmail());
+            user.setName(userSignUpDto.getName());
+            user.setPhoneNumber(userSignUpDto.getPhoneNumber());
+
+            userRepository.save(user);
+
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
 }
 
