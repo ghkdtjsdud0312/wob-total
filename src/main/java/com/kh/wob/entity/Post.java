@@ -66,9 +66,7 @@ public class Post {
 
     private String active;
 
-    @Column(nullable = false)
     private double latitude;
-    @Column(nullable = false)
     private double longitude;
 
 }

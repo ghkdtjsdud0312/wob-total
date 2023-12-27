@@ -64,6 +64,8 @@ public class PostService {
             post.setImage(postDto.getImage());
             post.setType(postDto.getType());
             post.setActive(postDto.getActive());
+            post.setLatitude(postDto.getLatitude());
+            post.setLongitude(postDto.getLongitude());
 
             // 포스트 객체를 저장.
             postRepository.save(post);
