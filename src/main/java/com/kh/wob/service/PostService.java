@@ -32,8 +32,7 @@ public class PostService {
     private final UserRepository userRepository;
 
     // 게시글 등록
-    public boolean savePost(PostDto postDto) {
-        try {
+    public PostDto savePost(PostDto postDto) {
             // 게시글과 관련된 필요한 객체들을 생성하고 초기화
             Post post = new Post();
             // 카테고리 ID로부터 카테고리 찾기
@@ -75,12 +74,8 @@ public class PostService {
             log.info("Time Type: {}", post.getTime().getClass());
 
             // 성공적으로 등록되었음을 나타내는 true를 반환
-            return true;
-        } catch (Exception e) {
-            // 예외가 발생한 경우 에러 스택 트레이스를 출력하고, 실패를 나타내는 false를 반환
-            e.printStackTrace();
-            return false;
-        }
+             return convertEntityToDto(post);
+
     }
 
     // 게시글 전체 조회

@@ -75,27 +75,24 @@ public class AdService {
 
     // 광고 등록
     public boolean saveAd(AdDto adDto) {
+        log.debug("saveAd 메서드 호출 ");
+        log.debug("AdDto 값: {}", adDto);
         try {
-            // Post 저장
-            Post post = new Post();
-            post.setTitle(adDto.getCategoryName());
-            postRepository.save(post);
-
-            // Category 저장
-            Category category = new Category();
-            category.setName(adDto.getCategoryName());
-            categoryRepository.save(category);
-
-            // Ad 저장
             Ad ad = new Ad();
-            ad.setPost(post);
+
+            Post post = postRepository.findById(adDto.getPostId()).orElseThrow(
+                    () -> new RuntimeException("Post not found")
+            );
+            log.debug("광고 등록하는 postId: " + adDto.getPostId());
             ad.setImage(adDto.getImage());
             ad.setPeriod(adDto.getPeriod());
             ad.setFee(adDto.getFee());
-            adRepository.save(ad);
 
+            adRepository.save(ad);
+            System.out.println("ad에 뭐가 담기지? " + ad);
             return true;
-        } catch (Exception e) {
+        }catch (Exception e) {
+            log.error("예외 발생 : ", e);
             e.printStackTrace();
             return false;
         }

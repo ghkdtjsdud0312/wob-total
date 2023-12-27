@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 public class AdDto {
     private Long id;
     private String categoryName; // 종목
+    private Long postId;
     private Long fee; // 비용
     private String period;  // 광고 게시 기간
     private String image; // 이미지

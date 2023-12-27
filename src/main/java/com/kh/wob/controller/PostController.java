@@ -18,12 +18,12 @@ public class PostController {
 
     // 게시글 등록
     @PostMapping("/new")
-    public ResponseEntity<Boolean> postResister(@RequestBody PostDto postDto) {
+    public ResponseEntity<PostDto> postResister(@RequestBody PostDto postDto) {
         log.debug("PostDto : {}", postDto);
         System.out.println("PostDto.userName : " + postDto.getUserEmail());
         System.out.println("PostDto.categoryName : " + postDto.getCategoryName());
-        boolean isTrue = postService.savePost(postDto);
-        return ResponseEntity.ok(isTrue);
+        PostDto postDto1 = postService.savePost(postDto);
+        return ResponseEntity.ok(postDto1);
     }
 
     // 게시글 조회
