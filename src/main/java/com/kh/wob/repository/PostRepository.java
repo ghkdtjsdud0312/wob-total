@@ -1,3 +1,4 @@
+
 package com.kh.wob.repository;
 
 import com.kh.wob.entity.Post;
@@ -12,4 +13,5 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     Optional<Post> findByTitle(String title);
     List<Post> findByCategoryNameContaining(String keyword);
     Optional<Post> findById(Long id);
+    List<Post> findByUserEmail(String userEmail);
 }

@@ -22,7 +22,7 @@ public class Post {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User User;
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -66,7 +66,9 @@ public class Post {
 
     private String active;
 
+    @Column(nullable = false)
     private double latitude;
+    @Column(nullable = false)
     private double longitude;
 
 }

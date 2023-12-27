@@ -1,22 +1,27 @@
 package com.kh.wob.service;
 
 import com.kh.wob.dto.PostDto;
+import com.kh.wob.dto.ScheduleDto;
 import com.kh.wob.entity.Category;
 import com.kh.wob.entity.Post;
+import com.kh.wob.entity.Schedule;
 import com.kh.wob.entity.User;
 import com.kh.wob.repository.CategoryRepository;
 import com.kh.wob.repository.PostRepository;
+import com.kh.wob.repository.ScheduleRepository;
 import com.kh.wob.repository.UserRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Slf4j
@@ -30,6 +35,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final CategoryRepository categoryRepository;
     private final UserRepository userRepository;
+    private final ScheduleRepository scheduleRepository;
 
     // 게시글 등록
     public PostDto savePost(PostDto postDto) {
@@ -114,6 +120,18 @@ public class PostService {
         }
         return postDtos;
     }
+
+    //userEmail로 게시글 리스트 가져오기
+    public List<PostDto> getPostByUserEmail(String userEmail) {
+        log.info("서비스에서는? : {}", userEmail);
+        List<Post> posts = postRepository.findByUserEmail(userEmail);
+        List<PostDto> postDtos = new ArrayList<>();
+        for(Post post : posts) {
+            postDtos.add(convertEntityToDto(post));
+        }
+        return postDtos;
+    }
+
 
 
         // 게시글 엔티티를 dto로 변환

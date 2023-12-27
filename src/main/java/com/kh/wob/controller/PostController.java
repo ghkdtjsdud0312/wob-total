@@ -1,6 +1,7 @@
 package com.kh.wob.controller;
 
 import com.kh.wob.dto.PostDto;
+import com.kh.wob.dto.ScheduleDto;
 import com.kh.wob.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -55,6 +56,13 @@ public class PostController {
             // 해당 postId에 해당하는 주소가 존재하지 않는 경우 예외 처리
             return ResponseEntity.notFound().build();
         }
+    }
+    // userEmail에 해당하는 일정 가져오기 API
+    @GetMapping("/user/{userEmail}")
+    public ResponseEntity<List<PostDto>> getJoinPost(@PathVariable  String userEmail) {
+        log.info("포스트 유저 리스트 가져가기 : {}", userEmail);
+        List<PostDto> list = postService.getPostByUserEmail(userEmail);
+        return ResponseEntity.ok(list);
     }
 
     @GetMapping("/search")

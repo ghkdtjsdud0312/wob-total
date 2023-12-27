@@ -12,6 +12,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -20,6 +23,7 @@ public class ScheduleService {
     private final UserRepository userRepository;
     private final PostRepository postRepository;
 
+    //내일정 추가
     public ScheduleDto addSchedule(ScheduleDto scheduleDto) {
         log.info("in SchedulService에서 dto 잘 받아오는지 확인: {}", scheduleDto);
         Schedule schedule = new Schedule();
@@ -35,6 +39,16 @@ public class ScheduleService {
         scheduleRepository.save(schedule);
         return convertEntityToDto(schedule);
     }
+
+//    // userEmail에 해당하는 일정 가져오기
+//    public List<ScheduleDto> getPostByUserEmail(String userEmail) {
+//        List<Schedule> schedules = scheduleRepository.findByUserEmail(userEmail);
+//        log.info("조인 리스트 가져가기 : {}", userEmail);
+//        return schedules.stream()
+//                .map(this::convertEntityToDto)
+//                .collect(Collectors.toList());
+//    }
+
 
     //엔티티를 dto로 변환
     private ScheduleDto convertEntityToDto(Schedule schedule) {
