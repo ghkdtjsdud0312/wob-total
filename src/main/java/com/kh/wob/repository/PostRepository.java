@@ -10,5 +10,5 @@ import java.util.Optional;
 public interface PostRepository extends JpaRepository<Post, Long> {
 
     Optional<Post> findByTitle(String title);
-    List<Post> findByTitleContaining(String keyword);
+    List<Post> findByCategoryNameContaining(String keyword);
 }

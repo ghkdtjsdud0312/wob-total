@@ -112,7 +112,7 @@ public class PostService {
     }
 
     public List<PostDto> getSearch(String keyword) {
-        List<Post> posts = postRepository.findByTitleContaining(keyword);
+        List<Post> posts = postRepository.findByCategoryNameContaining(keyword);
         List<PostDto> postDtos = new ArrayList<>();
         for(Post post : posts) {
             postDtos.add(convertEntityToDto(post));
