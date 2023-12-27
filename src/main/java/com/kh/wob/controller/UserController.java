@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -49,6 +50,16 @@ public class UserController {
         boolean isTrue = userService.saveTeacherInfo(userSignUpDto);
         return ResponseEntity.ok(isTrue);
     }
+
+    // 강사명 전화번호 가져오기
+    @GetMapping("/getTeacherInfo/{email}")
+    public ResponseEntity<List<UserSignUpDto>> getTeacherInfo(@PathVariable String email) {
+        System.out.println("getTeacherInfo email : " + email);
+        List<UserSignUpDto> userSignUpDto = userService.getTeacherInfo(email);
+        return ResponseEntity.ok(userSignUpDto);
+    }
+
+
 
 
 }

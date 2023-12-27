@@ -1,5 +1,6 @@
 package com.kh.wob.dto;
 
+import com.kh.wob.constant.SocialType;
 import lombok.*;
 
 import java.util.List;
@@ -19,5 +20,6 @@ public class UserMyPageDto {
     private List<String> interestSports;
     private List<String> interestArea;
     private String withdrawal;
+    private SocialType social;
     private String active; // 관리자 활성화,비활성화-회원목록
 }

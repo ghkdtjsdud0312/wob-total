@@ -9,6 +9,9 @@ import com.kh.wob.repository.PostRepository;
 import com.kh.wob.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -68,13 +71,21 @@ public class PaymentService {
         return convertEntityToDto(payment);
 
     }
-    // 결제 내역 선택 조회
-    public PaymentDto paymentListByEmail(String email) {
-        Payment payment = paymentRepository.findByUserEmail(email).orElseThrow(
-                () -> new RuntimeException("해당 결제 내역이 없습니다.")
-        );
-        return convertEntityToDto(payment);
+    // 결제 내역 페이지네이션
+    public List<PaymentDto> paymentListByEmail(String email, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Payment> paymentPage = paymentRepository.findByUserEmailOrderByIdDesc(email, pageable);
+        List<PaymentDto> paymentDtos = new ArrayList<>();
+        for(Payment payment : paymentPage.getContent()) {
+            paymentDtos.add(convertEntityToDto(payment));
+        }
+        return paymentDtos;
 
+    }
+
+    // 페이지 수 조회
+    public int getPaymentPage(String email, Pageable pageable) {
+        return paymentRepository.findByUserEmailOrderByIdDesc(email,pageable).getTotalPages();
     }
 
     // payment 엔티티를 dto로 변환

@@ -86,6 +86,21 @@ public class UserService {
         return convertEntityToDto(user);
     }
 
+    // 회원 이름, 전화번호 조회
+    public List<UserSignUpDto> getTeacherInfo(String email) {
+        User user = userRepository.findByEmail(email).orElseThrow(
+                () -> new RuntimeException("해당회원이 존재하지 않습니다.")
+        );
+        List<UserSignUpDto> userSignUpDtoList = new ArrayList<>();
+
+        // UserSignUpDto 인스턴스를 생성하여 필요한 정보를 설정한 후 리스트에 추가
+        UserSignUpDto userSignUpDto = new UserSignUpDto();
+        userSignUpDto.setName(user.getName());
+        userSignUpDto.setPhoneNumber(user.getPhoneNumber());
+        userSignUpDtoList.add(userSignUpDto);
+        return userSignUpDtoList;
+    }
+
     //회원 수정
     public boolean modifyUser(UserMyPageDto userMyPageDto) {
         try {
@@ -144,6 +159,7 @@ public class UserService {
         userMyPageDto.setInterestSports(user.getInterestSports());
         userMyPageDto.setInterestArea(user.getInterestArea());
         userMyPageDto.setActive(user.getActive()); // 회원 목록에 사용
+        userMyPageDto.setSocial(user.getSocialType());
         return userMyPageDto;
     }
 
