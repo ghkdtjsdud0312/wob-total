@@ -56,11 +56,11 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
         response.addHeader(jwtService.getRefreshHeader(), "Bearer " + refreshToken);
 
 
-//        userRepository.findByEmail(oAuth2User.getEmail())
-//                .ifPresent(user -> {
-//                    user.updateRefreshToken(refreshToken);
-//                    userRepository.saveAndFlush(user);
-//                });
+        userRepository.findByEmail(oAuth2User.getEmail())
+                .ifPresent(user -> {
+                    user.updateRefreshToken(refreshToken);
+                    userRepository.saveAndFlush(user);
+                });
 
         jwtService.sendAccessAndRefreshToken(response, accessToken, refreshToken);
         jwtService.updateRefreshToken(oAuth2User.getEmail(), refreshToken);
