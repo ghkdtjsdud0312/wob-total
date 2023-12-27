@@ -15,6 +15,7 @@ import com.kh.wob.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -61,12 +62,16 @@ public class SecurityConfig implements WebMvcConfigurer {
 
                 //== URL별 권한 관리 옵션 ==//
                 .authorizeRequests()
+                .antMatchers("/", "/static/**").permitAll()
+                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
                 .antMatchers("/ws/**", "/movies/**", "/elastic/**", "/category/**").permitAll()
                 .antMatchers("/v2/api-docs", "/swagger-resources/**", "/swagger-ui.html", "/webjars/**", "/swagger/**", "/sign-api/exception").permitAll()
                 // 아이콘, css, js 관련
                 // 기본 페이지, css, image, js 하위 폴더에 있는 자료들은 모두 접근 가능, h2-console에 접근 가능
                 .antMatchers("/","/css/**","/images/**","/js/**","/favicon.ico","/h2-console/**").permitAll()
                 .antMatchers("/sign-up", "/check-nickname", "/login/mailConfirm", "/login/mailVerify", "/forgot-pw").permitAll() // 회원가입 접근 가능
+
 //                .antMatchers("/category/add").hasRole("ADMIN")
                 .anyRequest().authenticated() // 위의 경로 이외에는 모두 인증된 사용자만 접근 가능
                 .and()
@@ -74,8 +79,8 @@ public class SecurityConfig implements WebMvcConfigurer {
                 .and()
                 //== 소셜 로그인 설정 ==//
                 .oauth2Login()
-//                    .loginPage("/signin") // OAuth2 로그인 페이지 경로
-//                    .permitAll()
+                    .loginPage("/signin") // OAuth2 로그인 페이지 경로
+                    .permitAll()
                 .successHandler(oAuth2LoginSuccessHandler) // 동의하고 계속하기를 눌렀을 때 Handler 설정
                 .failureHandler(oAuth2LoginFailureHandler) // 소셜 로그인 실패 시 핸들러 설정
                 .userInfoEndpoint().userService(customOAuth2UserService); // customUserService 설정
