@@ -4,7 +4,7 @@ import AdminAxiosApi from "../../api/AdminAxiosApi";
 import { useNavigate } from "react-router-dom";
 
 const MapContainer = styled.div`
-  width: 40%;
+  width: 75%;
   height: 45vh;
   margin: 0 auto;
 `;
@@ -19,7 +19,7 @@ const AppContainer = styled.div`
 
 const SearchContainer = styled.div`
   position: relative;
-  width: 40%;
+  width: 45%;
   top: 20px;
   left: 30%;
   background-color: #fff;
@@ -38,7 +38,7 @@ const InputWrapper = styled.div`
 
 const InfoWindowContainer = styled.div`
   position: relative;
-  width: 40%;
+  width: 45%;
   top: 25px;
   left: 30%;
   background-color: #fff;
@@ -156,7 +156,7 @@ const KakaoMap = () => {
 
   return (
     <AppContainer>
-      <p>🏋🏻‍♀️내 주변 종목 찾기🏋🏻‍♀️</p>
+      <p>🏋🏻‍♀️내 주변 WOB 찾기🏋🏻‍♀️</p>
       <MapContainer ref={mapRef}></MapContainer>
       <SearchContainer>
         <InputWrapper>

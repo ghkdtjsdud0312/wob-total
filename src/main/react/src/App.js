@@ -20,7 +20,6 @@ import AdminMain from "./page/admin/AdminMain";
 import Advertising from "./page/admin/Advertising";
 import AllBoardContent from "./page/admin/AllBoardContent";
 import AllMemberInfo from "./page/admin/AllMemberInfo";
-import AskContent from "./page/admin/AskContent";
 import TestLoginPage from "./page/Login";
 import AdminBoardRegistration from "./page/admin/AdminBoardRegistration";
 import AllPaymentList from "./page/admin/AllPaymentList";
@@ -107,8 +106,6 @@ function App() {
 
             {/* 전체 결제 내역 관리 */}
             <Route path="/AllPaymentList" element={<AllPaymentList />} />
-            {/* 문의하기(Q&A) */}
-            <Route path="/AskContent" element={<AskContent />} />
           </Route>
           <Route
             path="/CompletePayment/:paymentId"

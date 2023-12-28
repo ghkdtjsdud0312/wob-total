@@ -45,9 +45,6 @@ const Layout = () => {
       case 4:
         navigate("/Advertising");
         break;
-      case 5:
-        navigate("/AskContent");
-        break;
       default:
     }
   };
@@ -139,16 +136,6 @@ const Layout = () => {
                 <ul className="sub-menu">
                   <li onClick={() => handleAreaNavigate("/Advertising")}>
                     광고 목록보기
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <div className="m-title" onClick={() => onClickMenu(5)}>
-                  1:1 문의하기
-                </div>
-                <ul className="sub-menu">
-                  <li onClick={() => handleAreaNavigate("/AskContent")}>
-                    관리자 1:1 문의 채팅 목록보기
                   </li>
                 </ul>
               </li>
