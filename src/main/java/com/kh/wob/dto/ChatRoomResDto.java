@@ -59,13 +59,14 @@ public class ChatRoomResDto {
             // 입장과 퇴장이 아닌 경우 => 메세지를 보내는 경우 -> 보낼 때마다 메세지 저장
             chatService.saveMessage(chatMessage.getRoomId(), chatMessage.getSender(), chatMessage.getMessage());
             log.debug("Message received: " + chatMessage.getMessage());
+            sendMessage(chatMessage, chatService);
         }
 
 //        if (this.isSessionEmpty()) {
 //            // 채팅방이 빈 상태이면 채팅방을 제거
 //            chatService.removeRoom(this.roomId);
 //        }
-        sendMessage(chatMessage, chatService);
+
     }
 
     // 채팅방 세션 제거

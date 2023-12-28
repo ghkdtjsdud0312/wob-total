@@ -244,7 +244,7 @@ const PostDetail = ({ categoryImage }) => {
           {post.type === "lesson" && (
             <ChatStart postId={postId}>채팅방입장</ChatStart>
           )}
-          {post.type === "lesson" && post.fee >= 100 ? (
+          {post.type === "lesson" && post.fee > 100 ? (
             <PaymentBtn onClick={() => onModalOpen()}>결제하기</PaymentBtn>
           ) : (
             <ContentButton onClick={handleAddSchedule}>일정추가</ContentButton>
