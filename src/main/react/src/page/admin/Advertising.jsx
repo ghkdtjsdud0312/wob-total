@@ -90,6 +90,7 @@ const Advertising = () => {
   const [currentPage, setCurrentPage] = useState(0); // 현재 페이지
   const [totalPage, setTotalPage] = useState(0); // 총 페이지 수
   const [num, setNum] = useState(0); // 인덱스 번호
+  const [isChange, setIsChange] = useState(false);
   const navigate = useNavigate();
 
   // 수정, 등록 시 경로 이동
@@ -97,31 +98,42 @@ const Advertising = () => {
     navigate(path);
   };
 
+  const getTotalPage = async () => {
+    try {
+      const res = await AdminAxiosApi.adPageCount(0, 5);
+      setTotalPage(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+    setIsChange(false);
+  };
+
   // 총 페이지 수 계산
   useEffect(() => {
-    const totalPage = async () => {
-      try {
-        const res = await AdminAxiosApi.userPageCount(0, 5);
-        setTotalPage(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    totalPage();
+    getTotalPage();
   }, []);
+
+  useEffect(() => {
+    console.log("isChange? : " + isChange);
+    if (isChange) {
+      getTotalPage();
+      fetchAdList();
+    }
+  }, [isChange]);
+
+  const fetchAdList = async () => {
+    try {
+      const res = await AdminAxiosApi.adPageList(currentPage, 5);
+      console.log(res.data);
+      setAdList(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // 회원 목록 (페이지나누기)
   useEffect(() => {
-    const userGet = async () => {
-      try {
-        const res = await AdminAxiosApi.userPageList(currentPage, 5);
-        console.log(res.data);
-        setAdList(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    userGet();
+    fetchAdList();
   }, [currentPage]);
 
   // 페이지 이동
@@ -162,6 +174,7 @@ const Advertising = () => {
               <th>비용</th>
               <th>게시기간</th>
               <th>작성일자</th>
+              <th>상태</th>
               <th>분류선택</th>
               <th>수정</th>
               <th>삭제</th>
@@ -174,6 +187,8 @@ const Advertising = () => {
                   key={data.id} // 고유한 키 생성
                   data={data}
                   index={index + num}
+                  active={data.active === "active"}
+                  setIsChange={setIsChange}
                 />
               ))}
           </tbody>

@@ -71,7 +71,18 @@ public class AdService {
             return false;
         }
     }
-    // 광고 검색
+    // 광고 삭제
+    public boolean deleteAd(String postId) {
+        try {
+            Ad ad = adRepository.findById(postId).orElseThrow(()-> new RuntimeException("존재하지 않는 광고입니다"));
+            adRepository.delete(ad);
+            log.info("해당 광고가 삭제되었습니다. : ", postId);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     // 광고 등록
     public boolean saveAd(AdDto adDto) {

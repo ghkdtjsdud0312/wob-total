@@ -1,4 +1,4 @@
-// 카테고리 목록
+// 회원 목록
 import styled from "styled-components";
 import { useState } from "react";
 import Button from "../Button";
@@ -8,11 +8,11 @@ import Modal from "../../utils/Modal";
 const TrComp = styled.tr`
   td {
     outline: 1px solid #dce0df;
-    border-radius: 10px;
     padding: 15px;
     text-align: center;
     width: 50px;
     vertical-align: middle;
+    background-color: ${(props) => (props.$active ? "white" : "#c4c1c1")};
 
     &.center {
       text-align: center;
@@ -24,12 +24,14 @@ const TrComp = styled.tr`
         &:disabled {
           opacity: 1;
         }
+        option {
+        }
       }
     }
   }
 `;
 
-const Tr2 = ({ data, index }) => {
+const Tr2 = ({ data, index, setIsChange }) => {
   const [userContent, setUserContent] = useState("");
   const [userActive, setUserActive] = useState(true);
   const [confirmRevise, setConfirmRevise] = useState(false);
@@ -48,12 +50,15 @@ const Tr2 = ({ data, index }) => {
   // 수정 모달창
   const confirmModal = async () => {
     console.log("Data in Tr component:", data);
-    console.log("수정 데이터 : ", data.email, userContent);
-    const rsp = await AdminAxiosApi.userListState(data.email, userContent);
+    console.log("수정 데이터 : ", data.id, userContent);
+    const rsp = await AdminAxiosApi.userListState(data.id, userContent);
     console.log("rsp : ", rsp.data);
     if (rsp.data) {
       alert("해당 회원정보가 수정되었습니다.");
-      setModalOpen(false);
+      setModalOpen(false); // 모달 여는 것
+      setIsChange(true); //
+      setConfirmRevise(false); //
+      setUserActive(true); //
     } else {
       alert("해당 회원정보가 수정되지 않았습니다.");
     }
@@ -61,11 +66,14 @@ const Tr2 = ({ data, index }) => {
 
   // 삭제
   const deleteModal = async () => {
-    const rsp = await AdminAxiosApi.userDelete(data.categoryId);
-    console.log(data.categoryId);
-    if (rsp.status === 200) {
+    console.log("Data in Tr2 component:", data);
+    console.log("삭제 데이터 : ", data.email);
+    const resp = await AdminAxiosApi.userDelete(data.email);
+    console.log("rsp : ", resp.data);
+    if (resp.status === 200) {
       alert("해당 회원정보가 삭제 되었습니다.");
       setModalOpen(false);
+      setIsChange(true);
     } else {
       alert("해당 회원정보가 삭제되지 않았습니다.");
     }
@@ -97,7 +105,7 @@ const Tr2 = ({ data, index }) => {
   };
 
   return (
-    <TrComp>
+    <TrComp $active={data.active === "active"}>
       {/* 숫자 자동증가 */}
       <td className="center">{index + num}</td>
       <td>{data.name}</td>
@@ -106,6 +114,7 @@ const Tr2 = ({ data, index }) => {
       <td>{data.withdrawal}</td>
       <td>{data.selectedAgreement}</td>
       <td>{data.phoneNumber}</td>
+      <td isEnabled={data.active}>{data.active}</td>
       {/* 셀렉트 */}
       <td className="selectBox">
         <select
@@ -113,8 +122,8 @@ const Tr2 = ({ data, index }) => {
           disabled={userActive}
           value={userContent}
           onChange={handleSelectChange}>
-          <option value="active">활동게시글</option>
-          <option value="inactive">비활동게시글</option>
+          <option value="active">활동계정</option>
+          <option value="inactive">휴먼계정</option>
         </select>
       </td>
       <td>
@@ -134,7 +143,7 @@ const Tr2 = ({ data, index }) => {
           type="button"
           label="삭제"
           size="normal"
-          value={data.id}
+          value={data.email}
           onClick={clickDelete}
         />
       </td>

@@ -62,7 +62,7 @@ public class SecurityConfig implements WebMvcConfigurer {
 
                 //== URL별 권한 관리 옵션 ==//
                 .authorizeRequests()
-                .antMatchers("/", "/static/**").permitAll()
+                .antMatchers("/", "/static/**","/adminmain").permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
                 .antMatchers("/ws/**", "/movies/**", "/elastic/**", "/category/**").permitAll()

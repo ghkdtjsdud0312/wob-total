@@ -46,7 +46,13 @@ public class AdController {
         Integer pageCnt = adService.getAds(pageRequest);
         return ResponseEntity.ok(pageCnt);
     }
-    // 광고 검색
+    // 광고 삭제
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Boolean> adDelete(@PathVariable String postId) {
+        log.info("postId : ", postId );
+        boolean isTrue = adService.deleteAd(postId);
+        return ResponseEntity.ok(isTrue);
+    }
 
     // 광고 등록
     @PostMapping("/new")

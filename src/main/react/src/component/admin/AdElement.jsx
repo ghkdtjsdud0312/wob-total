@@ -8,11 +8,11 @@ import Modal from "../../utils/Modal";
 const TrComp = styled.tr`
   td {
     outline: 1px solid #dce0df;
-    border-radius: 10px;
     padding: 15px;
     text-align: center;
     width: 50px;
     vertical-align: middle;
+    background-color: ${(props) => (props.$active ? "white" : "#c4c1c1")};
 
     &.center {
       text-align: center;
@@ -42,9 +42,9 @@ const TrComp = styled.tr`
   }
 `;
 
-const Tr3 = ({ data, index }) => {
-  const [categoryContent, setCategoryContent] = useState("");
-  const [categoryActive, setCategoryActive] = useState(true);
+const Tr3 = ({ data, index, setIsChange }) => {
+  const [adContent, setAdContent] = useState("");
+  const [adActive, setAdActive] = useState(true);
   const [confirmRevise, setConfirmRevise] = useState(false);
   const [num, setNum] = useState(0); // 인덱스 번호
 
@@ -61,15 +61,15 @@ const Tr3 = ({ data, index }) => {
   // 수정 모달창
   const confirmModal = async () => {
     console.log("Data in Tr component:", data);
-    console.log("수정 데이터 : ", data.categoryId, categoryContent);
-    const rsp = await AdminAxiosApi.categoryListState(
-      data.categoryId,
-      categoryContent
-    );
+    console.log("수정 데이터 : ", data.id, adContent);
+    const rsp = await AdminAxiosApi.adListState(data.id, adContent);
     console.log("rsp : ", rsp.data);
     if (rsp.data) {
       alert("해당 광고가 수정되었습니다.");
       setModalOpen(false);
+      setIsChange(true);
+      setConfirmRevise(false);
+      setAdActive(true);
     } else {
       alert("해당 광고가 수정되지 않았습니다.");
     }
@@ -77,11 +77,12 @@ const Tr3 = ({ data, index }) => {
 
   // 삭제 모달
   const deleteModal = async () => {
-    const rsp = await AdminAxiosApi.boardDelete(data.categoryId);
-    console.log(data.categoryId);
+    const rsp = await AdminAxiosApi.adDelete(data.id);
+    console.log(data.id);
     if (rsp.status === 200) {
       alert("해당 광고가 삭제 되었습니다.");
       setModalOpen(false);
+      setIsChange(true);
     } else {
       alert("해당 광고가 삭제되지 않았습니다.");
     }
@@ -89,14 +90,14 @@ const Tr3 = ({ data, index }) => {
 
   // 버튼 누르면 바뀜(수정 -> 확인)
   const clickRevise = () => {
-    setCategoryActive(false);
+    setAdActive(false);
     setConfirmRevise(true);
   };
 
   // 게시글 활성화 또는 비활성화 요청 보내기
   const handleSelectChange = (e) => {
-    setCategoryContent(e.target.value);
-    console.log(categoryContent);
+    setAdContent(e.target.value);
+    console.log(adContent);
   };
   // 확인에서 수정된 값 들어감
   const clickOn = async () => {
@@ -113,7 +114,7 @@ const Tr3 = ({ data, index }) => {
   };
 
   return (
-    <TrComp>
+    <TrComp $active={data.active === "active"}>
       {/* 숫자 자동증가 */}
       <td className="center">{index + num}</td>
       <td>{data.categoryName}</td>
@@ -125,15 +126,16 @@ const Tr3 = ({ data, index }) => {
       <td>{data.period}</td>
       <td>{data.fee}</td>
       <td>{data.regDate}</td>
+      <td isEnabled={data.active}>{data.active}</td>
       {/* 셀렉트 */}
       <td className="selectBox">
         <select
           name="category"
-          disabled={categoryActive}
-          value={categoryContent}
+          disabled={adActive}
+          value={adContent}
           onChange={handleSelectChange}>
-          <option value="active">활동게시글</option>
-          <option value="inactive">비활동게시글</option>
+          <option value="active">활동광고</option>
+          <option value="inactive">지난광고</option>
         </select>
       </td>
       <td>

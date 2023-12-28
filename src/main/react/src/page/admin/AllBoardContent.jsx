@@ -91,7 +91,8 @@ const AllBoardContent = () => {
   const [boardList, setBoardList] = useState([]);
   const [currentPage, setCurrentPage] = useState(0); // 현재 페이지
   const [totalPage, setTotalPage] = useState(0); // 총 페이지 수
-  const [num, setNum] = useState(0); // 인덱스 번호
+  const [num, setNum] = useState(1); // 인덱스 번호
+  const [isChange, setIsChange] = useState(false);
   const navigate = useNavigate();
 
   // 수정, 등록 시 경로 이동
@@ -99,31 +100,42 @@ const AllBoardContent = () => {
     navigate(path);
   };
 
+  const getTotalPage = async () => {
+    try {
+      const res = await AdminAxiosApi.boardPageCount(0, 5);
+      setTotalPage(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+    setIsChange(false);
+  };
+
   // 총 페이지 수 계산
   useEffect(() => {
-    const totalPage = async () => {
-      try {
-        const res = await AdminAxiosApi.boardPageCount(0, 5);
-        setTotalPage(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    totalPage();
+    getTotalPage();
   }, []);
 
-  // 게시판 목록 (페이지나누기)
   useEffect(() => {
-    const boardList = async () => {
-      try {
-        const res = await AdminAxiosApi.boardPageList(currentPage, 5);
-        console.log(res.data);
-        setBoardList(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    boardList();
+    console.log("isChange? : " + isChange);
+    if (isChange) {
+      getTotalPage();
+      fetchBoardList();
+    }
+  }, [isChange]);
+
+  const fetchBoardList = async () => {
+    try {
+      const res = await AdminAxiosApi.boardPageList(currentPage, 5);
+      console.log(res.data);
+      setBoardList(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // 회원 목록 (페이지나누기)
+  useEffect(() => {
+    fetchBoardList();
   }, [currentPage]);
 
   // 페이지 이동
@@ -163,6 +175,7 @@ const AllBoardContent = () => {
               <th>로고</th>
               <th>종목</th>
               <th>이미지</th>
+              <th>상태</th>
               <th>분류선택</th>
               <th>수정</th>
               <th>삭제</th>
@@ -176,7 +189,8 @@ const AllBoardContent = () => {
                   key={data.id}
                   data={data}
                   index={index + num}
-                  active={data.active}
+                  active={data.active === "active"}
+                  setIsChange={setIsChange}
                 />
               ))}
           </tbody>

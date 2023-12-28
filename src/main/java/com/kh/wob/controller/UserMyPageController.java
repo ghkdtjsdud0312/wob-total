@@ -73,4 +73,12 @@ public class UserMyPageController {
         return ResponseEntity.ok(pageCnt);
     }
 
+    // 회원 삭제
+    @DeleteMapping("/delete/{email}")
+    public ResponseEntity<Boolean> userDelete(@PathVariable String email) {
+        log.info("email : ", email );
+        boolean isTrue = userService.deleteUser(email);
+        return ResponseEntity.ok(isTrue);
+    }
+
 }

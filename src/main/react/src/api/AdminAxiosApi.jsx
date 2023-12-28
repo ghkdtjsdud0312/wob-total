@@ -8,11 +8,6 @@ const AdminAxiosApi = {
     return await customAxios.get(KH_DOMAIN + `/post/search?keyword=${name}`);
   },
 
-  //회원 조회
-  // memberGet: async (id) => {
-  //   return await axios.get(KH_DOMAIN + `/users/member?id=${id}`);
-  // },
-
   //회원 전체 조회
   userGet: async () => {
     return await customAxios.get(KH_DOMAIN + `/users/list`);
@@ -22,7 +17,6 @@ const AdminAxiosApi = {
   userDelete: async (email) => {
     return await customAxios.delete(KH_DOMAIN + `/users/delete/${email}`);
   },
-  // 광고 삭제
 
   // 회원 페이지네이션 조회
   userPageList: async (page, size) => {
@@ -51,7 +45,7 @@ const AdminAxiosApi = {
     return await customAxios.put(KH_DOMAIN + `/users/state`, data);
   },
 
-  // (카테고리)게시글 등록
+  // 종목 등록
   categorySave: async (name, img, logo) => {
     console.log("name : " + name);
     console.log("img : " + img);
@@ -65,31 +59,31 @@ const AdminAxiosApi = {
     return await customAxios.post(KH_DOMAIN + "/category/add", category);
   },
 
-  // 카테고리 조회
+  // 종목 조회
   boardList: async () => {
     return await customAxios.get(KH_DOMAIN + "/category/list");
   },
 
-  // 카테고리 삭제
+  // 종목 삭제
   boardDelete: async (categoryId) => {
     return await customAxios.delete(
       KH_DOMAIN + `/category/delete/${categoryId}`
     );
   },
 
-  // 게시글 페이지네이션 조회
+  // 종목 페이지네이션 조회
   boardPageList: async (page, size) => {
     return await customAxios.get(
       KH_DOMAIN + `/category/list/page?page=${page}&size=${size}`
     );
   },
 
-  // 페이지 수 조회
+  // 종목 페이지 수 조회
   boardPageCount: async (page, size) => {
     return await customAxios.get(KH_DOMAIN + `/category/count`);
   },
 
-  // 게시판 활성화 바활성화 처리(get)-categoryController
+  // 종목 목록 활성화 바활성화 처리(get)-categoryController
   categoryInfoGet: async () => {
     return await customAxios.get(KH_DOMAIN + `/category/allList`);
   },
@@ -134,6 +128,11 @@ const AdminAxiosApi = {
       active: state,
     };
     return await customAxios.put(KH_DOMAIN + `/ad/state`, data);
+  },
+
+  // 광고 삭제
+  adDelete: async (id) => {
+    return await customAxios.delete(KH_DOMAIN + `/ad/delete/${id}`);
   },
 };
 

@@ -266,6 +266,19 @@ public class UserService {
         }
     }
 
+    // 회원 삭제
+    public boolean deleteUser(String email) {
+        try {
+            User user = userRepository.findByEmail(email).orElseThrow(()-> new RuntimeException("존재하지 않는 이메일입니다"));
+            userRepository.delete(user);
+            log.info("해당 회원이 삭제되었습니다. : ", email);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
 }
 

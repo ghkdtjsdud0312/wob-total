@@ -8,11 +8,11 @@ import Modal from "../../utils/Modal";
 const TrComp = styled.tr`
   td {
     outline: 1px solid #dce0df;
-    border-radius: 10px;
     padding: 15px;
     text-align: center;
     width: 50px;
     vertical-align: middle;
+    background-color: ${(props) => (props.$active ? "white" : "#c4c1c1")};
 
     &.center {
       text-align: center;
@@ -42,7 +42,7 @@ const TrComp = styled.tr`
   }
 `;
 
-const Tr = ({ data, index }) => {
+const Tr = ({ data, index, setIsChange }) => {
   const [categoryContent, setCategoryContent] = useState("");
   const [categoryActive, setCategoryActive] = useState(true);
   const [confirmRevise, setConfirmRevise] = useState(false);
@@ -70,6 +70,9 @@ const Tr = ({ data, index }) => {
     if (rsp.data) {
       alert("해당 종목이 수정되었습니다.");
       setModalOpen(false);
+      setIsChange(true);
+      setConfirmRevise(false);
+      setCategoryActive(true);
     } else {
       alert("해당 종목이 수정되지 않았습니다.");
     }
@@ -82,6 +85,7 @@ const Tr = ({ data, index }) => {
     if (rsp.status === 200) {
       alert("해당 종목이 삭제 되었습니다.");
       setModalOpen(false);
+      setIsChange(true);
     } else {
       alert("해당 종목이 삭제되지 않았습니다.");
     }
@@ -113,7 +117,7 @@ const Tr = ({ data, index }) => {
   };
 
   return (
-    <TrComp>
+    <TrComp $active={data.active === "active"}>
       {/* 숫자 자동증가 */}
       <td className="center">{index + num}</td>
       <td className="image">
@@ -127,6 +131,7 @@ const Tr = ({ data, index }) => {
           <img src={data.image} alt="img" />
         </span>
       </td>
+      <td isEnabled={data.active}>{data.active}</td>
       {/* 셀렉트 */}
       <td className="selectBox">
         <select
