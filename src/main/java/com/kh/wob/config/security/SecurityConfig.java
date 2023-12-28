@@ -62,14 +62,14 @@ public class SecurityConfig implements WebMvcConfigurer {
 
                 //== URL별 권한 관리 옵션 ==//
                 .authorizeRequests()
-                .antMatchers("/", "/static/**","/adminmain").permitAll()
+                .antMatchers( "/static/**","/adminmain").permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
                 .antMatchers("/ws/**", "/movies/**", "/elastic/**", "/category/**").permitAll()
                 .antMatchers("/v2/api-docs", "/swagger-resources/**", "/swagger-ui.html", "/webjars/**", "/swagger/**", "/sign-api/exception").permitAll()
                 // 아이콘, css, js 관련
                 // 기본 페이지, css, image, js 하위 폴더에 있는 자료들은 모두 접근 가능, h2-console에 접근 가능
-                .antMatchers("/","/css/**","/images/**","/js/**","/favicon.ico","/h2-console/**").permitAll()
+                .antMatchers("/css/**","/images/**","/js/**","/favicon.ico","/h2-console/**").permitAll()
                 .antMatchers("/sign-up", "/check-nickname", "/login/mailConfirm", "/login/mailVerify", "/forgot-pw").permitAll() // 회원가입 접근 가능
 
 //                .antMatchers("/category/add").hasRole("ADMIN")
@@ -153,14 +153,14 @@ public class SecurityConfig implements WebMvcConfigurer {
         return jwtAuthenticationFilter;
     }
 
-    @Override  // 메소드 오버라이딩, localhost:3000 번으로 들어오는 요청 허가
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-//                .allowedOrigins(CORS_ORIGIN)
-                .allowedOrigins("http://localhost:3000")
-                .allowedMethods("*")
-                .allowedHeaders("*")
-                .exposedHeaders("Authorization", "Authorization-refresh") //클라이언트에 노출할 헤더 지정(이거 안하면 토큰 안보임)
-                .allowCredentials(true);
-    }
+//    @Override  // 메소드 오버라이딩, localhost:3000 번으로 들어오는 요청 허가
+//    public void addCorsMappings(CorsRegistry registry) {
+//        registry.addMapping("/**")
+////                .allowedOrigins(CORS_ORIGIN)
+//                .allowedOrigins("http://localhost:3000")
+//                .allowedMethods("*")
+//                .allowedHeaders("*")
+//                .exposedHeaders("Authorization", "Authorization-refresh") //클라이언트에 노출할 헤더 지정(이거 안하면 토큰 안보임)
+//                .allowCredentials(true);
+//    }
 }
