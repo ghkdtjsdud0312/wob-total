@@ -4,16 +4,30 @@ import AdminAxiosApi from "../../api/AdminAxiosApi";
 import { useNavigate } from "react-router-dom";
 
 const MapContainer = styled.div`
-  width: 75%;
+  width: 65%;
   height: 45vh;
   margin: 0 auto;
 `;
 
 const AppContainer = styled.div`
   text-align: center;
+  h1 {
+    font-size: 25px;
+    color: #353535;
+    margin-bottom: 5px;
+    span {
+      font-size: 30px;
+    }
+  }
   p {
     font-size: 40px;
-    margin-bottom: 30px;
+    margin-bottom: 5px;
+    span {
+      color: #028c65;
+      .names {
+        color: #04bf8a;
+      }
+    }
   }
 `;
 
@@ -58,7 +72,7 @@ const Input = styled.input`
 `;
 
 const Button = styled.button`
-  background-color: #007bff;
+  background-color: #04bf8a;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -82,7 +96,7 @@ const KakaoMap = () => {
   const [markers, setMarkers] = useState([]); // 마커 배열
   const [selectedPlace, setSelectedPlace] = useState(null); // 선택된 장소
   const [sportsData, setSportsData] = useState(""); // 각 종목데이터 불러오기
-
+  const [text, setText] = useState(""); // 검색한 키워드 저장
   // 현재 위치 가져오기
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(onSuccess, onError);
@@ -119,16 +133,18 @@ const KakaoMap = () => {
 
   // 검색 상자
   const handleSearchInputChange = (event) => {
-    console.log("검색 : ", searchQuery);
+    // console.log("검색 : ", searchQuery);
     setSearchQuery(event.target.value);
   };
 
   // 검색 확인 버튼 누를 시 내용 조회
   const handleSearchButtonClick = async () => {
     console.log("검색 : ", searchQuery);
+    setText(searchQuery);
     const resp = await AdminAxiosApi.mapSearch(searchQuery);
     setSportsData(resp.data);
     console.log(resp);
+    setSearchQuery(""); // 엔터치면 글 초기화
   };
 
   // 지도에 마커 표시하기
@@ -156,17 +172,27 @@ const KakaoMap = () => {
 
   return (
     <AppContainer>
-      <p>🏋🏻‍♀️내 주변 WOB 찾기🏋🏻‍♀️</p>
+      <p>
+        🏋🏻‍♀️내 주변
+        <span>
+          "BU<span className="names">DDY" </span>
+        </span>
+        찾기🏋🏻‍♀️
+      </p>
+      <h1>
+        내가 선택한 종목 : <strong>"{text}"</strong>
+      </h1>
       <MapContainer ref={mapRef}></MapContainer>
       <SearchContainer>
         <InputWrapper>
           <Input
             type="text"
-            placeholder="검색할 장소를 입력하세요!"
+            placeholder="원하는 종목을 검색해보세요"
             value={searchQuery}
             onChange={handleSearchInputChange}
             onKeyUp={(e) => {
-              if (e.key === "Enter") {
+              if (e.key === "Enter" && searchQuery.trim() !== "") {
+                e.preventDefault(); // Enter 키의 기본 동작을 방지
                 handleSearchButtonClick();
               }
             }}
@@ -189,9 +215,9 @@ const KakaoMap = () => {
             <br />
             일정소개: {selectedPlace.introduction}
             <br />
-            <button onClick={() => onClickBtn(selectedPlace.id)}>
+            <Button onClick={() => onClickBtn(selectedPlace.id)}>
               상세내용보기
-            </button>
+            </Button>
           </InfoWindowContent>
         </InfoWindowContainer>
       )}
