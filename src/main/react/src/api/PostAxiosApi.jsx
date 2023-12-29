@@ -21,7 +21,7 @@ const PostAxiosApi = {
       time: props.time,
       userEmail: userEmail,
       type: props.type,
-      image: props.file,
+      image: props.url,
       latitude: props.lat,
       longitude: props.lng,
     };
@@ -38,7 +38,7 @@ const PostAxiosApi = {
       post.time,
       post.email,
       post.type,
-      post.file,
+      post.url,
       post.latitude,
       post.longitude
     );

@@ -64,6 +64,11 @@ const ExplainBox = styled.div`
   color: #555555;
 `;
 
+const InputDate = styled.input`
+  width: 150px;
+  height: 25px;
+`;
+
 const ButtonContainer = styled.div`
   width: 80%;
   height: 100px;
@@ -125,6 +130,7 @@ const AdSubmit = () => {
   const [url, setUrl] = useState("");
   const [period, setPeriod] = useState("");
   const [fee, setFee] = useState("");
+  const [postingDate, setPostingDate] = useState("");
   const [payment, setPayment] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const location = useLocation();
@@ -134,15 +140,19 @@ const AdSubmit = () => {
     e.preventDefault();
 
     // postId 추출
-    const postId = location.pathname.split("/").pop();
+    const postId = Number(location.pathname.split("/").pop());
+    console.log(JSON.stringify(postId));
+    console.log(typeof postId);
 
     const rsp = await AdAxiosApi.adSubmit(postId, {
+      postId: postId,
       url: url,
       period,
       fee,
       payment,
+      postingDate,
     });
-    console.log("응답해라!!!  ", rsp.data);
+    console.log("광고 응답해라!!!  ", rsp.data);
 
     console.log({
       postId: postId,
@@ -150,9 +160,11 @@ const AdSubmit = () => {
       period,
       fee,
       payment,
+      postingDate,
     });
     if (rsp.data) {
       alert("등록 요청 완료");
+      navigate("/");
     }
   };
 
@@ -235,9 +247,20 @@ const AdSubmit = () => {
             주세요.
           </ExplainBox>
         </SubContainer>
-        {/* 두번째 칸: 기간&금액 선택 */}
+        {/* 두번째 칸: 게시일&기간&금액 선택 */}
         <SubContainer>
           <TitleBox>신청 내역</TitleBox>
+          <ContainBox>
+            {/* 게시일자 입력 창 */}
+            <label htmlFor="postingDate">게시 일자</label>
+            <InputDate
+              type="text"
+              name="postingDate"
+              placeholder="YYYY-MM-DD"
+              value={postingDate}
+              onChange={(e) => setPostingDate(e.target.value)}
+            />
+          </ContainBox>
           <ContainBox>
             {/* 기간 선택 드롭다운 */}
             <label htmlFor="period">게시 기간</label>

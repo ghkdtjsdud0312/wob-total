@@ -95,9 +95,12 @@ public class AdService {
                     () -> new RuntimeException("Post not found")
             );
             log.debug("광고 등록하는 postId: " + adDto.getPostId());
+            System.out.println("담긴 ad 정보 : " + ad);
+            ad.setPost(post);
             ad.setImage(adDto.getImage());
             ad.setPeriod(adDto.getPeriod());
             ad.setFee(adDto.getFee());
+            ad.setPostingDate(adDto.getPostingDate());
 
             adRepository.save(ad);
             System.out.println("ad에 뭐가 담기지? " + ad);
@@ -117,6 +120,7 @@ public class AdService {
         adDto.setFee(ad.getFee());
         adDto.setPeriod(ad.getPeriod());
         adDto.setImage(ad.getImage());
+        adDto.setPostingDate(ad.getPostingDate());
         adDto.setRegDate(ad.getRegDate());
         adDto.setActive(ad.getActive());
         return adDto;

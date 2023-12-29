@@ -428,7 +428,7 @@ const PostSubmit = () => {
     navigate(`/adsubmit/${postId}`);
   };
 
-  const cancleButton = () => {
+  const handleCancle = () => {
     navigate("/");
   };
 
@@ -588,7 +588,7 @@ const PostSubmit = () => {
             )}
             <ButtonBox>
               <SubmitButton onClick={handleSubmit}>등록 요청</SubmitButton>
-              <CancleButton onClick={cancleButton}>취소</CancleButton>
+              <CancleButton onClick={handleCancle}>취소</CancleButton>
             </ButtonBox>
           </Form>
         </InputBox>
