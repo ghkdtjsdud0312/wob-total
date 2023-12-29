@@ -11,11 +11,13 @@ const Container = styled.div`
   padding-top: 100px;
 
   .Logo {
-    text-align: center;
-    span {
-      font-size: 40px;
-      font-weight: bold;
-    }
+    cursor: pointer;
+  }
+  span {
+    display: flex;
+    justify-content: center;
+    font-size: 40px;
+    font-weight: bold;
   }
 `;
 
@@ -49,10 +51,10 @@ const AdminMain = () => {
 
   return (
     <Container>
-      <div className="Logo">
+      <div className="Logo" onClick={() => handleNavigate("/")}>
         <FullLogoBth />
-        <span>관리자 메뉴</span>
       </div>
+      <span>관리자 메뉴</span>
       <Buttons>
         <Click onClick={() => handleNavigate("/AllMemberInfo")}>
           전체 회원 관리
