@@ -428,6 +428,10 @@ const PostSubmit = () => {
     navigate(`/adsubmit/${postId}`);
   };
 
+  const cancleButton = () => {
+    navigate("/");
+  };
+
   useEffect(() => {
     const addTrans = async () => {
       if (place) {
@@ -584,7 +588,7 @@ const PostSubmit = () => {
             )}
             <ButtonBox>
               <SubmitButton onClick={handleSubmit}>등록 요청</SubmitButton>
-              <CancleButton type="submit">취소</CancleButton>
+              <CancleButton onClick={cancleButton}>취소</CancleButton>
             </ButtonBox>
           </Form>
         </InputBox>

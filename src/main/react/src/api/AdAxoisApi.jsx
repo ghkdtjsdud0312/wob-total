@@ -11,7 +11,7 @@ const AdAxiosApi = {
 
     const ad = {
       postId: postId,
-      image: props.image,
+      image: props.url,
       period: props.period,
       fee: props.fee,
     };

@@ -5,45 +5,52 @@ import { storage } from "../api/firebase";
 import Modal from "../utils/Modal";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 
+const PageTitle = styled.div`
+  font-size: 1.8rem;
+  font-weight: bold;
+`;
+
 const Container = styled.div`
   max-width: 768px;
   min-width: 300px;
+  height: 700px;
   margin: 0 auto;
   justify-content: center;
   align-items: center;
   color: #555555;
   display: flex;
-  justify-content: center;
   flex-direction: column;
-  border: 1px solid #555555;
+  background-color: var(--MINT);
 `;
 
-const AdBox = styled.div`
+const SubContainer = styled.div`
+  width: 80%;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 1px 1px 5px 0.5px #d8d8d8;
+  background-color: white;
+  margin-top: 20px;
+`;
+
+const ContainBox = styled.div`
   width: 100%;
-  height: auto;
-  text-align: center;
-  border-bottom: 1px solid #555555;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-bottom: 15px;
 `;
 
-const Title = styled.div`
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin: 20px;
-`;
-
-const ImageBox = styled.div`
-  width: 100%;
+const TitleBox = styled.div`
+  font-size: 1.3rem;
+  margin: 10px;
   padding-bottom: 20px;
-  border-bottom: 1px solid #555555;
-`;
-
-const ExplainBox = styled.div`
-  font-size: 0.9rem;
-  color: #555555;
 `;
 
 const Input = styled.input`
-  width: 40%;
+  width: 60%;
   height: auto;
   line-height: normal;
   padding: 1em;
@@ -53,24 +60,25 @@ const Input = styled.input`
   margin-bottom: 20px;
 `;
 
-const ApplicationBox = styled.div`
-  width: 100%;
-  margin-top: 20px;
-
-  padding-bottom: 20px;
+const ExplainBox = styled.div`
+  color: #555555;
 `;
 
-const ButtonBox = styled.div`
+const ButtonContainer = styled.div`
+  width: 80%;
+  height: 100px;
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: space-between;
-  margin: 10px;
+  padding-top: 50px;
 `;
 
 const PaymentButton = styled.button`
   margin: 10px;
   width: 90px;
   height: 45px;
-  background-color: var(--MINT);
+  background-color: var(--WHITE);
   border-radius: 10px;
   border: none;
   font-size: 16px;
@@ -85,7 +93,7 @@ const ConfirmButton = styled.button`
   margin: 10px;
   width: 90px;
   height: 45px;
-  background-color: var(--MINT);
+  background-color: var(--WHITE);
   border-radius: 10px;
   border: none;
   font-size: 16px;
@@ -100,7 +108,7 @@ const CancleButton = styled.button`
   margin: 10px;
   width: 90px;
   height: 45px;
-  background-color: var(--MINT);
+  background-color: var(--WHITE);
   border-radius: 10px;
   border: none;
   font-size: 16px;
@@ -215,96 +223,50 @@ const AdSubmit = () => {
   return (
     <>
       <Container>
-        <Title>광고 신청</Title>
-        <AdBox>
-          <ImageBox>
-            <Title>광고 이미지</Title>
+        <PageTitle>광고 등록</PageTitle>
+        {/* 첫번째 칸: 이미지 업로드 */}
+        <SubContainer>
+          <ContainBox>
+            <TitleBox>광고 이미지</TitleBox>
             <Input type="file" name="file" onChange={handleFileInputChange} />
-            <ExplainBox>
-              * 설명란은 따로 없습니다. 이미지 안에 광고 내용을 모두 기재해
-              주세요.
-            </ExplainBox>
-          </ImageBox>
-          <ApplicationBox>
-            <Title>기간 선택</Title>
+          </ContainBox>
+          <ExplainBox>
+            * 설명 기재란은 따로 없습니다. 이미지 안에 광고 내용을 모두 담아
+            주세요.
+          </ExplainBox>
+        </SubContainer>
+        {/* 두번째 칸: 기간&금액 선택 */}
+        <SubContainer>
+          <TitleBox>신청 내역</TitleBox>
+          <ContainBox>
+            {/* 기간 선택 드롭다운 */}
             <label htmlFor="period">게시 기간</label>
-            <label>
-              <input
-                type="radio"
-                id="period_1"
-                name="period"
-                value="1일"
-                checked={period === "1일"}
-                onChange={() => handlePeriodChange("1일")}
-              />
-              1일
-            </label>
-            <label>
-              <input
-                type="radio"
-                id="period_7"
-                name="period"
-                value="7일"
-                checked={period === "7일"}
-                onChange={() => handlePeriodChange("7일")}
-              />
-              7일
-            </label>
-            <label>
-              <input
-                type="radio"
-                id="period_30"
-                name="period"
-                value="30일"
-                checked={period === "30일"}
-                onChange={() => handlePeriodChange("30일")}
-              />
-              30일
-            </label>
-          </ApplicationBox>
-          <ApplicationBox>
-            <Title>금액 선택</Title>
-            <label htmlFor="fee">광고 금액</label>
-            <label>
-              <input
-                type="radio"
-                id="fee_50000"
-                name="fee"
-                value="50000"
-                checked={fee === "50000"}
-                onChange={() => setFee("50000")}
-              />
-              5만원(1일)
-            </label>
-            <label>
-              <input
-                type="radio"
-                id="fee_200000"
-                name="fee"
-                value="200000"
-                checked={fee === "200000"}
-                onChange={() => setFee("200000")}
-              />
-              20만원(7일)
-            </label>
-            <label>
-              <input
-                type="radio"
-                id="fee_300000"
-                name="fee"
-                value="300000"
-                checked={fee === "300000"}
-                onChange={() => setFee("300000")}
-              />
-              30만원(30일)
-            </label>
-          </ApplicationBox>
-        </AdBox>
-        <ButtonBox>
+            <select
+              id="period"
+              name="period"
+              value={period}
+              onChange={(e) => handlePeriodChange(e.target.value)}
+              style={{ width: "150px", height: "25px" }}
+            >
+              <option value="">게시 기간 선택</option>
+              <option value="1일">1일</option>
+              <option value="7일">7일</option>
+              <option value="30일">30일</option>
+            </select>
+          </ContainBox>
+          <ContainBox>
+            {/* 광고 금액 표시 */}
+            <label htmlFor="fee">결제 금액</label>
+            <div style={{ width: "150px", height: "25px" }}>
+              {fee && `${fee}원`}
+            </div>
+          </ContainBox>
+        </SubContainer>
+        <ButtonContainer>
           <PaymentButton>결제 하기</PaymentButton>
           <ConfirmButton onClick={handleAdSubmit}>등록 요청</ConfirmButton>
           <CancleButton onClick={handleCancle}>취소</CancleButton>
-        </ButtonBox>
+        </ButtonContainer>
         <Modal
           open={modalOpen}
           close={closeModal}
