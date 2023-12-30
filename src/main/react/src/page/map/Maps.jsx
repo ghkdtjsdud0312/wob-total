@@ -170,6 +170,20 @@ const KakaoMap = () => {
     navigate(`/postDetail/${id}`);
   };
 
+   // 내 현재 위치 값 보여줌
+    const iwPosition = new window.kakao.maps.LatLng(location.lat, location.long);
+    const infowindow = new window.kakao.maps.InfoWindow({
+      position: iwPosition,
+    });
+    infowindow.open();
+    // Marker 생성 및 지도에 추가
+    const marker = new window.kakao.maps.Marker({
+      position: iwPosition,
+    });
+
+    // 지도에 마커 추가
+    marker.setMap(map); // 여기서 map은 이미 생성된 지도 객체를 나타냄
+
   return (
     <AppContainer>
       <p>
