@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const StyledButton = styled.button`
+  white-space: nowrap;
   background-color: ${({ backgroundcolor }) =>
     backgroundcolor || "var(--MINT)"};
   padding: ${({ size }) =>

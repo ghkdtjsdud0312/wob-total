@@ -11,6 +11,9 @@ const Container = styled.div`
   border-radius: 8px;
   width: 768px;
   margin: 0px auto;
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 const SubContainer = styled.div`
   display: flex;
@@ -30,9 +33,10 @@ const SubContainer = styled.div`
     position: relative;
     background-color: transparent; // 버튼 배경 없애기
     border: none;
-    width: 768px;
+    width: 100%;
     height: 100px;
     margin: -30px;
+
     cursor: pointer;
     .text {
       position: absolute;
@@ -42,7 +46,7 @@ const SubContainer = styled.div`
     }
     .pointer {
       position: absolute;
-      right: 50px;
+      right: -10px;
       top: 30px;
       font-size: 30px;
     }
@@ -62,6 +66,9 @@ const SubContainer = styled.div`
       position: absolute;
       left: 15%;
       font-size: 20px;
+      @media only screen and (max-width: 768px) {
+        left: 25%;
+      }
     }
     .connected {
       position: absolute;

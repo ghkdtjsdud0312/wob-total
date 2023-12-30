@@ -8,8 +8,11 @@ const Container = styled.div`
   width: 768px;
   margin: 0px auto;
   background-color: var(--MINT);
-  min-height: 1000px;
+  height: 100%;
   margin-bottom: 100px;
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 const SubContainer = styled.div`
   width: 100%;
@@ -19,10 +22,7 @@ const SubContainer = styled.div`
   align-items: center;
 
   &.sub1 {
-    height: 150px;
-  }
-  &.sub2 {
-    height: 90%;
+    height: 160px;
   }
 `;
 
@@ -43,24 +43,21 @@ const TopTextBox = styled.div`
 const BottomBox = styled.div`
   width: 75%;
   height: 100%;
+  margin-bottom: 15%;
   box-shadow: 1px 1px 5px 0.5px #d8d8d8;
   background-color: white;
 `;
 
 const SubBottomBox = styled.div`
   width: 100%;
-  min-height: 70px;
+  height: 100%;
   border: 1px solid #d8d8d8;
-
-  &.subBox1 {
-    height: 140px;
-  }
 `;
 
 const BottomTextBox = styled.div`
   width: 100%;
   height: 100%;
-  padding: 50px;
+  padding: 40px;
   display: flex;
   align-items: center;
 

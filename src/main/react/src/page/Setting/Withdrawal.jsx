@@ -12,17 +12,24 @@ const Container = styled.div`
   width: 768px;
   height: 1200px;
   margin: 0px auto;
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const SubContainer = styled.div`
   position: relative;
   display: flex;
   align-items: center;
-  width: 768px;
+  width: 100%;
   min-height: 100px;
-  padding-top: 70px;
-  padding-left: 150px;
+  /* padding-top: 70px;
+  padding-left: 130px; */
+  padding: 70px 130px 0px 130px;
   line-height: 35px;
+  @media only screen and (max-width: 768px) {
+    padding: 30px 30px 0px 30px;
+  }
 
   .title {
     font-size: 32px;
@@ -39,7 +46,10 @@ const SubContainer = styled.div`
     color: #ff3e3e;
   }
   .btn {
-    margin-left: 80%;
+    margin-left: 95%;
+    @media only screen and (max-width: 768px) {
+      margin-left: 80%;
+    }
   }
 `;
 const RadioBtn = styled.input`
@@ -62,6 +72,7 @@ const RadioBtn = styled.input`
 const RadioContainer = styled.label`
   margin: 0;
   margin-bottom: 10px;
+  font-size: 18px;
 `;
 const Withdrawal = () => {
   const navigate = useNavigate();

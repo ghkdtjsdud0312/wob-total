@@ -10,17 +10,25 @@ const Container = styled.div`
   border-radius: 8px;
   max-width: 768px;
   margin: 0px auto;
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 const SubContainer = styled.div`
   position: relative;
   align-items: center;
-  width: 768px;
+  width: 100%;
   &.item {
     display: flex;
     flex-direction: row;
     min-height: 100px;
     padding: 25px;
     font-size: 30px;
+    @media only screen and (max-width: 768px) {
+      margin-top: 30px;
+      height: 150px;
+      flex-direction: column;
+    }
   }
   &.hint {
     color: gray;
@@ -41,9 +49,13 @@ const Input = styled.input`
   border: none;
   border-bottom: 1px solid var(--BLACK);
   cursor: pointer;
+  @media only screen and (max-width: 768px) {
+    top: 100px;
+  }
 `;
 const ButtonBox = styled.div`
-  margin-left: 40%;
+  position: absolute;
+  left: 42%;
 `;
 
 const PasswordChange = () => {

@@ -36,6 +36,9 @@ const MenuText = styled.div`
   position: absolute;
   left: 45%;
   font-size: 28px;
+  @media only screen and (max-width: 768px) {
+    left: 40%;
+  }
 `;
 
 const SettingHeader = ({ title }) => {
