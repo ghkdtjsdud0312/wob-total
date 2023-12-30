@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Common from "../../utils/Common";
 import SettingAxiosApi from "../../api/SettingAxiosApi";
 import { formatDate } from "../../utils/Common";
+import Modal from "../../utils/Modal";
 const Container = styled.div`
   position: relative;
   /* padding: 24px; */
@@ -13,6 +14,9 @@ const Container = styled.div`
   min-height: 800px;
   margin: 0px auto;
   margin-bottom: 100px;
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const ChatUl = styled.ul`
@@ -55,7 +59,7 @@ const ChatDate = styled.p`
 const CircleFixedButton = styled.button`
   position: fixed; // 버튼을 부모 컨테이너에 대해 절대적 위치로 설정
   bottom: 100px;
-  right: 30%;
+  right: 10%;
   z-index: 10;
 
   width: 60px; // 버튼의 크기를 정사각형으로 설정
@@ -96,9 +100,47 @@ const ChatLegnthZero = styled.div`
   justify-content: center;
   font-size: 24px;
 `;
+
+const ModalContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
+const ModalText1 = styled.p`
+  font-size: 1.3rem;
+  white-space: nowrap;
+  width: 30%;
+`;
+const ModalText2 = styled.input`
+  font-size: 24px;
+  width: 60%;
+`;
 const FreeChat = () => {
   const [chatRooms, setChatRooms] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [chatRoomTitle, setChatRoomTitle] = useState("");
+  const [isTitle, setIsTitle] = useState(false);
   const navigate = useNavigate();
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
+  // 채팅방 생성하는 코드
+  const confirmModal = async () => {
+    if (isTitle) {
+      try {
+        const response = await SettingAxiosApi.freeChatCreate(chatRoomTitle);
+        console.log(response.data);
+        navigate(`/chatting/${response.data}`);
+      } catch (e) {
+        console.log("error : ", e);
+      }
+    } else {
+      alert("방 제목을 입력해주세요.");
+    }
+  };
 
   useEffect(() => {
     // 서버로부터 채팅방 목록을 가져오는 API 호출
@@ -122,9 +164,21 @@ const FreeChat = () => {
     navigate(`/chatting/${roomId}`);
   };
 
+  // 채팅방 생성하기 위해 방제 입력하는 모달 띄우기
   const createChatRoom = () => {
-    navigate("/ChatCreate");
+    setModalOpen(true);
   };
+
+  // 채팅방 제목 저장
+  const onChangeTitle = (e) => {
+    if (e.target.value === null && "") {
+      setIsTitle(false);
+    } else {
+      setChatRoomTitle(e.target.value);
+      setIsTitle(true);
+    }
+  };
+
   return (
     <>
       <SettingHeader title="자유채팅방" />
@@ -146,6 +200,21 @@ const FreeChat = () => {
           ))}
         </ChatUl>
         <CircleFixedButton onClick={createChatRoom}></CircleFixedButton>
+        <Modal
+            open={modalOpen}
+            close={closeModal}
+            confirm={confirmModal}
+            type={true}
+            header="새 채팅방 제목을 입력해주세요."
+        >
+          <ModalContainer>
+            <ModalText1>방제목</ModalText1>
+            <ModalText2
+                value={chatRoomTitle}
+                onChange={onChangeTitle}
+            ></ModalText2>
+          </ModalContainer>
+        </Modal>
       </Container>
     </>
   );
