@@ -46,6 +46,7 @@ const Payment = (props) => {
       buyer_name: userName, // 구매자 이름
       buyer_tel: userPhone, // 구매자 전화번호
       buyer_email: localStorage.getItem("email"), // 구매자 이메일
+      adId: adId,
     };
 
     /* 4. 결제 창 호출하기 */
@@ -74,7 +75,8 @@ const Payment = (props) => {
         fee,
         name,
         postUserName,
-        postPhoneNum
+        postPhoneNum,
+        adId
       );
       if (rsp.data) {
         console.log("rsp2.data.paymentId", rsp.data.id);

@@ -13,7 +13,8 @@ const PaymentAxiosApi = {
     fee,
     postTitle,
     postUserName,
-    postPhoneNum
+    postPhoneNum,
+    adId
   ) => {
     const payment = {
       userEmail: userEmail,
@@ -24,6 +25,7 @@ const PaymentAxiosApi = {
       postTitle: postTitle,
       postUserName: postUserName,
       postPhoneNum: postPhoneNum,
+      adId,
     };
     return await customAxios.post(KH_DOMAIN + "/pay/add", payment);
   },
