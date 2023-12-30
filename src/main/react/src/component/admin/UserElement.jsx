@@ -108,11 +108,11 @@ const Tr2 = ({ data, index, setIsChange }) => {
     <TrComp $active={data.active === "active"}>
       {/* 숫자 자동증가 */}
       <td className="center">{index + num}</td>
-      <td>{data.name}</td>
       <td>{data.email}</td>
       <td>{data.nickname}</td>
       <td>{data.withdrawal}</td>
       <td>{data.selectedAgreement}</td>
+      <td>{data.name}</td>
       <td>{data.phoneNumber}</td>
       <td isEnabled={data.active}>{data.active}</td>
       {/* 셀렉트 */}

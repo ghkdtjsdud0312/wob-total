@@ -13,13 +13,18 @@ const BoardContainer = styled.div`
   margin: 0 auto;
   padding-top: 100px;
 
-  .tableBox {
-    // 카테고리 목록 css
+    .logo {
+      cursor: pointer;
+    }
+
+   // 카테고리 목록 css
     p {
       text-align: center;
-      font-size: 35px;
+      font-size: 45px;
       padding-bottom: 50px;
     }
+
+  .tableBox {
     //table 표
     table {
       margin: 0 auto;
@@ -27,6 +32,8 @@ const BoardContainer = styled.div`
         tr {
           th {
             padding: 20px 10px;
+            font-size: 20px;
+            white-space: nowrap;
           }
         }
       }
@@ -38,6 +45,16 @@ const BoardContainer = styled.div`
       }
     }
   }
+    @media screen and (min-width: 375px) {
+      .tableBox {
+        width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+        table {
+          width: auto;
+        }
+      }
+    }
 `;
 
 // 등록 버튼
@@ -160,11 +177,11 @@ const Advertising = () => {
 
   return (
     <BoardContainer>
-      <div className="Logo">
+      <div className="Logo" onClick={() => handleClick("/AdminMain")}>
         <FullLogoBth />
       </div>
+       <p>전체 광고 관리 목록</p>
       <div className="tableBox">
-        <p>전체 광고 관리 목록</p>
         <table>
           <thead>
             <tr>
@@ -196,7 +213,7 @@ const Advertising = () => {
       </div>
       {renderPagination()}
       <Buttons>
-        <button onClick={() => handleClick("/AdminMain")}>메인으로가기</button>
+        <button onClick={() => handleClick("/AdminMain")}>뒤로가기</button>
       </Buttons>
       {/* 햄버거 토글 사이드바 */}
       <Layout />

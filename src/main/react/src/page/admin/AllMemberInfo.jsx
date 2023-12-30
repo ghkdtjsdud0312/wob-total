@@ -13,13 +13,18 @@ const BoardContainer = styled.div`
   margin: 0 auto;
   padding-top: 100px;
 
-  .tableBox {
-    // 카테고리 목록 css
+    .logo {
+      cursor: pointer;
+    }
+
+   // 카테고리 목록 css
     p {
       text-align: center;
-      font-size: 35px;
+      font-size: 45px;
       padding-bottom: 50px;
     }
+
+  .tableBox {
     //table 표
     table {
       margin: 0 auto;
@@ -27,6 +32,9 @@ const BoardContainer = styled.div`
         tr {
           th {
             padding: 20px 10px;
+            vertical-align: middle;
+            font-size: 20px;
+            white-space: nowrap;
           }
         }
       }
@@ -38,6 +46,16 @@ const BoardContainer = styled.div`
       }
     }
   }
+   @media screen and (min-width: 375px) {
+      .tableBox {
+        width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+        table {
+          width: auto;
+        }
+      }
+    }
 `;
 
 // 등록 버튼
@@ -160,20 +178,20 @@ const AllMemberInfo = () => {
 
   return (
     <BoardContainer>
-      <div className="Logo">
+      <div className="Logo"  onClick={() => handleClick("/AdminMain")}>
         <FullLogoBth />
       </div>
+       <p>전체 회원 관리 목록</p>
       <div className="tableBox">
-        <p>전체 회원 관리 목록</p>
         <table>
           <thead>
             <tr>
               <th>번호</th>
-              <th>이름</th>
               <th>이메일</th>
               <th>닉네임</th>
               <th>탈퇴이유</th>
-              <th>약관동의 선택</th>
+              <th>약관동의</th>
+              <th>이름</th>
               <th>전화번호</th>
               <th>상태</th>
               <th>분류선택</th>
@@ -197,7 +215,7 @@ const AllMemberInfo = () => {
       </div>
       {renderPagination()}
       <Buttons>
-        <button onClick={() => handleClick("/AdminMain")}>메인으로가기</button>
+        <button onClick={() => handleClick("/AdminMain")}>뒤로가기</button>
       </Buttons>
       {/* 햄버거 토글 사이드바 */}
       <Layout />

@@ -2,7 +2,6 @@
 import React from "react";
 import styled from "styled-components";
 import FullLogoBth from "../../component/admin/FullLogoBtn";
-import SubHeader from "../../layout/SubHeader";
 import { useState } from "react";
 import AdminAxiosApi from "../../api/AdminAxiosApi";
 import { storage } from "../../api/firebase";
@@ -11,33 +10,21 @@ import { useNavigate } from "react-router-dom";
 
 // 전체 감싸는 css
 const Container = styled.div`
-  max-width: 768px;
-  min-width: 300px;
+  max-width: 1200px;
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
+  padding-top: 100px;
 
   // 상단바 로고와 페이지 이름
   .Logo {
-    display: flex;
-    align-items: center;
-
-    span {
-      font-size: 30px;
-      font-weight: bold;
-      margin: 80px;
-    }
+    cursor: pointer;
   }
 `;
 
 // 게시물 등록 제목
 const Title = styled.div`
-  color: #333;
   text-align: center;
-  font-size: 25px;
-  font-weight: bold;
-  margin: 30px 20px;
-  display: flex;
+  font-size: 45px;
+  padding-bottom: 50px;
 `;
 
 // 게시물 등록 전체 감싸는 칸
@@ -45,6 +32,11 @@ const FormContainer = styled.div`
   height: 700px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  @media screen and (min-width: 375px) {
+    border: 1px solid #ddd;
+    width: 100%;
+  }
 `;
 
 // 종목, 사진, 로고 감싸는 란
@@ -139,6 +131,10 @@ const AdminBoardRegistration = () => {
   const [file2, setFile2] = useState(null); // 파일2(로고이미지)
   const navigate = useNavigate();
 
+  // 목록으로 돌아가기
+  const handleBack = (path) => {
+    navigate(path);
+  };
   // 종목명 name에 저장
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -166,7 +162,7 @@ const AdminBoardRegistration = () => {
 
   // 취소 버튼 누르면 목록으로 감
   const handleReset = () => {
-    navigate(-1);
+    navigate("/AllBoardContent");
   };
 
   // img 파일 선택
@@ -224,10 +220,8 @@ const AdminBoardRegistration = () => {
 
   return (
     <Container>
-      <SubHeader />
-      <div className="Logo">
+      <div className="Logo" onClick={() => handleBack("/AdminMain")}>
         <FullLogoBth />
-        <span>전체 카테고리 등록</span>
       </div>
       {/* 게시물 등록 */}
       <Title>카테고리 등록</Title>

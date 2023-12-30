@@ -59,7 +59,7 @@ const AdminMain = () => {
         <Click onClick={() => handleNavigate("/AllMemberInfo")}>
           전체 회원 관리
         </Click>
-        <Click onClick={() => handleNavigate("/AllPaymentContent")}>
+        <Click onClick={() => handleNavigate("/AllPaymentList")}>
           전체 결제 내역 관리
         </Click>
         <Click onClick={() => handleNavigate("/AllBoardContent")}>

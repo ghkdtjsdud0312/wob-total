@@ -8,12 +8,19 @@ export const Container = styled.div`
   top: 30px;
   left: 30px;
 
+  // 햄버거 버튼
   .mainhead {
-    height: 54px;
-    width: 100%;
+    height: 60px;
+    width: 20%;
     display: flex;
+    justify-content: end;
     align-items: center;
-    /* z-index: 100; */
+    @media screen and (min-width: 375px) {
+      height: 60px;
+      width: 7%;
+      display: flex;
+      align-items: center;
+    }
 
     // 관리자 관리 내역
     .welcome {
@@ -22,7 +29,6 @@ export const Container = styled.div`
       justify-content: center;
       color: #353535;
 
-      /* 햄버거 버튼 css */
       .hambeger {
         position: relative;
       }
@@ -35,17 +41,17 @@ export const Container = styled.div`
 
 // 햄버거 토글 안 목록
 export const List = styled.ul`
-  margin: 30px;
+  margin: 50px;
   position: relative;
   .m-title {
     font-size: 23px;
     font-weight: bold;
-    line-height: 60px;
+    line-height: 65px;
     cursor: pointer;
     position: relative;
   }
   .sub-menu {
-    line-height: 65px;
+    line-height: 60px;
     cursor: pointer;
     position: relative;
   }
@@ -58,11 +64,10 @@ export const List = styled.ul`
 export const StyledSideMenu = styled.div`
   position: fixed;
   left: 0;
-  top: 54px;
-  width: 350px;
-  height: calc(100vh - 54px);
+  top: 100px;
+  width: 340px;
+  height: 80vh;
   box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
-  /* z-index: 1000; */
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
   transform: ${(props) =>

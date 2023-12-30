@@ -3,6 +3,7 @@ import React from "react";
 import styled from "styled-components";
 import FullLogoBth from "../../component/admin/FullLogoBtn";
 import Layout from "../../component/admin/Layout";
+import { useNavigate } from "react-router-dom";
 
 // 전체 큰 틀css
 const BoardContainer = styled.div`
@@ -12,6 +13,7 @@ const BoardContainer = styled.div`
 
   .Logo {
     text-align: center;
+    cursor: pointer;
 
     span {
       font-size: 40px;
@@ -22,9 +24,15 @@ const BoardContainer = styled.div`
 
 // 게시판 목록 페이지
 const AllPaymentList = () => {
+  const navigate = useNavigate();
+
+  // 수정, 등록 시 경로 이동
+  const handleClick = (path) => {
+    navigate(path);
+  };
   return (
     <BoardContainer>
-      <div className="Logo">
+      <div className="Logo" onClick={() => handleClick("/AdminMain")}>
         <FullLogoBth />
         <span>전체 결제 내역 목록</span>
       </div>

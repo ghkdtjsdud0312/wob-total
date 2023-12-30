@@ -139,8 +139,8 @@ const Tr = ({ data, index, setIsChange }) => {
           disabled={categoryActive}
           value={categoryContent}
           onChange={handleSelectChange}>
-          <option value="active">활동게시글</option>
-          <option value="inactive">비활동게시글</option>
+          <option value="active">활동목록</option>
+          <option value="inactive">비활동목록</option>
         </select>
       </td>
       <td>
