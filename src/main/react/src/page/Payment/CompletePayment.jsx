@@ -89,6 +89,12 @@ const TopTextBox = styled.div`
     margin-bottom: 30px;
   }
   .topP2 {
+    margin-top: 5px;
+    margin-bottom: -40px;
+    color: gray;
+  }
+  .topP3 {
+    margin-top: 5px;
     margin-bottom: -40px;
     color: gray;
   }
@@ -120,13 +126,26 @@ const CompletePayment = () => {
       <>
         <Container>
           <SubContainer className="sub1">
-            <TopTextBox>
-              <p className="topP1">결제가 완료되었습니다.</p>
-              <p className="topP2">
-                결제 내역은 마이페이지 &gt; 설정 &gt; 결제내역 에서 확인하실 수
-                있습니다.
-              </p>
-            </TopTextBox>
+            {pay.postUserName === "관리자" ? (
+                <TopTextBox>
+                  <p className="topP1">광고 등록이 완료되었습니다.</p>
+                  <p className="topP2">
+                    광고 승인 여부는 관리자 검토 후에 이메일로 알려드립니다.
+                  </p>
+                  <p className="topP3">
+                    결제 내역은 마이페이지 &gt; 설정 &gt; 결제내역 에서 확인하실 수
+                    있습니다.
+                  </p>
+                </TopTextBox>
+            ) : (
+                <TopTextBox>
+                  <p className="topP1">결제가 완료되었습니다.</p>
+                  <p className="topP2">
+                    결제 내역은 마이페이지 &gt; 설정 &gt; 결제내역 에서 확인하실 수
+                    있습니다.
+                  </p>
+                </TopTextBox>
+            )}
           </SubContainer>
           <SubContainer className="sub2">
             <BottomBox>
@@ -144,11 +163,11 @@ const CompletePayment = () => {
                 <BottomTextBox>
                   <div className="bottomDiv1">
                     <div className="bottomDiv2">
-                      <p className="bottomP1">클래스 이름</p>
+                      <p className="bottomP1">상품명</p>
                       <p className="bottomP2">{pay.postTitle}</p>
                     </div>
                     <div className="bottomDiv2">
-                      <p className="bottomP1">강사명</p>
+                      <p className="bottomP1">담당자</p>
                       <p className="bottomP2">{pay.postUserName}</p>
                     </div>
                     <div className="bottomDiv2">
