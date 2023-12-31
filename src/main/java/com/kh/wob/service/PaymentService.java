@@ -1,9 +1,11 @@
 package com.kh.wob.service;
 
 import com.kh.wob.dto.PaymentDto;
+import com.kh.wob.entity.Ad;
 import com.kh.wob.entity.Payment;
 import com.kh.wob.entity.Post;
 import com.kh.wob.entity.User;
+import com.kh.wob.repository.AdRepository;
 import com.kh.wob.repository.PaymentRepository;
 import com.kh.wob.repository.PostRepository;
 import com.kh.wob.repository.UserRepository;
@@ -12,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,21 +27,23 @@ public class PaymentService {
     private final PaymentRepository paymentRepository;
     private final PostRepository postRepository;
     private final UserRepository userRepository;
+    private final AdRepository adRepository;
 
     // 결제 내역 추가
     public PaymentDto savePayment(PaymentDto paymentDto) {
         System.out.println("savePayment orderNum : " + paymentDto.getOrderNum());
-
-
+        // 만약 레슨 결제인 경우, post와 조인하는 데이터 넣기
         Payment payment = new Payment();
-        Post post = postRepository.findByTitle(paymentDto.getPostTitle()).orElseThrow(
-                () -> new RuntimeException("해당 게시글이 없습니다.")
-        );
+        if(!paymentDto.getPostTitle().equals("광고 등록")) {
+            Post post = postRepository.findByTitle(paymentDto.getPostTitle()).orElseThrow(
+                    () -> new RuntimeException("해당 게시글이 없습니다.")
+            );
+            payment.setPost(post);
+        }
         User user = userRepository.findByEmail(paymentDto.getUserEmail()).orElseThrow(
                 () -> new RuntimeException("해당 유저가 없습니다.")
         );
         payment.setUser(user);
-        payment.setPost(post);
         payment.setFee(paymentDto.getFee());
         payment.setOrderNum(paymentDto.getOrderNum());
         payment.setPhoneNum(paymentDto.getPhoneNum());
@@ -53,6 +58,20 @@ public class PaymentService {
 
 
     }
+
+    // 결제 내역에 광고 데이터 추가
+    public PaymentDto paymentAddAdId (PaymentDto paymentDto) {
+        Payment payment = paymentRepository.findById(paymentDto.getId()).orElseThrow(
+                () -> new RuntimeException("해당 결제 내역이 없습니다.")
+        );
+        Ad ad = adRepository.findById(paymentDto.getAdId()).orElseThrow(
+                () -> new RuntimeException("해당 광고가 없습니다.")
+        );
+        payment.setAd(ad);
+        paymentRepository.save(payment);
+        return convertEntityToDto(payment);
+    }
+
     // 결제 내역 전제 조회
     public List<PaymentDto> paymentList() {
         List<Payment> payments = paymentRepository.findAll();
@@ -92,7 +111,6 @@ public class PaymentService {
     private PaymentDto convertEntityToDto(Payment payment) {
         PaymentDto paymentDto = new PaymentDto();
         paymentDto.setId(payment.getId());
-        paymentDto.setPostTitle(payment.getPost().getTitle());
         paymentDto.setOrderNum(payment.getOrderNum());
         paymentDto.setFee(payment.getFee());
         paymentDto.setUserEmail(payment.getUser().getEmail());
@@ -101,6 +119,14 @@ public class PaymentService {
         paymentDto.setActive(payment.getActive());
         paymentDto.setPostUserName(payment.getPostUserName());
         paymentDto.setPostPhoneNum(payment.getPostPhoneNum());
+        if(payment.getPost() != null) { // 게시글 결제인 경우,
+            paymentDto.setPostTitle(payment.getPost().getTitle());
+        } else { // 광고 등록 결제인 경우,
+            paymentDto.setPostTitle("광고 등록 결제 건");
+            if(payment.getAd() != null) { // 결제 내역에 광고 조인
+                paymentDto.setAdId(payment.getAd().getId());
+            }
+        }
         return paymentDto;
     }
 }

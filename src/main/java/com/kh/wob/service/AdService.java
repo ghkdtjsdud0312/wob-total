@@ -71,6 +71,30 @@ public class AdService {
             return false;
         }
     }
+
+    // 광고 등록
+    public AdDto saveAd(AdDto adDto) {
+        log.debug("saveAd 메서드 호출 ");
+        log.debug("AdDto 값: {}", adDto);
+
+        Ad ad = new Ad();
+
+        Post post = postRepository.findById(adDto.getPostId()).orElseThrow(
+                () -> new RuntimeException("Post not found")
+        );
+        log.debug("광고 등록하는 postId: " + adDto.getPostId());
+        System.out.println("담긴 ad 정보 : " + ad);
+        ad.setPost(post);
+        ad.setImage(adDto.getImage());
+        ad.setPeriod(adDto.getPeriod());
+        ad.setFee(adDto.getFee());
+        ad.setPostingDate(adDto.getPostingDate());
+        ad.setActive("inactive");
+
+        adRepository.save(ad);
+        System.out.println("ad에 뭐가 담기지? " + ad);
+        return convertEntityToDto(ad);
+    }
     // 광고 삭제
     public boolean deleteAd(String postId) {
         try {
@@ -79,34 +103,6 @@ public class AdService {
             log.info("해당 광고가 삭제되었습니다. : ", postId);
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    // 광고 등록
-    public boolean saveAd(AdDto adDto) {
-        log.debug("saveAd 메서드 호출 ");
-        log.debug("AdDto 값: {}", adDto);
-        try {
-            Ad ad = new Ad();
-
-            Post post = postRepository.findById(adDto.getPostId()).orElseThrow(
-                    () -> new RuntimeException("Post not found")
-            );
-            log.debug("광고 등록하는 postId: " + adDto.getPostId());
-            System.out.println("담긴 ad 정보 : " + ad);
-            ad.setPost(post);
-            ad.setImage(adDto.getImage());
-            ad.setPeriod(adDto.getPeriod());
-            ad.setFee(adDto.getFee());
-            ad.setPostingDate(adDto.getPostingDate());
-
-            adRepository.save(ad);
-            System.out.println("ad에 뭐가 담기지? " + ad);
-            return true;
-        }catch (Exception e) {
-            log.error("예외 발생 : ", e);
             e.printStackTrace();
             return false;
         }

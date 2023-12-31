@@ -1,6 +1,7 @@
 package com.kh.wob.controller;
 
 import com.kh.wob.dto.PaymentDto;
+import com.kh.wob.entity.Payment;
 import com.kh.wob.service.PaymentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,13 @@ public class PaymentController {
         return ResponseEntity.ok(paymentDto1);
     }
 
+    // 결제 내역에 광고 데이터 추가하기
+    @PostMapping("add/addAdId")
+    public ResponseEntity<PaymentDto> paymentAddAdId(@RequestBody PaymentDto paymentDto) {
+        System.out.println("adId : " + paymentDto.getAdId() + "paymentId : " + paymentDto.getId());
+        PaymentDto paymentDto1 = paymentService.paymentAddAdId(paymentDto);
+        return ResponseEntity.ok(paymentDto1);
+    }
     // 모든 결제 내역 불러오기
     @GetMapping("/all")
     public ResponseEntity<List<PaymentDto>> paymentList() {

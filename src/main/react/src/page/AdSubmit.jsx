@@ -6,6 +6,7 @@ import { storage } from "../api/firebase";
 import Modal from "../utils/Modal";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import Payment from "../component/Payment";
+import PaymentAxiosApi from "../api/PaymentAxiosApi";
 
 const PageTitle = styled.div`
   font-size: 1.8rem;
@@ -263,34 +264,21 @@ const AdSubmit = () => {
     setCancelModalOpen(false);
   };
 
-  // 주문자 이름 변수에 저장
+  // 결제자 이름 변수에 저장
   const onSaveName = (e) => {
     setUserName(e.target.value);
     setIsUserName(true);
     console.log(userName);
   };
 
-  // 주문자 전화번호 변수에 저장
+  // 결제자 전화번호 변수에 저장
   const onSavePhone = (e) => {
     setUserPhoneNum(e.target.value);
     SetIsUserPhoneNum(true);
     console.log(userPhoneNum);
   };
 
-  // 강사의 이름과 전화번호 받아오기
-  useEffect(() => {
-    const getPostUserInfo = async () => {
-      const rsp = await PostAxiosApi.getPostUserInfo(
-        localStorage.getItem("email")
-      );
-      console.log("회원의 이름과 전화번호 : ", rsp.data[0]);
-      if (rsp.data) {
-        setTeaName(rsp.data[0].name);
-        setTeaPhone(rsp.data[0].phoneNumber);
-      }
-    };
-    getPostUserInfo();
-  }, []);
+
 
   // 포스트 정보 가져오기
   useEffect(() => {
@@ -323,17 +311,19 @@ const AdSubmit = () => {
         period, // 선택된 광고 기간
         fee, // 계산된 광고 비용
         postingDate, // 선택된 게시 시작 일자
-        paymentId: paymentResult, // 결제 ID
         // 기타 필요한 데이터
       };
 
       const rsp = await AdAxiosApi.adSubmit(postId, adData);
-      console.log("광고 등록 응답: ", rsp.data);
-
-      if (rsp.data) {
-        alert("등록 요청 완료");
-        navigate("/"); // 성공 시 홈으로 이동
+      const rsp2 = await PaymentAxiosApi.payAddAdId(rsp.data.id, paymentResult);
+      if (rsp.data && rsp2.data) {
+        console.log("광고 결제 등록 정상 처리 완료");
       }
+
+      // if (rsp.data) {
+      //   alert("등록 요청 완료");
+      //   navigate("/"); // 성공 시 홈으로 이동
+      // }
     } catch (error) {
       console.error("광고 등록 중 오류 발생", error);
     }
@@ -411,14 +401,14 @@ const AdSubmit = () => {
         >
           등록을 취소하시겠습니까?
         </Modal>
-        <Modal open={modalOpen} close={closeModal} header="사용자 정보 입력">
+        <Modal open={modalOpen} close={closeModal} header="결제자 정보 입력">
           <ModalContainer>
             <ModalSubContainer>
-              <ModalText1>주문자 성함</ModalText1>
+              <ModalText1>이름</ModalText1>
               <ModalText2 value={userName} onChange={onSaveName}></ModalText2>
             </ModalSubContainer>
             <ModalSubContainer>
-              <ModalText1>주문자 연락처</ModalText1>
+              <ModalText1>연락처</ModalText1>
               <ModalText2
                 value={userPhoneNum}
                 onChange={onSavePhone}
@@ -431,9 +421,9 @@ const AdSubmit = () => {
                   setDisabled={false}
                   userName={userName}
                   userPhone={userPhoneNum}
-                  postTitle={post.title}
-                  postUserName={teaName}
-                  postPhoneNum={teaPhone}
+                  postTitle={"광고 등록"}
+                  postUserName={"관리자"}
+                  postPhoneNum={"관리자"}
                   fee={fee}
                   onPaymentComplete={handlePaymentComplete}
                 >

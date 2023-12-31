@@ -2,6 +2,8 @@ package com.kh.wob.controller;
 
 import com.kh.wob.dto.AdDto;
 import com.kh.wob.dto.CategoryDto;
+import com.kh.wob.entity.Ad;
+import com.kh.wob.entity.User;
 import com.kh.wob.service.AdService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +36,7 @@ public class AdController {
     // 광고 목록 페이지네이션
     @GetMapping("/list/page")
     public ResponseEntity<List<AdDto>> getAdPageList(@RequestParam(defaultValue = "0") int page,
-                                                 @RequestParam(defaultValue = "5") int size) {
+                                                     @RequestParam(defaultValue = "5") int size) {
         List<AdDto> list = adService.getAdPageList(page, size);
         return ResponseEntity.ok(list);
     }
@@ -53,12 +55,11 @@ public class AdController {
         boolean isTrue = adService.deleteAd(postId);
         return ResponseEntity.ok(isTrue);
     }
-
     // 광고 등록
     @PostMapping("/new/{postId}")
-    public ResponseEntity<Boolean> adResister(@RequestBody AdDto adDto) {
+    public ResponseEntity<AdDto> adResister(@RequestBody AdDto adDto) {
         log.debug("AdDto : {}", adDto);
-        boolean isTrue = adService.saveAd(adDto);
-        return ResponseEntity.ok(isTrue);
+        AdDto adDto1 = adService.saveAd(adDto);
+        return ResponseEntity.ok(adDto1);
     }
 }

@@ -257,15 +257,15 @@ const PostDetail = ({ categoryImage }) => {
       <Modal
         open={modalOpen}
         close={closeModal}
-        header="주문자 정보를 입력해주세요 !!"
+        header="결제자 정보를 입력해주세요 !!"
       >
         <ModalContainer>
           <ModalSubContainer>
-            <ModalText1>주문자 성함</ModalText1>
+            <ModalText1>이름</ModalText1>
             <ModalText2 value={userName} onChange={onSaveName}></ModalText2>
           </ModalSubContainer>
           <ModalSubContainer>
-            <ModalText1>주문자 연락처</ModalText1>
+            <ModalText1>연락처</ModalText1>
             <ModalText2
               value={userPhoneNum}
               onChange={onSavePhone}
