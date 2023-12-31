@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import PaymentAxiosApi from "../../api/PaymentAxiosApi";
+import Loading from "../../component/Loading";
 
 const Container = styled.div`
   /* padding: 24px; */
@@ -121,86 +122,89 @@ const CompletePayment = () => {
     getPaymentId();
   }, []);
 
-  if (!pay) return <></>;
   return (
       <>
-        <Container>
-          <SubContainer className="sub1">
-            {pay.postUserName === "관리자" ? (
-                <TopTextBox>
-                  <p className="topP1">광고 등록이 완료되었습니다.</p>
-                  <p className="topP2">
-                    광고 승인 여부는 관리자 검토 후에 이메일로 알려드립니다.
-                  </p>
-                  <p className="topP3">
-                    결제 내역은 마이페이지 &gt; 설정 &gt; 결제내역 에서 확인하실 수
-                    있습니다.
-                  </p>
-                </TopTextBox>
-            ) : (
-                <TopTextBox>
-                  <p className="topP1">결제가 완료되었습니다.</p>
-                  <p className="topP2">
-                    결제 내역은 마이페이지 &gt; 설정 &gt; 결제내역 에서 확인하실 수
-                    있습니다.
-                  </p>
-                </TopTextBox>
-            )}
-          </SubContainer>
-          <SubContainer className="sub2">
-            <BottomBox>
-              <SubBottomBox className="subBox1">
-                <BottomTextBox>
-                  <div className="bottomDiv1">
-                    <div className="bottomDiv2">
-                      <p className="bottomP1">주문번호</p>
-                      <p className="bottomP2">{pay.orderNum}</p>
-                    </div>
-                  </div>
-                </BottomTextBox>
-              </SubBottomBox>
-              <SubBottomBox className="subBox2">
-                <BottomTextBox>
-                  <div className="bottomDiv1">
-                    <div className="bottomDiv2">
-                      <p className="bottomP1">상품명</p>
-                      <p className="bottomP2">{pay.postTitle}</p>
-                    </div>
-                    <div className="bottomDiv2">
-                      <p className="bottomP1">담당자</p>
-                      <p className="bottomP2">{pay.postUserName}</p>
-                    </div>
-                    <div className="bottomDiv2">
-                      <p className="bottomP1">연락처</p>
-                      <p className="bottomP2">{pay.postPhoneNum}</p>
-                    </div>
-                    <div className="bottomDiv2">
-                      <p className="bottomP1">결제금액</p>
-                      <p className="bottomP2">{pay.fee}</p>
-                    </div>
-                  </div>
-                </BottomTextBox>
-              </SubBottomBox>
-              <SubBottomBox className="subBox3">
-                <BottomTextBox>
-                  <div className="bottomDiv1">
-                    <div className="bottomDiv2">
-                      <p className="bottomP1">주문자명</p>
-                      <p className="bottomP2">{pay.userName}</p>
-                    </div>
-                    <div className="bottomDiv2">
-                      <p className="bottomP1">연락처</p>
-                      <p className="bottomP2">{pay.phoneNum}</p>
-                    </div>
-                  </div>
-                </BottomTextBox>
-              </SubBottomBox>
-              <SubBottomBox className="subBox4">
-                <HomeBtn onClick={() => navigate("/")}>메인으로</HomeBtn>
-              </SubBottomBox>
-            </BottomBox>
-          </SubContainer>
-        </Container>
+        {!pay ? (
+            <Loading text={"결제가 진행 중입니다."}></Loading>
+        ) : (
+            <Container>
+              <SubContainer className="sub1">
+                {pay.postUserName === "관리자" ? (
+                    <TopTextBox>
+                      <p className="topP1">광고 등록이 완료되었습니다.</p>
+                      <p className="topP2">
+                        광고 승인 여부는 관리자 검토 후에 이메일로 알려드립니다.
+                      </p>
+                      <p className="topP3">
+                        결제 내역은 마이페이지 &gt; 설정 &gt; 결제내역 에서 확인하실
+                        수 있습니다.
+                      </p>
+                    </TopTextBox>
+                ) : (
+                    <TopTextBox>
+                      <p className="topP1">결제가 완료되었습니다.</p>
+                      <p className="topP2">
+                        결제 내역은 마이페이지 &gt; 설정 &gt; 결제내역 에서 확인하실
+                        수 있습니다.
+                      </p>
+                    </TopTextBox>
+                )}
+              </SubContainer>
+              <SubContainer className="sub2">
+                <BottomBox>
+                  <SubBottomBox className="subBox1">
+                    <BottomTextBox>
+                      <div className="bottomDiv1">
+                        <div className="bottomDiv2">
+                          <p className="bottomP1">주문번호</p>
+                          <p className="bottomP2">{pay.orderNum}</p>
+                        </div>
+                      </div>
+                    </BottomTextBox>
+                  </SubBottomBox>
+                  <SubBottomBox className="subBox2">
+                    <BottomTextBox>
+                      <div className="bottomDiv1">
+                        <div className="bottomDiv2">
+                          <p className="bottomP1">상품명</p>
+                          <p className="bottomP2">{pay.postTitle}</p>
+                        </div>
+                        <div className="bottomDiv2">
+                          <p className="bottomP1">담당자</p>
+                          <p className="bottomP2">{pay.postUserName}</p>
+                        </div>
+                        <div className="bottomDiv2">
+                          <p className="bottomP1">연락처</p>
+                          <p className="bottomP2">{pay.postPhoneNum}</p>
+                        </div>
+                        <div className="bottomDiv2">
+                          <p className="bottomP1">결제금액</p>
+                          <p className="bottomP2">{pay.fee}</p>
+                        </div>
+                      </div>
+                    </BottomTextBox>
+                  </SubBottomBox>
+                  <SubBottomBox className="subBox3">
+                    <BottomTextBox>
+                      <div className="bottomDiv1">
+                        <div className="bottomDiv2">
+                          <p className="bottomP1">주문자명</p>
+                          <p className="bottomP2">{pay.userName}</p>
+                        </div>
+                        <div className="bottomDiv2">
+                          <p className="bottomP1">연락처</p>
+                          <p className="bottomP2">{pay.phoneNum}</p>
+                        </div>
+                      </div>
+                    </BottomTextBox>
+                  </SubBottomBox>
+                  <SubBottomBox className="subBox4">
+                    <HomeBtn onClick={() => navigate("/")}>메인으로</HomeBtn>
+                  </SubBottomBox>
+                </BottomBox>
+              </SubContainer>
+            </Container>
+        )}
       </>
   );
 };
