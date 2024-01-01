@@ -30,7 +30,7 @@ const LogoImage = styled.img`
 const SearchIcon = styled(FontAwesomeIcon)`
   cursor: pointer;
   color: #04bf8a;
-  font-size: 23px;
+  font-size: 30px;
 `;
 
 const Header = () => {
