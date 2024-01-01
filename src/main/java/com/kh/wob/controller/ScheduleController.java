@@ -25,11 +25,11 @@ public class ScheduleController {
         scheduleService.addSchedule(scheduleDto);
         return ResponseEntity.ok("일정이 추가되었습니다.");
     }
-//    // userEmail에 해당하는 일정 가져오기 API
-//    @GetMapping("/user/{userEmail}")
-//    public ResponseEntity<List<ScheduleDto>> getJoinPost(@PathVariable String userEmail) {
-//        log.info("조인 리스트 가져가기 : {}", userEmail);
-//        List<ScheduleDto> list = ScheduleService.getPostByUserEmail(userEmail);
-//        return ResponseEntity.ok(list);
-//    }
+    // userEmail에 해당하는 일정 가져오기 API
+    @GetMapping("/user/{userEmail}")
+    public ResponseEntity<List<ScheduleDto>> getJoinPost(@PathVariable String userEmail) {
+        log.info("조인 리스트 가져가기 : {}", userEmail);
+        List<ScheduleDto> list = scheduleService.getPostByUserEmail(userEmail);
+        return ResponseEntity.ok(list);
+    }
 }

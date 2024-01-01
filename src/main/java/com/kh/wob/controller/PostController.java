@@ -5,6 +5,7 @@ import com.kh.wob.dto.ScheduleDto;
 import com.kh.wob.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -70,6 +71,17 @@ public class PostController {
         log.info("keyword : " + keyword);
         List<PostDto> list = postService.getSearch(keyword);
         return ResponseEntity.ok(list);
+    }
+
+    // postIdList에 해당하는 포스트 리스트 가져오기 (수정)
+    @GetMapping("/matching/{postIdList}")
+    public ResponseEntity<List<PostDto>> getMatchingPosts(@PathVariable List<Long> postIdList) {
+        try {
+            List<PostDto> matchingPosts = postService.getMatchingPosts(postIdList);
+            return ResponseEntity.ok(matchingPosts);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
 

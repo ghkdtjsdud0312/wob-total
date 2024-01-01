@@ -40,14 +40,14 @@ public class ScheduleService {
         return convertEntityToDto(schedule);
     }
 
-//    // userEmail에 해당하는 일정 가져오기
-//    public List<ScheduleDto> getPostByUserEmail(String userEmail) {
-//        List<Schedule> schedules = scheduleRepository.findByUserEmail(userEmail);
-//        log.info("조인 리스트 가져가기 : {}", userEmail);
-//        return schedules.stream()
-//                .map(this::convertEntityToDto)
-//                .collect(Collectors.toList());
-//    }
+    // userEmail에 해당하는 일정 가져오기
+    public List<ScheduleDto> getPostByUserEmail(String userEmail) {
+        List<Schedule> schedules = scheduleRepository.findByUserEmail(userEmail);
+        log.info("조인 리스트 가져가기 : {}", userEmail);
+        return schedules.stream()
+                .map(this::convertEntityToDto)
+                .collect(Collectors.toList());
+    }
 
 
     //엔티티를 dto로 변환

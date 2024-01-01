@@ -132,6 +132,14 @@ public class PostService {
         return postDtos;
     }
 
+    // postIdList에 해당하는 포스트 리스트 가져오기 추가
+    public List<PostDto> getMatchingPosts(List<Long> postIdList) {
+        List<Post> matchingPosts = postRepository.findByIdIn(postIdList);
+        return matchingPosts.stream()
+                .map(this::convertEntityToDto)
+                .collect(Collectors.toList());
+    }
+
 
 
         // 게시글 엔티티를 dto로 변환
