@@ -9,6 +9,9 @@ const Container = styled.div`
   color: --var(MINT);
   align-items: center;
   width: 100%;
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const HeaderBox = styled.div`
@@ -19,6 +22,7 @@ const HeaderBox = styled.div`
   max-width: 768px;
   min-width: 300px;
   margin: 0 auto;
+  padding-right: 10px;
 `;
 
 const LogoImage = styled.img`

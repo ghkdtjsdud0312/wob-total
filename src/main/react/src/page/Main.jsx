@@ -34,6 +34,9 @@ const Container = styled.div`
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const DateBox = styled.div`
@@ -90,6 +93,7 @@ const BottomContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0 10px;
 `;
 const Subtitle = styled.div`
   width: 100%;
