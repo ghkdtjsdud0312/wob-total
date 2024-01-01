@@ -10,7 +10,7 @@ const Container = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-  padding: 24px;
+  padding: 5px;
 `;
 
 const SliderContainer = styled.div`
@@ -28,8 +28,8 @@ const WeekContainer = styled.div`
 
 const DayItem = styled.div`
   flex: 1;
-  max-width: 62px;
-  height: 62px;
+  max-width: 80px;
+  height: 75px;
   border: 2px solid #ccc;
   border-radius: 8px;
   display: flex;
@@ -39,6 +39,7 @@ const DayItem = styled.div`
   margin: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  color: #353535;
 
   &:hover {
     /* background-color: #f0f0f0; */
@@ -53,13 +54,13 @@ const DayItem = styled.div`
 `;
 
 const DayName = styled.span`
-  font-size: 0.9em;
+  font-size: 1.2em;
   color: #333;
 `;
 
 const DayNumber = styled.span`
   padding-top: 5px;
-  font-size: 1.2em;
+  font-size: 1.7em;
   font-weight: bold;
 `;
 const CalendarComp = ({ onDateSelect, selectedDate }) => {

@@ -17,12 +17,22 @@ import {
   SelectOptionBoardHeaderComp,
 } from "../component/interest/SelectAreaClon";
 import SelectMBTI from "../component/MBTI/MBTI";
-import LoginPageAxiosApi from "../api/LoginPageAxiosApi";
 
 const Container = styled.div`
-  border-radius: 8px;
   width: 768px;
   margin: 0px auto;
+`;
+const FinalCon = styled.div`
+  margin-top: 30px;
+  border-top-right-radius: 40px;
+  border-bottom-right-radius: 40px;
+  border-bottom-left-radius: 40px;
+  border: 2px solid #cccccc;
+`;
+const FooterCon = styled.div`
+  margin-bottom: 20px;
+  font-size: 1.2em;
+  color: #353535;
 `;
 const HeaderBox = styled.div`
   display: flex;
@@ -56,10 +66,6 @@ const UserInfo = styled.div`
   justify-content: center;
   align-items: center;
 `;
-const UserInfoCon = styled.div`
-  flex-direction: column;
-  border-top: none;
-`;
 
 const UserInformation = styled.h2`
   padding: 10px 0;
@@ -67,21 +73,6 @@ const UserInformation = styled.h2`
   justify-content: center;
   font-size: 2em;
   color: #353535;
-`;
-const InterestCon = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-const Selected = styled.div`
-  flex-direction: column;
-  align-items: center;
-  padding: 15px 40px;
-  justify-content: center;
-  font-size: 3em;
-  color: #04bf8a;
-  border: #04bf8a;
-  border-radius: 30px;
 `;
 
 const UserImage = styled.img`
@@ -92,19 +83,10 @@ const UserImage = styled.img`
   height: 160px;
   border-radius: 20px;
 `;
-const FieldEditTitle = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-const UserContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
 
 const IMGField = styled.div`
   display: flex;
+  align-items: center;
   justify-content: center;
   padding: 20px;
 `;
@@ -115,20 +97,13 @@ const EditNick = styled.div`
   justify-content: center;
 `;
 const Input = styled.input`
+  background-color: none;
   width: 100%;
   text-align: center;
-  padding: 20px;
-  font-size: 1.4em;
+  /* padding: 20px; */
+  font-size: 1em;
   border: 1px solid #f7f7f7;
-  transition: height 0.5s ease; // 트랜지션 추가
-`;
-const InputIntroduce = styled.input`
-  width: 100%;
-  text-align: center;
-  padding: 20px;
-  font-size: 1.4em;
-  border: 1px solid #f7f7f7;
-  transition: height 0.5s ease; // 트랜지션 추가
+  transition: height 0.5s ease; // 트랜 = sty지션 추가
 `;
 const SubmitButton = styled.button`
   padding: 5px;
@@ -144,6 +119,7 @@ const SubmitButton = styled.button`
     background-color: #04bf8a;
   }
 `;
+
 const EX = styled.div`
   display: flex;
   flex-direction: column;
@@ -169,7 +145,19 @@ const StyledLink = styled(Link)`
   margin: 0 30px;
 `;
 const Text = styled.div`
-  color: white;
+  font-size: 2em;
+  margin: 10px;
+  color: #04bf8a;
+  margin-bottom: 20px;
+`;
+const TextClon = styled.div`
+  font-size: 2em;
+  color: #04bf8a;
+  margin-bottom: 20px;
+`;
+const AreaSports = styled.div`
+  display: flex;
+  gap: 50px;
 `;
 
 const MyPageEdit = () => {
@@ -300,7 +288,7 @@ const MyPageEdit = () => {
     "자전거",
     "등산",
     "축구",
-    "필라테스",
+    "농구",
     "야구",
     "탁구",
     "테니스",
@@ -380,10 +368,8 @@ const MyPageEdit = () => {
         </EditLogoCon>
       </HeaderBox>
       <EditBox>
-        <SelectOptionBoardHeaderComp isOpen={isOpen}>
+        <FinalCon>
           <Text>프로필 사진</Text>
-        </SelectOptionBoardHeaderComp>
-        <UserInfoCon>
           <UserInfo>
             <Text>
               <UserInformation>
@@ -397,9 +383,7 @@ const MyPageEdit = () => {
           <SelectOptionBoardCom>
             {!editMode ? (
               <>
-                <SelectOptionBoardFooterCom
-                  onClick={handleToggle}
-                ></SelectOptionBoardFooterCom>
+                <></>
               </>
             ) : (
               <>
@@ -409,30 +393,19 @@ const MyPageEdit = () => {
                     name="file"
                     onChange={handleUploadChange}
                   />
-                  {/* <SendSubmitButton>전송</SendSubmitButton> */}
                 </IMGField>
-                <SelectOptionBoardFooterCom
-                  onClick={handleToggle}
-                ></SelectOptionBoardFooterCom>
               </>
             )}
           </SelectOptionBoardCom>
-        </UserInfoCon>
+        </FinalCon>
         <EX>
-          <SelectOptionBoardHeaderComp isOpen={isOpen}>
+          <FinalCon>
             <Text>닉네임</Text>
-          </SelectOptionBoardHeaderComp>
-          <SelectOptionBoardCom>
-            <EditNick>
-              {!editMode ? (
-                <Text>
-                  <UserInformation>{user.nickname}</UserInformation>
-                  <SelectOptionBoardFooterCom
-                    onClick={handleToggle}
-                  ></SelectOptionBoardFooterCom>
-                </Text>
-              ) : (
-                <OptionBoardCom isOpen={isOpen}>
+            <TextClon>
+              <EditNick>
+                {!editMode ? (
+                  <FooterCon>{user.nickname}</FooterCon>
+                ) : (
                   <Input
                     type="text"
                     name="Nickname"
@@ -440,124 +413,92 @@ const MyPageEdit = () => {
                     value={editNickname}
                     onChange={handleChange}
                   />
-                  <SelectOptionBoardFooterCom onClick={handleToggle}>
-                    {/* <UserNickname>{user.nickname}</UserNickname> */}
-                  </SelectOptionBoardFooterCom>
-                </OptionBoardCom>
-              )}
-            </EditNick>
-          </SelectOptionBoardCom>
+                )}
+              </EditNick>
+            </TextClon>
+          </FinalCon>
         </EX>
         <EX>
-          <SelectOptionBoardHeaderComp isOpen={isOpen}>
+          <FinalCon>
             <Text>소개</Text>
-          </SelectOptionBoardHeaderComp>
-          <SelectOptionBoardCom>
             <EditNick>
-              {!editMode ? (
-                <Text>
-                  <UserInformation>{user.introduce}</UserInformation>
-                  <SelectOptionBoardFooterCom
-                    onClick={handleToggle}
-                  ></SelectOptionBoardFooterCom>
-                </Text>
-              ) : (
-                <OptionBoardCom isOpen={isOpen}>
-                  <InputIntroduce
+              <TextClon>
+                {!editMode ? (
+                  <FooterCon>{user.introduce}</FooterCon>
+                ) : (
+                  <Input
                     type="text"
                     name="Introduce"
                     placeholder="소개글을 입력하세요."
                     value={editIntroduce}
                     onChange={handleChangeIntro}
                   />
-                  <SelectOptionBoardFooterCom onClick={handleToggle}>
-                    {/* <UserNickname>{user.nickname}</UserNickname> */}
-                  </SelectOptionBoardFooterCom>
-                </OptionBoardCom>
-              )}
+                )}
+              </TextClon>
             </EditNick>
-          </SelectOptionBoardCom>
+          </FinalCon>
         </EX>
         <EX>
-          <SelectOptionBoardHeaderComp isOpen={isOpen}>
+          <FinalCon>
             <Text>관심 지역</Text>
-          </SelectOptionBoardHeaderComp>
-          <FieldEditTitle>
-            <UserContainer>
-              <InterestCon>
-                {!editMode ? (
-                  <>
+            <EditNick>
+              {!editMode ? (
+                <Text>
+                  <AreaSports>
                     {area &&
                       area.map((areaItem, index) => (
-                        <Text>
-                          <Selected key={index} value={areaItem}>
-                            {areaItem}
-                          </Selected>
-                        </Text>
+                        <FooterCon key={index} value={areaItem}>
+                          {areaItem}
+                        </FooterCon>
                       ))}
-                    <SelectOptionBoardFooterCom
-                      onClick={handleToggle}
-                    ></SelectOptionBoardFooterCom>
-                  </>
-                ) : (
-                  <OptionBoardCom>
-                    <SelectArea
-                      options={activityAreaList}
-                      min={minValue}
-                      max={maxValue}
-                      text={`최소 ${minValue}개 최대 ${maxValue}개 선택해주세요.`}
-                      handleSelected={handleSelectedArea}
-                    />
-                    <SelectOptionBoardFooterCom
-                      onClick={handleToggle}
-                    ></SelectOptionBoardFooterCom>
-                  </OptionBoardCom>
-                )}
-              </InterestCon>
-            </UserContainer>
-          </FieldEditTitle>
+                  </AreaSports>
+                </Text>
+              ) : (
+                <SelectArea
+                  options={activityAreaList}
+                  min={minValue}
+                  max={maxValue}
+                  text={`최소 ${minValue}개 최대 ${maxValue}개 선택해주세요.`}
+                  handleSelected={handleSelectedArea}
+                />
+              )}
+            </EditNick>
+          </FinalCon>
         </EX>
-        <FieldEditTitle>
-          <SelectOptionBoardHeaderComp isOpen={isOpen}>
+        <EX>
+          <FinalCon>
             <Text>관심 운동</Text>
-          </SelectOptionBoardHeaderComp>
-        </FieldEditTitle>
-        <UserContainer>
-          <InterestCon>
+            <EditNick>
+              {!editMode ? (
+                <Text>
+                  <AreaSports>
+                    {interest &&
+                      interest.map((interestItem, index) => (
+                        <FooterCon key={index} value={interestItem}>
+                          {interestItem}
+                        </FooterCon>
+                      ))}
+                  </AreaSports>
+                </Text>
+              ) : (
+                <SelectSports
+                  options={activityList}
+                  min={minValue}
+                  max={maxValue}
+                  text={`최소 ${minValue}개 최대 ${maxValue}개 선택해주세요.`}
+                  handleSelected={handleSelected}
+                />
+              )}
+            </EditNick>
+          </FinalCon>
+        </EX>
+        <FinalCon>
+          <Text>MBTI</Text>
+          <EditNick>
             {!editMode ? (
-              <>
-                {interest &&
-                  interest.map((interestItem, index) => (
-                    <Text>
-                      <Selected key={index} value={interestItem}>
-                        {interestItem}
-                      </Selected>
-                    </Text>
-                  ))}
-                <SelectOptionBoardFooterCom
-                  onClick={handleToggle}
-                ></SelectOptionBoardFooterCom>
-              </>
-            ) : (
-              <SelectSports
-                options={activityList}
-                min={minValue}
-                max={maxValue}
-                text={`최소 ${minValue}개 최대 ${maxValue}개 선택해주세요.`}
-                handleSelected={handleSelected}
-              />
-            )}
-          </InterestCon>
-        </UserContainer>
-        <FieldEditTitle>
-          <SelectOptionBoardHeaderComp isOpen={isOpen}>
-            <Text>MBTI</Text>
-          </SelectOptionBoardHeaderComp>
-        </FieldEditTitle>
-        <UserContainer>
-          <>
-            {!editMode ? (
-              <Selected>{user.mbti}</Selected>
+              <Text>
+                <FooterCon>{user.mbti}</FooterCon>
+              </Text>
             ) : (
               <SelectMBTI
                 options={mbtiList}
@@ -566,17 +507,12 @@ const MyPageEdit = () => {
                 handleSelectedItem={handleSelectedItem} // 함수 전달
               />
             )}
-          </>
-        </UserContainer>
+          </EditNick>
+        </FinalCon>
         {!editMode ? (
-          <SelectOptionBoardFooterCom
-            onClick={handleToggle}
-          ></SelectOptionBoardFooterCom>
+          <></>
         ) : (
           <OptionBoardCom isOpen={isOpen}>
-            <SelectOptionBoardFooterCom
-              onClick={handleToggle}
-            ></SelectOptionBoardFooterCom>
             <EditBtn>
               <SubmitButton onClick={handleSubmit}>수정</SubmitButton>
               <SubmitButton onClick={() => setEditMode(false)}>

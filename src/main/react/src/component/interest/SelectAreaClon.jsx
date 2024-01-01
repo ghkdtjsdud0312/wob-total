@@ -21,7 +21,6 @@ const CenterBox = styled.div`
 
 export const SelectOptionBoardCom = styled.div`
   width: 100%;
-  background-color: #fff;
   overflow: hidden;
   position: relative;
   transition: height 0.5s ease; // 트랜지션 추가
@@ -36,8 +35,8 @@ export const OptionBoardCom = styled.div`
   box-sizing: border-box;
   overflow: hidden;
   /* ${({ isOpen }) => isOpen && "border: 2px solid #dfede9;"}/* ${({
-  isOpen,
-}) => isOpen && "height: 440px;"} // isOpen에 따라 높이 변경 */ */
+    isOpen,
+  }) => isOpen && "height: 440px;"} // isOpen에 따라 높이 변경 */
 `;
 
 export const SelectOptionBoardHeaderComp = styled.div`
@@ -48,7 +47,7 @@ export const SelectOptionBoardHeaderComp = styled.div`
   align-items: center;
   width: 768px;
   height: 60px;
-  background-color: #04bf8a;
+  background-color: #353535;
   border-top-left-radius: 40px;
   border-top-right-radius: 40px;
 `;
@@ -70,7 +69,7 @@ const AreasGird = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 20px;
-  padding: 20px;
+  padding: 40px;
 `;
 
 const SelectArea = ({ options, min, max, title, text, handleSelected }) => {

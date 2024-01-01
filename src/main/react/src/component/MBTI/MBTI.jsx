@@ -2,6 +2,14 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { SelectButton } from "../MBTI/MBTIcommon";
 
+const CenterBox = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 768px;
+`;
 const MBTIGird = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -20,7 +28,7 @@ const SelectMBTI = ({ options, max, handleSelectedItem }) => {
   };
 
   return (
-    <>
+    <CenterBox>
       <MBTIGird>
         {options.map((mbti) => (
           <SelectButton
@@ -33,7 +41,7 @@ const SelectMBTI = ({ options, max, handleSelectedItem }) => {
           </SelectButton>
         ))}
       </MBTIGird>
-    </>
+    </CenterBox>
   );
 };
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import PostAxiosApi from "../../api/PostAxiosApi";
 import PostPreview from "../../component/PostPreview";
+import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
@@ -13,11 +14,17 @@ const Container = styled.div`
   align-items: center;
   color: var(--GREEN);
 `;
+const Mine = styled.div`
+  font-size: 3em;
+  color: #353535;
+  text-align: center;
+  margin: 20px 0;
+`;
 const StyledLink = styled(Link)`
   text-decoration: none;
 `;
 
-const MyPost = ({ postId }) => {
+const MyPost = ({ postId, selectedDate }) => {
   const [postList, setPostList] = useState([]);
   const navigate = useNavigate();
   const [selectPost, setSelectPost] = useState(null);
@@ -47,17 +54,20 @@ const MyPost = ({ postId }) => {
   return (
     <>
       <Container>
+        <Mine>MY POST</Mine>
         {postList &&
           postList.map((post) => (
             // PostPreview 컴포넌트를 호출하면서 필요한 데이터를 전달
             <StyledLink to={`/postDetail/${post.id}`} key={post.id}>
               <PostPreview
+                key={post.id}
                 title={post.title}
                 date={post.date}
                 time={post.time}
-                place={post.place}
+                local={post.local}
                 people={post.people}
                 category={post.categoryName}
+                type={post.type}
               />
             </StyledLink>
           ))}

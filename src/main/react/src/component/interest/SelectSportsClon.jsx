@@ -9,6 +9,15 @@ import {
 } from "./InterestCommon";
 import LoginPageAxiosApi from "../../api/LoginPageAxiosApi";
 
+const CenterBox = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 768px;
+`;
+
 const SportsGird = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -40,7 +49,7 @@ const SelectSports = ({ options, min, max, title, text, handleSelected }) => {
   };
 
   return (
-    <>
+    <CenterBox>
       <TitleAlign>{title}</TitleAlign>
       <TextAlign>{text}</TextAlign>
       <SportsGird>
@@ -54,7 +63,7 @@ const SelectSports = ({ options, min, max, title, text, handleSelected }) => {
           </SelectButton>
         ))}
       </SportsGird>
-    </>
+    </CenterBox>
   );
 };
 
