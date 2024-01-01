@@ -5,20 +5,48 @@ const StyledButton = styled.button`
   white-space: nowrap;
   background-color: ${({ backgroundcolor }) =>
     backgroundcolor || "var(--MINT)"};
-  padding: ${({ size }) =>
+  min-width: ${({ size }) =>
     typeof size === "number"
       ? `${size}px`
       : size === "small"
-      ? "5px 10px"
+      ? "70px"
       : size === "normal"
-      ? "10px 15px"
+      ? "100px"
       : size === "large"
-      ? "15px 20px"
+      ? "130px"
       : size === "extra-small"
-      ? "3px 6px"
+      ? "50px"
       : size === "category"
-      ? "10px 30px"
-      : "10px 15px"};
+      ? "130px"
+      : "100px"}; /* 최소 크기 지정 */
+  min-height: ${({ size }) =>
+    typeof size === "number"
+      ? `${size}px`
+      : size === "small"
+      ? "30px"
+      : size === "normal"
+      ? "50px"
+      : size === "large"
+      ? "80px"
+      : size === "extra-small"
+      ? "20px"
+      : size === "category"
+      ? "50px"
+      : "40px"}; /* 최소 크기 지정 */
+  font-size: ${({ size }) =>
+    typeof size === "number"
+      ? `${size / 2}px`
+      : size === "small"
+      ? "12px"
+      : size === "normal"
+      ? "16px"
+      : size === "large"
+      ? "20px"
+      : size === "extra-small"
+      ? "10px"
+      : size === "category"
+      ? "18px"
+      : "16px"}; /* 폰트 크기 지정 */
   border-radius: 25px;
   border-color: ${({ color }) => color || "var(--MINT)"};
   color: ${({ color }) => color || "var(--BLACK)"};
@@ -35,7 +63,8 @@ const Button = ({ label, onClick, color, size, disabled, backgroundcolor }) => {
       disabled={disabled}
       backgroundcolor={backgroundcolor}
       color={color}
-      size={size}>
+      size={size}
+    >
       {label}
     </StyledButton>
   );

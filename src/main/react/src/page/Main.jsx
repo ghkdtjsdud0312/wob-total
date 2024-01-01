@@ -63,6 +63,7 @@ const MediumContainer = styled.div`
 const CategoryBox2 = styled.div`
   height: 50px;
   margin-top: 15px;
+  padding-left: 5px;
   display: flex;
   justify-content: space-around; /* 일정 간격으로 벌어지게 함 */
   width: 75%; // 미디엄 컨테이너 안에 3/4 차지
@@ -106,7 +107,7 @@ const PlusButton = styled(FaPlusCircle)`
   bottom: 20px;
   right: 20px;
   color: var(--GREEN);
-  font-size: 35px;
+  font-size: 40px;
   cursor: pointer;
   margin: 10px;
 `;
@@ -115,7 +116,7 @@ const ListButton = styled(FontAwesomeIcon).attrs({ icon: faListUl })`
   bottom: 20px;
   right: 20px;
   color: var(--GREEN);
-  font-size: 35px;
+  font-size: 40px;
   cursor: pointer;
   padding-left: 5px;
 `;
@@ -281,6 +282,28 @@ const Main = () => {
               </Button>
             ))}
         </CategoryBox>
+        <MediumContainer>
+          <CategoryBox2>
+            {/* <Button label="모든 지역" size="category" />
+            <Button label="강남구" size="category" />
+            <Button label="관악구" size="category" />
+            <Button label="서초구" size="category" /> */}
+            <Button
+              label={allArea}
+              size="category"
+              onClick={() => handleCategoryButtonClick(allArea)}
+            />
+            {area &&
+              area.map((areastItem, index) => (
+                <Button key={index} label={areastItem}>
+                  {areastItem}
+                </Button>
+              ))}
+          </CategoryBox2>
+          <WeatherBox>
+            {addr} {temp} {sky === "알 수 없음" ? pty : sky}
+          </WeatherBox>
+        </MediumContainer>
         <DateBox style={{ position: "relative", zIndex: 1 }}>
           {selectedDate.format("YYYY년 MM월 DD일")}
           <FontAwesomeIcon
@@ -291,7 +314,7 @@ const Main = () => {
               top: 10,
               right: 20,
             }}
-            fontSize="25px"
+            fontSize="33px"
             cursor="pointer"
             onClick={handleIconClick}
           />
@@ -315,28 +338,6 @@ const Main = () => {
             calendarDate={calendarDate}
           />
         </CalenderBox>
-        <MediumContainer>
-          <CategoryBox2>
-            {/* <Button label="모든 지역" size="category" />
-            <Button label="강남구" size="category" />
-            <Button label="관악구" size="category" />
-            <Button label="서초구" size="category" /> */}
-            <Button
-              label={allArea}
-              size="category"
-              onClick={() => handleCategoryButtonClick(allArea)}
-            />
-            {area &&
-              area.map((areastItem, index) => (
-                <Button key={index} label={areastItem}>
-                  {areastItem}
-                </Button>
-              ))}
-          </CategoryBox2>
-          <WeatherBox>
-            {addr} {temp} {sky === "알 수 없음" ? pty : sky}
-          </WeatherBox>
-        </MediumContainer>
         <BottomContainer>
           <Subtitle>신나게 운동하자 우리 ☺</Subtitle>
           <PlusButton onClick={handlePlusIconClick} />
