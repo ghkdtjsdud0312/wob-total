@@ -17,6 +17,9 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   color: var(--BLACK);
+  @media only screen and (max-width: 768px) {
+    width: 97%;
+  }
 `;
 
 const ContentBox = styled.div`
@@ -24,33 +27,61 @@ const ContentBox = styled.div`
 `;
 
 const PictureCon = styled.div`
-  height: auto;
-  border-radius: 20px;
+  width: 100%;
   margin-bottom: 10px;
 `;
 
 const Image = styled.img`
   width: 100%;
-  height: auto;
-  border-radius: 20px;
+  height: 400px;
+  border-radius: 10px;
+`;
+
+const MiddleBox = styled.div`
+  width: 100%;
+  height: 100%;
+  padding: 5px 5px;
 `;
 
 const TitleBox = styled.div`
-  margin-top: 10px;
+  margin-bottom: -10px;
   height: 40px;
   font-size: 1.5rem;
   font-weight: bold;
 `;
 
 const TextBox = styled.div`
-  height: 30px;
+  width: 100%;
+  height: 100%;
   padding: 10px 5px;
+  display: flex;
+  font-size: 1rem;
+
+  .bottomDiv1 {
+    flex-direction: column;
+  }
+  .bottomDiv2 {
+    margin: 5px;
+    @media only screen and (max-width: 768px) {
+      width: 100%;
+    }
+  }
+
+  div {
+    display: flex;
+    flex-direction: row;
+  }
+  .bottomP1 {
+    width: 70px;
+    color: gray;
+  }
 `;
 
 const ButtonBox = styled.div`
   width: 100%;
   display: flex;
   justify-content: flex-end;
+  margin: 10px;
 `;
 
 const ContentButton = styled.button`
@@ -66,15 +97,6 @@ const ContentButton = styled.button`
   &:hover {
     opacity: 0.7;
   }
-`;
-
-const FooterBox = styled.div`
-  height: 90px;
-  background-color: white;
-  display: flex;
-  justify-content: center;
-  position: fixed;
-  bottom: 0px;
 `;
 
 const PaymentBtn = styled.button`
@@ -115,6 +137,15 @@ const ModalText2 = styled.input`
 const PayBox = styled.div`
   display: flex;
   justify-content: center;
+`;
+
+const FooterBox = styled.div`
+  height: 90px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  bottom: 0px;
 `;
 
 const PostDetail = ({ categoryImage }) => {
@@ -220,23 +251,51 @@ const PostDetail = ({ categoryImage }) => {
       <ContentBox>
         <Header />
         <PictureCon>
-          {/* <Image src={post.categoryImage} alt="카테고리 이미지" /> */}
           <Image
             src={post.type === "lesson" ? post.image : post.categoryImage}
             alt="이미지"
           />
         </PictureCon>
-        <TitleBox> {post.title} </TitleBox>
-        <TextBox>종목 {post.categoryName}</TextBox>
-        <TextBox>유형 {post.type}</TextBox>
+        <MiddleBox>
+          <TextBox>
+            <TitleBox> {post.title} </TitleBox>
+          </TextBox>
+          <TextBox>
+            <div className="bottomDiv1">
+              <div className="bottomDiv2">
+                <p className="bottomP1">종목</p>
+                <p className="bottomP2">{post.categoryName}</p>
+              </div>
+              <div className="bottomDiv2">
+                <p className="bottomP1">유형</p>
+                <p className="bottomP2">{post.type}</p>
+              </div>
+              <div className="bottomDiv2">
+                <p className="bottomP1">장소</p>
+                <p className="bottomP2">{post.place}</p>
+              </div>
+              <div className="bottomDiv2">
+                <p className="bottomP1">일시</p>
+                <p className="bottomP2">
+                  {post.date} {post.time}
+                </p>
+              </div>
+              <div className="bottomDiv2">
+                <p className="bottomP1">모집 인원</p>
+                <p className="bottomP2">{post.people}</p>
+              </div>
+              <div className="bottomDiv2">
+                <p className="bottomP1">예상 비용</p>
+                <p className="bottomP2">{post.fee}</p>
+              </div>
+              <div className="bottomDiv2">
+                <p className="bottomP1">일정 소개</p>
+                <p className="bottomP2">{post.introduction}</p>
+              </div>
+            </div>
+          </TextBox>
+        </MiddleBox>
         <PostMap />
-        <TextBox>장소 {post.place}</TextBox>
-        <TextBox>
-          일시 {post.date} {post.time}
-        </TextBox>
-        <TextBox>모집 인원 {post.people}명</TextBox>
-        <TextBox>예상 비용 {post.fee}원</TextBox>
-        <TextBox>일정 소개 {post.introduction}</TextBox>
         <ButtonBox>
           {post.type === "normal" && (
             <ChatStart postId={postId}>채팅방입장</ChatStart>
@@ -251,9 +310,6 @@ const PostDetail = ({ categoryImage }) => {
           )}
         </ButtonBox>
       </ContentBox>
-      <FooterBox>
-        <Footer />
-      </FooterBox>
       <Modal
         open={modalOpen}
         close={closeModal}
@@ -294,6 +350,9 @@ const PostDetail = ({ categoryImage }) => {
           )}
         </ModalContainer>
       </Modal>
+      <FooterBox>
+        <Footer />
+      </FooterBox>
     </Container>
   );
 };

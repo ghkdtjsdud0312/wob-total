@@ -1,7 +1,18 @@
 import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 import { Map, Marker } from "react-kakao-maps";
 import PostAxiosApi from "../api/PostAxiosApi";
 import { useParams } from "react-router-dom";
+import Footer from "../layout/Footer";
+
+const FooterBox = styled.div`
+  height: 90px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  bottom: 0px;
+`;
 
 const PostMap = () => {
   const [map, setMap] = useState(null);
@@ -105,7 +116,10 @@ const PostMap = () => {
 
   return (
     <div>
-      <div id="kakao-map" style={{ width: "100%", height: "300px" }}></div>
+      <div id="kakao-map" style={{ width: "100%", height: "270px" }}></div>
+      <FooterBox>
+        <Footer />
+      </FooterBox>
     </div>
   );
 };

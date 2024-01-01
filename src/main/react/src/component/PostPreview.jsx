@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faLocationDot,
   faChild,
-  faPersonWalking,
+  faHeartPulse,
 } from "@fortawesome/free-solid-svg-icons";
 
 const Container = styled.div`
@@ -20,13 +20,16 @@ const Container = styled.div`
 const DetailBox = styled.div`
   width: 80%;
   min-width: 300px;
-  height: 135px;
+  height: 150px;
   background-color: var(--MINT);
   color: #555555;
-  border-radius: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   margin: 5px;
   cursor: pointer;
+  margin-top: 10px;
+  border-top-right-radius: 40px;
+  border-bottom-right-radius: 40px;
+  border-bottom-left-radius: 40px;
 `;
 
 const Titlebox = styled.div`
@@ -106,7 +109,7 @@ const PostPreview = ({ title, date, time, local, people, category, type }) => {
             </ColumnBox>
             <ColumnBox>
               <CategoryBox>
-                <Icon icon={faPersonWalking} />
+                <Icon icon={faHeartPulse} />
                 {category}
               </CategoryBox>
             </ColumnBox>
