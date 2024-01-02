@@ -10,4 +10,6 @@ import java.util.Optional;
 
 public interface PaymentRepository extends JpaRepository<Payment, Long> {
     Page<Payment> findByUserEmailOrderByIdDesc(String email, Pageable pageable);
+    List<Payment> findByActive(String active);
+    Optional<Payment> findById(Long id);
 }

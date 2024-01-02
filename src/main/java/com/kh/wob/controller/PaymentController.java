@@ -65,4 +65,25 @@ public class PaymentController {
         int pageCnt = paymentService.getPaymentPage(email,pageRequest);
         return ResponseEntity.ok(pageCnt);
     }
+    // 활성화 비활성화 상태 바꾸기
+    @PutMapping("/state")
+    public ResponseEntity<Boolean> updatePaymentIsActive(@RequestBody PaymentDto paymentDto) {
+        log.info("paymentDto: {}", paymentDto);
+        boolean isTrue = paymentService.updatePaymentIsActive(paymentDto);
+        return ResponseEntity.ok(isTrue);
+    }
+
+    // 결제 목록 활성화인것만 들고오기
+    @GetMapping("/listactive")
+    public ResponseEntity<List<PaymentDto>> paymentActive() {
+        List<PaymentDto> list = paymentService.getPaymentActive();
+        return ResponseEntity.ok(list);
+    }
+
+    // 결제 삭제
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Boolean> paymentDelete(@PathVariable Long id) {
+        boolean isTrue = paymentService.deletePayment(id);
+        return ResponseEntity.ok(isTrue);
+    }
 }

@@ -88,7 +88,7 @@ const AdminAxiosApi = {
     return await customAxios.get(KH_DOMAIN + `/category/allList`);
   },
 
-  // 게시판 활성화 비활성화(post)-AdminActiveController
+  // 종목 활성화 비활성화(post)-AdminActiveController
   categoryListState: async (id, state) => {
     console.log("활성화 비활성화, id : ", id, state);
     const data = {
@@ -133,6 +133,31 @@ const AdminAxiosApi = {
   // 광고 삭제
   adDelete: async (adId) => {
     return await customAxios.delete(KH_DOMAIN + `/ad/delete/${adId}`);
+  },
+
+  //결제 전체 조회
+  paymentList: async () => {
+    return await customAxios.get(KH_DOMAIN + `/pay/all`);
+  },
+
+  // 결제 활성화 바활성화 처리(get)
+  paymentInfoGet: async () => {
+    return await customAxios.get(KH_DOMAIN + `/pay/listactive`);
+  },
+
+  // 결제 활성화 비활성화(post)
+  paymentListState: async (id, state) => {
+    console.log("활성화 비활성화, id : ", id, state);
+    const data = {
+      id: id,
+      active: state,
+    };
+    return await customAxios.put(KH_DOMAIN + `/pay/state`, data);
+  },
+
+  // 결제 삭제
+  paymentDelete: async (id) => {
+    return await customAxios.delete(KH_DOMAIN + `/pay/delete/${id}`);
   },
 };
 
