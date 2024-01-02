@@ -101,7 +101,7 @@ public class UserService {
         return userSignUpDtoList;
     }
 
-    //회원 수정
+    //    회원 수정 1안. (원본)
     public boolean modifyUser(UserMyPageDto userMyPageDto) {
         try {
             User user = userRepository.findByEmail(userMyPageDto.getEmail()).orElseThrow(
@@ -116,37 +116,28 @@ public class UserService {
                 user.setWithdrawal(userMyPageDto.getWithdrawal());
                 user.setActive("quit");
             } else { // 비밀번호, 회원 탈퇴 입력 안 됐을 때
-//                user.setEmail(userMyPageDto.getEmail());
                 System.out.println("회원 수정 유저서비스 : " + user.getEmail());
                 System.out.println("회원 수정 유저서비스 getMbti : " + user.getMbti());
-                user.setNickname(userMyPageDto.getNickname());
-                user.setIntroduce(userMyPageDto.getIntroduce());
-                user.setImage(userMyPageDto.getImage());
-                user.setMbti(userMyPageDto.getMbti());
-                user.setInterestSports(userMyPageDto.getInterestSports());
-                user.setInterestArea(userMyPageDto.getInterestArea());
+                user.setNickname(userMyPageDto.getNickname().isEmpty() ? user.getNickname() : userMyPageDto.getNickname());
+                user.setIntroduce(userMyPageDto.getIntroduce().isEmpty() ? user.getIntroduce() : userMyPageDto.getIntroduce());
+                user.setImage(userMyPageDto.getImage().isEmpty() ? user.getImage() : userMyPageDto.getImage());
+                user.setMbti(userMyPageDto.getMbti().isEmpty() ? user.getMbti() : userMyPageDto.getMbti());
+                user.setInterestSports(userMyPageDto.getInterestSports().isEmpty() ? user.getInterestSports() : userMyPageDto.getInterestSports());
+                user.setInterestArea(userMyPageDto.getInterestArea().isEmpty() ? user.getInterestArea() : userMyPageDto.getInterestArea());
             }
             userRepository.save(user);
             return true;
-//
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
+
     // 닉네임 조회
     public boolean isNickName(String nickName) {
         return userRepository.findByNickname(nickName).isPresent();
     }
 
-    //    // 사용자의 관심 운동 정보 가져오기
-//    public UserMyPageDto getUserInterestSports(String email) {
-//        User user = userRepository.findByEmail(email).orElseThrow(
-//                () -> new RuntimeException("해당 사용자를 찾을 수 없습니다.")
-//        );
-//
-//        return convertEntityToDto(user);
-//    }
     //엔티티 -> Dto 전환
     private UserMyPageDto convertEntityToDto(User user) {
         UserMyPageDto userMyPageDto = new UserMyPageDto();
@@ -275,23 +266,6 @@ public class UserService {
             return true;
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
-        }
-    }
-
-
-    // 회원 탈퇴 시 비활성화로 변경
-
-    public boolean withdrawalInactive(UserMyPageDto userMyPageDto) {
-        try {
-            User user = userRepository.findByEmail(userMyPageDto.getEmail()).orElseThrow(
-                    () -> new RuntimeException("해당 유저를 찾을 수 없습니다.")
-            );
-            user.setActive("inactive");
-            userRepository.save(user);
-            return true;
-        } catch (Exception e) {
-            log.error("유저 활성화/비활성화 업데이트 중 오류 발생", e);
             return false;
         }
     }

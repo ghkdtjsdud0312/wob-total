@@ -42,7 +42,6 @@ const DayItem = styled.div`
   color: #353535;
 
   &:hover {
-    /* background-color: #f0f0f0; */
     border: 2px solid #04bf8a;
   }
 

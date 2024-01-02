@@ -1,12 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import {
-  TitleAlign,
-  TextAlign,
-  SelectButton,
-  InputBar,
-  NextButton,
-} from "./InterestCommon";
+import { TitleAlign, TextAlign, SelectButton } from "../MBTI/MBTIcommon";
 import LoginPageAxiosApi from "../../api/LoginPageAxiosApi";
 
 const CenterBox = styled.div`
@@ -16,13 +10,17 @@ const CenterBox = styled.div`
   align-items: center;
   gap: 20px;
   width: 768px;
+  margin: 0px auto;
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const SportsGird = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-gap: 20px;
-  padding: 40px;
+  grid-gap: 10px;
+  padding: 20px;
 `;
 
 const SelectSports = ({ options, min, max, title, text, handleSelected }) => {
@@ -50,8 +48,6 @@ const SelectSports = ({ options, min, max, title, text, handleSelected }) => {
 
   return (
     <CenterBox>
-      <TitleAlign>{title}</TitleAlign>
-      <TextAlign>{text}</TextAlign>
       <SportsGird>
         {options.map((activity) => (
           <SelectButton

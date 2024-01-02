@@ -1,14 +1,6 @@
 import { useState } from "react";
 import styled, { keyframes } from "styled-components";
-import {
-  TitleAlign,
-  TextAlign,
-  SelectButton,
-  InputBar,
-  NextButton,
-} from "./InterestCommon";
-import LoginPageAxiosApi from "../../api/LoginPageAxiosApi";
-import { useNavigate } from "react-router-dom";
+import { TitleAlign, TextAlign, SelectButton } from "../MBTI/MBTIcommon";
 
 const CenterBox = styled.div`
   display: flex;
@@ -17,26 +9,23 @@ const CenterBox = styled.div`
   align-items: center;
   gap: 20px;
   width: 768px;
+  margin: 0px auto;
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 export const SelectOptionBoardCom = styled.div`
   width: 100%;
   overflow: hidden;
   position: relative;
-  transition: height 0.5s ease; // 트랜지션 추가
-  ${({ isOpen }) => isOpen && "height: 100%;"}// isOpen에 따라 높이 변경
 `;
 
 export const OptionBoardCom = styled.div`
   color: #353535;
   display: inline-block;
   width: 100%;
-  transition: height 0.3s ease; // 트랜지션 추가
   box-sizing: border-box;
-  overflow: hidden;
-  /* ${({ isOpen }) => isOpen && "border: 2px solid #dfede9;"}/* ${({
-    isOpen,
-  }) => isOpen && "height: 440px;"} // isOpen에 따라 높이 변경 */
 `;
 
 export const SelectOptionBoardHeaderComp = styled.div`
@@ -68,20 +57,14 @@ export const SelectOptionBoardFooterCom = styled.div`
 const AreasGird = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-gap: 20px;
-  padding: 40px;
+  grid-gap: 10px;
+  padding: 20px;
 `;
 
 const SelectArea = ({ options, min, max, title, text, handleSelected }) => {
-  const navigate = useNavigate();
   const [selectedItems, setSelectedItems] = useState([]);
-  const [isOpen, setIsOpen] = useState(false);
   const minSelection = min; // 최소 선택 할 수 있는 개수
   const maxSelection = max; // 최대 선택 할 수 있는 개수
-
-  const handleToggle = () => {
-    setIsOpen(!isOpen);
-  };
 
   const handleSelect = (item) => {
     console.log("선택된 운동들 : ", ...selectedItems);

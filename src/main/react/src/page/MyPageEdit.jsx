@@ -10,10 +10,7 @@ import Setting from "../images/Setting.png";
 import { Link } from "react-router-dom";
 import SelectSports from "../component/interest/SelectSportsClon";
 import SelectArea from "../component/interest/SelectAreaClon";
-import {
-  OptionBoardCom,
-  SelectOptionBoardCom,
-} from "../component/interest/SelectAreaClon";
+import { OptionBoardCom } from "../component/interest/SelectAreaClon";
 import SelectMBTI from "../component/MBTI/MBTI";
 
 const Container = styled.div`
@@ -38,6 +35,9 @@ const FinalCon = styled.div`
   border: 2px solid #cccccc;
 `;
 const FooterCon = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-bottom: 20px;
   font-size: 1em;
   color: #353535;
@@ -129,6 +129,7 @@ const SubmitButton = styled.button`
 const EX = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
 `;
 const EditLogo = styled.img`
   width: 30px;
@@ -157,6 +158,7 @@ const Text = styled.div`
   margin-bottom: 20px;
 `;
 const TextClon = styled.div`
+  width: 70%;
   font-size: 1.5em;
   color: #04bf8a;
   margin-bottom: 20px;
@@ -180,9 +182,6 @@ const MyPageEdit = () => {
   const [nickname, setNickname] = useState("");
   const [introduce, setIntroduce] = useState("");
   const [isOpen, setIsOpen] = useState([]);
-  const handleToggle = () => {
-    setIsOpen(!isOpen);
-  };
 
   useEffect(() => {
     const userInfo = async () => {
@@ -386,27 +385,29 @@ const MyPageEdit = () => {
               </UserInformation>
             </Text>
           </UserInfo>
-          <SelectOptionBoardCom>
-            {!editMode ? (
-              <>
-                <></>
-              </>
-            ) : (
-              <>
-                <IMGField>
-                  <input
-                    type="file"
-                    name="file"
-                    onChange={handleUploadChange}
-                  />
-                </IMGField>
-              </>
-            )}
-          </SelectOptionBoardCom>
+          <EX>
+            <EditNick>
+              {!editMode ? (
+                <>
+                  <></>
+                </>
+              ) : (
+                <>
+                  <IMGField>
+                    <input
+                      type="file"
+                      name="file"
+                      onChange={handleUploadChange}
+                    />
+                  </IMGField>
+                </>
+              )}
+            </EditNick>
+          </EX>
         </FinalCon>
         <FinalCon>
+          <Text>닉네임</Text>
           <EX>
-            <Text>닉네임</Text>
             <TextClon>
               <EditNick>
                 {!editMode ? (
@@ -425,8 +426,8 @@ const MyPageEdit = () => {
           </EX>
         </FinalCon>
         <FinalCon>
+          <Text>소개</Text>
           <EX>
-            <Text>소개</Text>
             <TextClon>
               <EditNick>
                 {!editMode ? (
@@ -445,8 +446,8 @@ const MyPageEdit = () => {
           </EX>
         </FinalCon>
         <FinalCon>
+          <Text>관심 지역</Text>
           <EX>
-            <Text>관심 지역</Text>
             <EditNick>
               {!editMode ? (
                 <Text>
@@ -472,8 +473,8 @@ const MyPageEdit = () => {
           </EX>
         </FinalCon>
         <FinalCon>
+          <Text>관심 운동</Text>
           <EX>
-            <Text>관심 운동</Text>
             <EditNick>
               {!editMode ? (
                 <Text>

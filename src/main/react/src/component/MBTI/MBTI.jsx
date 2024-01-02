@@ -9,17 +9,20 @@ const CenterBox = styled.div`
   align-items: center;
   gap: 20px;
   width: 768px;
+  margin: 0px auto;
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 const MBTIGird = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-gap: 20px;
-  padding: 40px;
+  grid-gap: 10px;
+  padding: 20px;
 `;
 
 const SelectMBTI = ({ options, max, handleSelectedItem }) => {
   const [selectedItem, setSelectedItem] = useState("");
-  const [value, setValue] = useState("");
   const maxSelection = max; // 최대 선택 할 수 있는 개수
   const handleSelect = (item) => {
     console.log("선택된 mbti : ", item);

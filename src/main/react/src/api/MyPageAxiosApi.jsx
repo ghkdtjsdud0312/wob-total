@@ -28,6 +28,19 @@ const MyPageAxiosApi = {
     }
   },
 
+  //스케줄 userId 확인하기
+  getScheduleByEmail: async (email) => {
+    try {
+      console.log("사용자 이메일을 기반으로 일정 조회 중...", email);
+      return await customAxios.get(KH_DOMAIN + `/schedule/user/`, {
+        userEmail: email,
+      });
+    } catch (error) {
+      console.error("일정 조회 중 에러 발생:", error);
+      throw error;
+    }
+  },
+
   // 사용자가 추가한 일정들을 불러오는 API
   joinList: async (userEmail) => {
     console.log("엑시오스 이메일 뜸? :", userEmail);

@@ -40,13 +40,6 @@ public class UserMyPageController {
         System.out.println("userMyPage dto email, 탈퇴사유 : " + userMyPageDto.getEmail()+userMyPageDto.getWithdrawal());
         return ResponseEntity.ok(isTrue);
     }
-//    //관심 종목(마이페이지)
-//    @GetMapping("/sports/{email}")
-//    public ResponseEntity<List<String>> UserInterestSports(@PathVariable String email) {
-//        List<String> interestSports = userService.interestSports(email);
-//        System.out.println("관심종목 가져오기 이메일 : " + email);
-//        return ResponseEntity.ok(interestSports);
-//    }
 
     // 회원 활성화 비활성화 상태 바꾸기(회원목록)
     @PutMapping("/state")
@@ -59,7 +52,7 @@ public class UserMyPageController {
     // 회원 목록 페이징(회원목록)
     @GetMapping("/list/page")
     public ResponseEntity<List<UserMyPageDto>> getUserList(@RequestParam(defaultValue = "0") int page,
-                                                             @RequestParam(defaultValue = "5") int size) {
+                                                           @RequestParam(defaultValue = "5") int size) {
         List<UserMyPageDto> list = userService.getUserList(page, size);
         return ResponseEntity.ok(list);
     }
@@ -67,7 +60,7 @@ public class UserMyPageController {
     // 회원 페이지 수 조회(회원목록)
     @GetMapping("/count")
     public ResponseEntity<Integer> listUser(@RequestParam(defaultValue = "0") int page,
-                                                @RequestParam(defaultValue = "5") int size) {
+                                            @RequestParam(defaultValue = "5") int size) {
         PageRequest pageRequest = PageRequest.of(page, size);
         Integer pageCnt = userService.getUserList(pageRequest);
         return ResponseEntity.ok(pageCnt);

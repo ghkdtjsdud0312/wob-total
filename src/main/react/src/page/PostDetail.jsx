@@ -159,15 +159,24 @@ const PostDetail = ({ categoryImage }) => {
   const [isUserPhoneNum, SetIsUserPhoneNum] = useState(false);
   const [paymentId, setPaymentId] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
+  const [scheduleOpen, setScheduleOpen] = useState(false);
 
   const onModalOpen = () => {
     setModalOpen(true);
+  };
+  const closeSchedul = () => {
+    setScheduleOpen(false);
   };
   const closeModal = () => {
     setModalOpen(false);
   };
   const confirmModal = () => {
     setModalOpen(false);
+  };
+  const onSchedulOpen = () => {
+    // 일정 추가 버튼 클릭 시 handleAddSchedule 실행 및 일정 모달 열기
+    handleAddSchedule();
+    setScheduleOpen(true);
   };
   // 주문자 이름 변수에 저장
   const onSaveName = (e) => {
@@ -306,10 +315,19 @@ const PostDetail = ({ categoryImage }) => {
           {post.type === "lesson" && post.fee > 100 ? (
             <PaymentBtn onClick={() => onModalOpen()}>결제하기</PaymentBtn>
           ) : (
-            <ContentButton onClick={handleAddSchedule}>일정추가</ContentButton>
+            <ContentButton onClick={() => onSchedulOpen()}>
+              일정추가
+            </ContentButton>
           )}
         </ButtonBox>
       </ContentBox>
+      <Modal
+        open={scheduleOpen}
+        header={post.title}
+        confirm={closeSchedul}
+        close={closeSchedul}
+        children="일정 추가가 완료되었습니다."
+      ></Modal>
       <Modal
         open={modalOpen}
         close={closeModal}
