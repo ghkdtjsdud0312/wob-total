@@ -118,7 +118,7 @@ const Tr5 = ({ data, index, setIsChange }) => {
           disabled={chatActive}
           value={chatContent}
           onChange={handleSelectChange}>
-          <option value="active">답변 중</option>
+          <option value="active">답변 진행중</option>
           <option value="inactive">답변 완료</option>
         </select>
       </td>

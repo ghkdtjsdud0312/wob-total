@@ -8,12 +8,13 @@ import Layout from "../../component/admin/Layout";
 import Tr5 from "../../component/admin/ChatElement";
 
 // 전체 큰 틀css
-const AdContainer = styled.div`
+const ChatContainer = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   padding-top: 100px;
 
   .Logo {
+    text-align: center;
     cursor: pointer;
   }
 
@@ -103,7 +104,7 @@ const AllChatContent = () => {
   }, [isChange]);
 
   return (
-    <AdContainer>
+    <ChatContainer>
       <div className="Logo" onClick={() => handleClick("/AdminMain")}>
         <FullLogoBth />
       </div>
@@ -142,7 +143,7 @@ const AllChatContent = () => {
       </Buttons>
       {/* 햄버거 토글 사이드바 */}
       <Layout />
-    </AdContainer>
+    </ChatContainer>
   );
 };
 
