@@ -139,6 +139,16 @@ const Layout = () => {
                   </li>
                 </ul>
               </li>
+              <li>
+                  <div className="m-title" onClick={() => onClickMenu(5)}>
+                    채팅 관리
+                  </div>
+                  <ul className="sub-menu">
+                    <li onClick={() => handleAreaNavigate("/AllChatContent")}>
+                      관리자 1:1 문의하기
+                    </li>
+                  </ul>
+                </li>
               <div className="logoBox">
                 <img
                   src="https://firebasestorage.googleapis.com/v0/b/mini-project-1f72d.appspot.com/o/%E1%84%80%E1%85%A1%E1%86%AB%E1%84%83%E1%85%A1%E1%86%AB%E1%84%85%E1%85%A9%E1%84%80%E1%85%A9-removebg-preview.png?alt=media&token=bebc4ce9-fa8d-4d5a-9880-faec9cfd382e"

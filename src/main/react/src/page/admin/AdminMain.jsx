@@ -66,6 +66,7 @@ const AdminMain = () => {
           전체 종목 관리
         </Click>
         <Click onClick={() => handleNavigate("/Advertising")}>광고 관리</Click>
+         <Click onClick={() => handleNavigate("/AllChatContent")}>관리자 1:1 문의 관리</Click>
       </Buttons>
       <Layout />
     </Container>

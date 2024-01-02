@@ -46,6 +46,7 @@ import ChatCreate from "./page/Chatting/ChatCreate";
 import Condition from "./page/login/Condition";
 import ForgotPassword from "./page/login/ForgotPassword";
 import AdSubmit from "./page/AdSubmit";
+import AllChatContent from "./page/admin/AllChatContent";
 
 function App() {
   return (
@@ -107,6 +108,9 @@ function App() {
             {/* 전체 결제 내역 관리 */}
             <Route path="/AllPaymentList" element={<AllPaymentList />} />
           </Route>
+           {/* 전체 채팅 내역 관리 */}
+              <Route path="/AllChatContent" element={<AllChatContent />} />
+            </Route>
           <Route
             path="/CompletePayment/:paymentId"
             element={<CompletePayment />}
