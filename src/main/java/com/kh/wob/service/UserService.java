@@ -280,5 +280,22 @@ public class UserService {
     }
 
 
+    // 회원 탈퇴 시 비활성화로 변경
+
+    public boolean withdrawalInactive(UserMyPageDto userMyPageDto) {
+        try {
+            User user = userRepository.findByEmail(userMyPageDto.getEmail()).orElseThrow(
+                    () -> new RuntimeException("해당 유저를 찾을 수 없습니다.")
+            );
+            user.setActive("inactive");
+            userRepository.save(user);
+            return true;
+        } catch (Exception e) {
+            log.error("유저 활성화/비활성화 업데이트 중 오류 발생", e);
+            return false;
+        }
+    }
+
+
 }
 

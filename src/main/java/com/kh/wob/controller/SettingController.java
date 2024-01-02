@@ -16,12 +16,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SettingController {
     private final UserService userService;
-    // 제 3자 로그인 정보 조회
-//    @GetMapping("socialType")
-//    public ResponseEntity<List<UserMyPageDto>> socialType(@RequestBody String email) {
-//        String socialType = userService.socialType(email);
-//        return ResponseEntity.ok(socialType);
-//    }
+
+    // 회원 탈퇴 시 active를 inactive로 변경
+    @PutMapping("/state")
+    public ResponseEntity<Boolean> updateUserActive(@RequestBody UserMyPageDto userMyPageDto) {
+        log.info("userDto: {}", userMyPageDto);
+        boolean isTrue = userService.withdrawalInactive(userMyPageDto);
+        return ResponseEntity.ok(isTrue);
+    }
 
 
 }

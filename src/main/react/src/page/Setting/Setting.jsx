@@ -67,9 +67,9 @@ const Setting = () => {
           <SettingBtn onClick={() => navigate("/Questions")}>
             <img
                 src="https://firebasestorage.googleapis.com/v0/b/mini-project-1f72d.appspot.com/o/question.png?alt=media&token=90479a46-00a2-4e88-b367-c22a1acd6c10"
-                alt="문의하기"
+                alt="자주 묻는 질문 FAQ"
             />
-            <span className="text">문의하기</span>
+            <span className="text">자주 묻는 질문 FAQ</span>
             <span className="pointer">&gt;</span>
           </SettingBtn>
           <SettingBtn onClick={() => navigate("/PaymentDetails")}>

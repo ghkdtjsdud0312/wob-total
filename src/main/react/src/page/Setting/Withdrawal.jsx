@@ -86,16 +86,21 @@ const Withdrawal = () => {
   };
   // Modal 확인 눌렀을 때,
   const confirmModal = async () => {
-    // 탈퇴하는 axios 구현
+    // 탈퇴 이유 저장
     const rsp = await SettingAxiosApi.withdrawal(
-      localStorage.getItem("email"),
-      radio
+        localStorage.getItem("email"),
+        radio
     );
+    // active를 inactive로 변경
+    const rsp2 = await SettingAxiosApi.withdrawalInactive(
+        localStorage.getItem("email")
+    );
+
     console.log("탈퇴사유확인 : " + rsp.data);
-    if (rsp.data === true) {
+    if (rsp.data && rsp2.data) {
       setModalOpen(false);
       alert("탈퇴되었습니다.");
-      navigate("/login");
+      navigate("/signin");
     } else {
       alert("탈퇴가 정상적으로 처리되지 않았습니다.");
     }
@@ -118,111 +123,111 @@ const Withdrawal = () => {
     }
   };
   return (
-    <>
-      <SettingHeader title="계정 탈퇴" />
-      <Container>
-        <SubContainer>
-          <p className="title">
-            정말 떠나시는 건가요? <br />한 번 더 생각해보지 않으시겠어요?
-          </p>
-        </SubContainer>
-        <SubContainer>
-          <p className="subTitle">
-            계정을 탈퇴하시려는 이유를 말씀해주세요. <br />
-            제품 개선에 중요 자료로 활용하겠습니다.
-          </p>
-        </SubContainer>
-        <SubContainer className="radio">
-          <RadioContainer>
-            <RadioBtn
-              type="radio"
-              name="탈퇴이유"
-              onClick={() => onClickRadioBtn("기록 삭제 목적")}
-            />
-            기록 삭제 목적
-          </RadioContainer>
-          <RadioContainer>
-            <RadioBtn
-              type="radio"
-              name="탈퇴이유"
-              onClick={() => onClickRadioBtn("이용이 불편하고 장애가 많아서")}
-            />
-            이용이 불편하고 장애가 많아서
-          </RadioContainer>
-          <RadioContainer>
-            <RadioBtn
-              type="radio"
-              name="탈퇴이유"
-              onClick={() => onClickRadioBtn("다른 사이트가 더 좋아서")}
-            />
-            다른 사이트가 더 좋아서
-          </RadioContainer>
-          <RadioContainer>
-            <RadioBtn
-              type="radio"
-              name="탈퇴이유"
-              onClick={() => onClickRadioBtn("삭제하고 싶은 내용이 있어서")}
-            />
-            삭제하고 싶은 내용이 있어서
-          </RadioContainer>
-          <RadioContainer>
-            <RadioBtn
-              type="radio"
-              name="탈퇴이유"
-              onClick={() => onClickRadioBtn("사용 빈도가 낮아서")}
-            />
-            사용 빈도가 낮아서
-          </RadioContainer>
-          <RadioContainer>
-            <RadioBtn
-              type="radio"
-              name="탈퇴이유"
-              onClick={() => onClickRadioBtn("콘텐츠 불만")}
-            />
-            콘텐츠 불만
-          </RadioContainer>
-          <RadioContainer>
-            <RadioBtn
-              type="radio"
-              name="탈퇴이유"
-              onClick={() => onClickRadioBtn("기타")}
-            />
-            기타
-          </RadioContainer>
-        </SubContainer>
-        <SubContainer>
-          <p className="lastText">
-            계정을 탈퇴하면 회원님의 모든 콘텐츠와 활동 기록이 삭제됩니다.
-            삭제된 정보는 복구할 수 없으니 신중하게 결정해주세요.
-            <br />
-            <br />
-            클래스 결제를 통해 지불한 금액은 계정 탈퇴 시 환불이 불가합니다.
-            또한 환불 신청 후 환불 처리가 완료되기 전 계정을 삭제하시는 경우
-            정상적인 처리가 불가하니 주의하시기 바랍니다.
-          </p>
-        </SubContainer>
-        <SubContainer>
-          <p className="btn">
-            <Button
-              size={"large"}
-              backgroundcolor={"red"}
-              color={"white"}
-              label={"탈퇴하기"}
-              onClick={() => onClickWithdrawalBtn()}
-            />
-          </p>
-        </SubContainer>
-        <Modal
-          open={modalOpen}
-          close={closeModal}
-          confirm={confirmModal}
-          type={true}
-          header="알림"
-        >
-          {modalText}
-        </Modal>
-      </Container>
-    </>
+      <>
+        <SettingHeader title="계정 탈퇴" />
+        <Container>
+          <SubContainer>
+            <p className="title">
+              정말 떠나시는 건가요? <br />한 번 더 생각해보지 않으시겠어요?
+            </p>
+          </SubContainer>
+          <SubContainer>
+            <p className="subTitle">
+              계정을 탈퇴하시려는 이유를 말씀해주세요. <br />
+              제품 개선에 중요 자료로 활용하겠습니다.
+            </p>
+          </SubContainer>
+          <SubContainer className="radio">
+            <RadioContainer>
+              <RadioBtn
+                  type="radio"
+                  name="탈퇴이유"
+                  onClick={() => onClickRadioBtn("기록 삭제 목적")}
+              />
+              기록 삭제 목적
+            </RadioContainer>
+            <RadioContainer>
+              <RadioBtn
+                  type="radio"
+                  name="탈퇴이유"
+                  onClick={() => onClickRadioBtn("이용이 불편하고 장애가 많아서")}
+              />
+              이용이 불편하고 장애가 많아서
+            </RadioContainer>
+            <RadioContainer>
+              <RadioBtn
+                  type="radio"
+                  name="탈퇴이유"
+                  onClick={() => onClickRadioBtn("다른 사이트가 더 좋아서")}
+              />
+              다른 사이트가 더 좋아서
+            </RadioContainer>
+            <RadioContainer>
+              <RadioBtn
+                  type="radio"
+                  name="탈퇴이유"
+                  onClick={() => onClickRadioBtn("삭제하고 싶은 내용이 있어서")}
+              />
+              삭제하고 싶은 내용이 있어서
+            </RadioContainer>
+            <RadioContainer>
+              <RadioBtn
+                  type="radio"
+                  name="탈퇴이유"
+                  onClick={() => onClickRadioBtn("사용 빈도가 낮아서")}
+              />
+              사용 빈도가 낮아서
+            </RadioContainer>
+            <RadioContainer>
+              <RadioBtn
+                  type="radio"
+                  name="탈퇴이유"
+                  onClick={() => onClickRadioBtn("콘텐츠 불만")}
+              />
+              콘텐츠 불만
+            </RadioContainer>
+            <RadioContainer>
+              <RadioBtn
+                  type="radio"
+                  name="탈퇴이유"
+                  onClick={() => onClickRadioBtn("기타")}
+              />
+              기타
+            </RadioContainer>
+          </SubContainer>
+          <SubContainer>
+            <p className="lastText">
+              계정을 탈퇴하면 회원님의 모든 콘텐츠와 활동 기록이 삭제됩니다.
+              삭제된 정보는 복구할 수 없으니 신중하게 결정해주세요.
+              <br />
+              <br />
+              클래스 결제를 통해 지불한 금액은 계정 탈퇴 시 환불이 불가합니다.
+              또한 환불 신청 후 환불 처리가 완료되기 전 계정을 삭제하시는 경우
+              정상적인 처리가 불가하니 주의하시기 바랍니다.
+            </p>
+          </SubContainer>
+          <SubContainer>
+            <div className="btn">
+              <Button
+                  size={"normal"}
+                  backgroundcolor={"red"}
+                  color={"white"}
+                  label={"탈퇴하기"}
+                  onClick={() => onClickWithdrawalBtn()}
+              />
+            </div>
+          </SubContainer>
+          <Modal
+              open={modalOpen}
+              close={closeModal}
+              confirm={confirmModal}
+              type={true}
+              header="알림"
+          >
+            {modalText}
+          </Modal>
+        </Container>
+      </>
   );
 };
 export default Withdrawal;

@@ -36,6 +36,13 @@ const SettingAxiosApi = {
     };
     return await customAxios.put(KH_DOMAIN + "/users/modify", contents);
   },
+  // 회원 활성화 비활성화
+  withdrawalInactive: async (email) => {
+    const data = {
+      email: email,
+    };
+    return await customAxios.put(KH_DOMAIN + `/setting/state`, data);
+  },
   // withdrawal: async (email, withdrawal) => {
   //   const token = Common.getAccessToken();
   //   const contents = {
@@ -56,8 +63,8 @@ const SettingAxiosApi = {
       email: email,
     };
     return await customAxios.get(
-      KH_DOMAIN + `/users/detail/${email}`,
-      contents
+        KH_DOMAIN + `/users/detail/${email}`,
+        contents
     );
   },
   // socialType: async (email) => {
@@ -213,13 +220,13 @@ const SettingAxiosApi = {
   // 결제내역 페이지네이션 조회
   paymentPageList: async (email, page, size) => {
     return await customAxios.get(
-      KH_DOMAIN + `/pay/detail/page?email=${email}&page=${page}&size=${size}`
+        KH_DOMAIN + `/pay/detail/page?email=${email}&page=${page}&size=${size}`
     );
   },
   // 결제내역 페이지 수 조회
   paymentPage: async (email, page, size) => {
     return await customAxios.get(
-      KH_DOMAIN + `/pay/detail/count?email=${email}&page=${page}&size=${size}`
+        KH_DOMAIN + `/pay/detail/count?email=${email}&page=${page}&size=${size}`
     );
   },
 };
