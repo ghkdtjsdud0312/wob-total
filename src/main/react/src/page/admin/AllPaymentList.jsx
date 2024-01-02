@@ -13,7 +13,7 @@ const PaymentContainer = styled.div`
   margin: 0 auto;
   padding-top: 100px;
 
-  .logo {
+  .Logo {
     text-align: center;
     cursor: pointer;
   }
@@ -73,6 +73,7 @@ const Buttons = styled.div`
     padding: 15px;
     font-size: 15px;
     margin: 10px 10px;
+    cursor: pointer;
   }
 `;
 

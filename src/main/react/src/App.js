@@ -110,7 +110,6 @@ function App() {
           </Route>
            {/* 전체 채팅 내역 관리 */}
               <Route path="/AllChatContent" element={<AllChatContent />} />
-            </Route>
           <Route
             path="/CompletePayment/:paymentId"
             element={<CompletePayment />}

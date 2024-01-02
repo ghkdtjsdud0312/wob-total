@@ -46,7 +46,7 @@ export const List = styled.ul`
   .m-title {
     font-size: 23px;
     font-weight: bold;
-    line-height: 65px;
+    line-height: 40px;
     cursor: pointer;
     position: relative;
   }
