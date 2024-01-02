@@ -10,13 +10,18 @@ const Container = styled.div`
   max-width: 768px;
   min-width: 300px;
   margin: 0 auto;
+  margin-bottom: 8%;
   justify-content: center;
   align-items: center;
   color: var(--GREEN);
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
+
 const Mine = styled.div`
-  font-size: 3em;
-  color: #353535;
+  font-size: 2.5em;
+  color: #333;
   text-align: center;
   margin: 20px 0;
 `;
@@ -54,7 +59,7 @@ const MyPost = ({ postId, selectedDate }) => {
   return (
     <>
       <Container>
-        <Mine>MY POST</Mine>
+        <Mine>내가 작성한 글</Mine>
         {postList &&
           postList.map((post) => (
             // PostPreview 컴포넌트를 호출하면서 필요한 데이터를 전달

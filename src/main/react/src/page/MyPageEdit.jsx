@@ -12,17 +12,25 @@ import SelectSports from "../component/interest/SelectSportsClon";
 import SelectArea from "../component/interest/SelectAreaClon";
 import {
   OptionBoardCom,
-  SelectOptionBoardFooterCom,
   SelectOptionBoardCom,
-  SelectOptionBoardHeaderComp,
 } from "../component/interest/SelectAreaClon";
 import SelectMBTI from "../component/MBTI/MBTI";
 
 const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 768px;
   margin: 0px auto;
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 const FinalCon = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 90%;
   margin-top: 30px;
   border-top-right-radius: 40px;
   border-bottom-right-radius: 40px;
@@ -31,7 +39,7 @@ const FinalCon = styled.div`
 `;
 const FooterCon = styled.div`
   margin-bottom: 20px;
-  font-size: 1.2em;
+  font-size: 1em;
   color: #353535;
 `;
 const HeaderBox = styled.div`
@@ -42,13 +50,13 @@ const HeaderBox = styled.div`
   margin: 0 auto;
 `;
 const EditBox = styled.div`
+  width: 90%;
+  align-items: center;
   display: flex;
   flex-direction: column;
   margin-bottom: 15%;
 `;
 const FooterBox = styled.div`
-  height: 90px;
-  background-color: white;
   display: flex;
   justify-content: center;
   position: fixed;
@@ -71,7 +79,7 @@ const UserInformation = styled.h2`
   padding: 10px 0;
   display: flex;
   justify-content: center;
-  font-size: 2em;
+  font-size: 1em;
   color: #353535;
 `;
 
@@ -98,12 +106,10 @@ const EditNick = styled.div`
 `;
 const Input = styled.input`
   background-color: none;
-  width: 100%;
+  width: 90%;
   text-align: center;
-  /* padding: 20px; */
   font-size: 1em;
   border: 1px solid #f7f7f7;
-  transition: height 0.5s ease; // 트랜 = sty지션 추가
 `;
 const SubmitButton = styled.button`
   padding: 5px;
@@ -145,13 +151,13 @@ const StyledLink = styled(Link)`
   margin: 0 30px;
 `;
 const Text = styled.div`
-  font-size: 2em;
+  font-size: 1.5em;
   margin: 10px;
   color: #04bf8a;
   margin-bottom: 20px;
 `;
 const TextClon = styled.div`
-  font-size: 2em;
+  font-size: 1.5em;
   color: #04bf8a;
   margin-bottom: 20px;
 `;
@@ -398,8 +404,8 @@ const MyPageEdit = () => {
             )}
           </SelectOptionBoardCom>
         </FinalCon>
-        <EX>
-          <FinalCon>
+        <FinalCon>
+          <EX>
             <Text>닉네임</Text>
             <TextClon>
               <EditNick>
@@ -416,13 +422,13 @@ const MyPageEdit = () => {
                 )}
               </EditNick>
             </TextClon>
-          </FinalCon>
-        </EX>
-        <EX>
-          <FinalCon>
+          </EX>
+        </FinalCon>
+        <FinalCon>
+          <EX>
             <Text>소개</Text>
-            <EditNick>
-              <TextClon>
+            <TextClon>
+              <EditNick>
                 {!editMode ? (
                   <FooterCon>{user.introduce}</FooterCon>
                 ) : (
@@ -434,12 +440,12 @@ const MyPageEdit = () => {
                     onChange={handleChangeIntro}
                   />
                 )}
-              </TextClon>
-            </EditNick>
-          </FinalCon>
-        </EX>
-        <EX>
-          <FinalCon>
+              </EditNick>
+            </TextClon>
+          </EX>
+        </FinalCon>
+        <FinalCon>
+          <EX>
             <Text>관심 지역</Text>
             <EditNick>
               {!editMode ? (
@@ -463,10 +469,10 @@ const MyPageEdit = () => {
                 />
               )}
             </EditNick>
-          </FinalCon>
-        </EX>
-        <EX>
-          <FinalCon>
+          </EX>
+        </FinalCon>
+        <FinalCon>
+          <EX>
             <Text>관심 운동</Text>
             <EditNick>
               {!editMode ? (
@@ -490,8 +496,8 @@ const MyPageEdit = () => {
                 />
               )}
             </EditNick>
-          </FinalCon>
-        </EX>
+          </EX>
+        </FinalCon>
         <FinalCon>
           <Text>MBTI</Text>
           <EditNick>
