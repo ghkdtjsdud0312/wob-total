@@ -1,4 +1,4 @@
-// 관리자 회원 관리(전체 회원 조회)
+// 관리자 광고 관리
 import React, { useState, useEffect } from "react";
 import AdminAxiosApi from "../../api/AdminAxiosApi";
 import styled from "styled-components";
@@ -8,21 +8,21 @@ import Layout from "../../component/admin/Layout";
 import Tr3 from "../../component/admin/AdElement";
 
 // 전체 큰 틀css
-const BoardContainer = styled.div`
+const AdContainer = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   padding-top: 100px;
 
-    .logo {
-      cursor: pointer;
-    }
+  .logo {
+    cursor: pointer;
+  }
 
-   // 카테고리 목록 css
-    p {
-      text-align: center;
-      font-size: 45px;
-      padding-bottom: 50px;
-    }
+  // 광고 목록 css
+  p {
+    text-align: center;
+    font-size: 45px;
+    padding-bottom: 50px;
+  }
 
   .tableBox {
     //table 표
@@ -45,16 +45,16 @@ const BoardContainer = styled.div`
       }
     }
   }
-    @media screen and (min-width: 375px) {
-      .tableBox {
-        width: 100%;
-        overflow-x: auto;
-        white-space: nowrap;
-        table {
-          width: auto;
-        }
+  @media screen and (min-width: 375px) {
+    .tableBox {
+      width: 100%;
+      overflow-x: auto;
+      white-space: nowrap;
+      table {
+        width: auto;
       }
     }
+  }
 `;
 
 // 등록 버튼
@@ -75,11 +75,13 @@ const Buttons = styled.div`
   }
 `;
 
+// 페이지 네이션 큰 틀
 const PaginationContainer = styled.div`
   text-align: center;
   margin-top: 20px;
 `;
 
+// 페이지네이션 버튼
 const PageButton = styled.button`
   border: 1px solid #ddd;
   padding: 5px;
@@ -100,21 +102,22 @@ const PageButton = styled.button`
   }
 `;
 
-// 회원 목록 페이지
+// 광고 목록 페이지
 const Advertising = () => {
   // 맵 돌릴 리스트
-  const [adList, setAdList] = useState([]); // 회원리스트
+  const [adList, setAdList] = useState([]); // 광고 리스트
   const [currentPage, setCurrentPage] = useState(0); // 현재 페이지
   const [totalPage, setTotalPage] = useState(0); // 총 페이지 수
-  const [num, setNum] = useState(0); // 인덱스 번호
+  const [num, setNum] = useState(1); // 인덱스 번호
   const [isChange, setIsChange] = useState(false);
   const navigate = useNavigate();
 
-  // 수정, 등록 시 경로 이동
+  // 수정 시 경로 이동
   const handleClick = (path) => {
     navigate(path);
   };
 
+  // 광고 페이지 수 정하기
   const getTotalPage = async () => {
     try {
       const res = await AdminAxiosApi.adPageCount(0, 5);
@@ -138,6 +141,7 @@ const Advertising = () => {
     }
   }, [isChange]);
 
+  // 다음 페이지네이션 시 몇개씩 넘길 것인지
   const fetchAdList = async () => {
     try {
       const res = await AdminAxiosApi.adPageList(currentPage, 5);
@@ -148,7 +152,7 @@ const Advertising = () => {
     }
   };
 
-  // 회원 목록 (페이지나누기)
+  // 광고 목록 (페이지나누기)
   useEffect(() => {
     fetchAdList();
   }, [currentPage]);
@@ -162,7 +166,7 @@ const Advertising = () => {
     setNum((number - 1) * 5 + 1); // 각 페이지의 첫번째 인덱스 번호
   };
 
-  // 페이지 네이션 버튼
+  // 페이지 네이션 페이지 버튼
   const renderPagination = () => {
     return (
       <PaginationContainer>
@@ -176,11 +180,11 @@ const Advertising = () => {
   };
 
   return (
-    <BoardContainer>
+    <AdContainer>
       <div className="Logo" onClick={() => handleClick("/AdminMain")}>
         <FullLogoBth />
       </div>
-       <p>전체 광고 관리 목록</p>
+      <p>전체 광고 관리 목록</p>
       <div className="tableBox">
         <table>
           <thead>
@@ -198,13 +202,14 @@ const Advertising = () => {
             </tr>
           </thead>
           <tbody>
+            {/* map으로 반복할 요소 */}
             {adList &&
               adList.map((data, index) => (
                 <Tr3
                   key={data.id} // 고유한 키 생성
                   data={data}
                   index={index + num}
-                  active={data.active === "active"}
+                  active={data.active === "승인 미완료"}
                   setIsChange={setIsChange}
                 />
               ))}
@@ -217,7 +222,7 @@ const Advertising = () => {
       </Buttons>
       {/* 햄버거 토글 사이드바 */}
       <Layout />
-    </BoardContainer>
+    </AdContainer>
   );
 };
 

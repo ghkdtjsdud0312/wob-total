@@ -24,8 +24,6 @@ const TrComp = styled.tr`
         &:disabled {
           opacity: 1;
         }
-        option {
-        }
       }
     }
   }
@@ -33,8 +31,8 @@ const TrComp = styled.tr`
 
 const Tr2 = ({ data, index, setIsChange }) => {
   const [userContent, setUserContent] = useState("");
-  const [userActive, setUserActive] = useState(true);
-  const [confirmRevise, setConfirmRevise] = useState(false);
+  const [userActive, setUserActive] = useState(true); // 회원 셀렉트 활성화 비활성화
+  const [confirmRevise, setConfirmRevise] = useState(false); // 수정 -> 확인
   const [num, setNum] = useState(0); // 인덱스 번호
 
   // 모달 관련 변수
@@ -54,13 +52,13 @@ const Tr2 = ({ data, index, setIsChange }) => {
     const rsp = await AdminAxiosApi.userListState(data.id, userContent);
     console.log("rsp : ", rsp.data);
     if (rsp.data) {
-      alert("해당 회원정보가 수정되었습니다.");
+      alert("해당 회원이 승인되었습니다.");
       setModalOpen(false); // 모달 여는 것
       setIsChange(true); //
       setConfirmRevise(false); //
       setUserActive(true); //
     } else {
-      alert("해당 회원정보가 수정되지 않았습니다.");
+      alert("해당 회원이 수정되지 않았습니다.");
     }
   };
 
@@ -100,7 +98,7 @@ const Tr2 = ({ data, index, setIsChange }) => {
   // 회원 삭제 모달
   const clickDelete = () => {
     setIsOpen(false);
-    setModalText("회원을 삭제하시겠습니까?");
+    setModalText("해당 회원을 삭제하시겠습니까?");
     setModalOpen(true);
   };
 

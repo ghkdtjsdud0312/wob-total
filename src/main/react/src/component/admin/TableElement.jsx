@@ -34,9 +34,6 @@ const TrComp = styled.tr`
         &:disabled {
           opacity: 1;
         }
-
-        option {
-        }
       }
     }
   }
@@ -44,8 +41,8 @@ const TrComp = styled.tr`
 
 const Tr = ({ data, index, setIsChange }) => {
   const [categoryContent, setCategoryContent] = useState("");
-  const [categoryActive, setCategoryActive] = useState(true);
-  const [confirmRevise, setConfirmRevise] = useState(false);
+  const [categoryActive, setCategoryActive] = useState(true); // 종목 셀렉트 활성화 비활성화
+  const [confirmRevise, setConfirmRevise] = useState(false); // 수정 -> 확인
   const [num, setNum] = useState(0); // 인덱스 번호
 
   // 모달 관련 변수
@@ -109,10 +106,10 @@ const Tr = ({ data, index, setIsChange }) => {
     setModalOpen(true);
   };
 
-  // 카테고리 삭제
+  // 등록한 종목 삭제
   const clickDelete = () => {
     setIsOpen(false);
-    setModalText("목록을 삭제하시겠습니까?");
+    setModalText("해당 종목을 삭제하시겠습니까?");
     setModalOpen(true);
   };
 
@@ -139,8 +136,8 @@ const Tr = ({ data, index, setIsChange }) => {
           disabled={categoryActive}
           value={categoryContent}
           onChange={handleSelectChange}>
-          <option value="active">활동목록</option>
-          <option value="inactive">비활동목록</option>
+          <option value="active">활동종목</option>
+          <option value="inactive">비활동종목</option>
         </select>
       </td>
       <td>

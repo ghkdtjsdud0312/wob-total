@@ -12,7 +12,7 @@ const TrComp = styled.tr`
     text-align: center;
     width: 50px;
     vertical-align: middle;
-    background-color: ${(props) => (props.$active ? "white" : "#c4c1c1")};
+    background-color: ${(props) => (props.$active ? "#c4c1c1" : "white")};
 
     &.center {
       text-align: center;
@@ -34,9 +34,6 @@ const TrComp = styled.tr`
         &:disabled {
           opacity: 1;
         }
-
-        option {
-        }
       }
     }
   }
@@ -44,8 +41,8 @@ const TrComp = styled.tr`
 
 const Tr3 = ({ data, index, setIsChange }) => {
   const [adContent, setAdContent] = useState("");
-  const [adActive, setAdActive] = useState(true);
-  const [confirmRevise, setConfirmRevise] = useState(false);
+  const [adActive, setAdActive] = useState(true); // 광고 셀렉트 활성화 비활성화
+  const [confirmRevise, setConfirmRevise] = useState(false); // 수정 -> 확인
   const [num, setNum] = useState(0); // 인덱스 번호
 
   // 모달 관련 변수
@@ -65,7 +62,7 @@ const Tr3 = ({ data, index, setIsChange }) => {
     const rsp = await AdminAxiosApi.adListState(data.id, adContent);
     console.log("rsp : ", rsp.data);
     if (rsp.data) {
-      alert("해당 광고가 수정되었습니다.");
+      alert("해당 광고가 승인되었습니다.");
       setModalOpen(false);
       setIsChange(true);
       setConfirmRevise(false);
@@ -114,7 +111,7 @@ const Tr3 = ({ data, index, setIsChange }) => {
   };
 
   return (
-    <TrComp $active={data.active === "active"}>
+    <TrComp $active={data.active === "inactive"}>
       {/* 숫자 자동증가 */}
       <td className="center">{index + num}</td>
       <td>{data.categoryName}</td>
@@ -134,8 +131,8 @@ const Tr3 = ({ data, index, setIsChange }) => {
           disabled={adActive}
           value={adContent}
           onChange={handleSelectChange}>
-          <option value="active">활동광고</option>
-          <option value="inactive">지난광고</option>
+          <option value="active">승인 완료</option>
+          <option value="inactive">승인 미완료</option>
         </select>
       </td>
       <td>
