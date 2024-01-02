@@ -131,8 +131,8 @@ const AdminAxiosApi = {
   },
 
   // 광고 삭제
-  adDelete: async (id) => {
-    return await customAxios.delete(KH_DOMAIN + `/ad/delete/${id}`);
+  adDelete: async (adId) => {
+    return await customAxios.delete(KH_DOMAIN + `/ad/delete/${adId}`);
   },
 };
 

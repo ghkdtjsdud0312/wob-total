@@ -12,7 +12,7 @@ const TrComp = styled.tr`
     text-align: center;
     width: 50px;
     vertical-align: middle;
-    background-color: ${(props) => (props.$active ? "#c4c1c1" : "white")};
+    background-color: ${(props) => (props.$active ? "white" : "#c4c1c1")};
 
     &.center {
       text-align: center;
@@ -57,7 +57,7 @@ const Tr3 = ({ data, index, setIsChange }) => {
 
   // 수정 모달창
   const confirmModal = async () => {
-    console.log("Data in Tr component:", data);
+    console.log("Data in Tr3 component:", data);
     console.log("수정 데이터 : ", data.id, adContent);
     const rsp = await AdminAxiosApi.adListState(data.id, adContent);
     console.log("rsp : ", rsp.data);
@@ -74,8 +74,10 @@ const Tr3 = ({ data, index, setIsChange }) => {
 
   // 삭제 모달
   const deleteModal = async () => {
+    console.log("Data in Tr3 component:", data);
+    console.log("삭제 데이터 : ", data.id);
     const rsp = await AdminAxiosApi.adDelete(data.id);
-    console.log(data.id);
+    console.log("rsp : ", rsp.data);
     if (rsp.status === 200) {
       alert("해당 광고가 삭제 되었습니다.");
       setModalOpen(false);
@@ -111,7 +113,7 @@ const Tr3 = ({ data, index, setIsChange }) => {
   };
 
   return (
-    <TrComp $active={data.active === "inactive"}>
+    <TrComp $active={data.active === "active"}>
       {/* 숫자 자동증가 */}
       <td className="center">{index + num}</td>
       <td>{data.categoryName}</td>
