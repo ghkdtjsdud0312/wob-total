@@ -96,11 +96,11 @@ public class AdService {
         return convertEntityToDto(ad);
     }
     // 광고 삭제
-    public boolean deleteAd(String postId) {
+    public boolean deleteAd(Long adId) {
         try {
-            Ad ad = adRepository.findById(postId).orElseThrow(()-> new RuntimeException("존재하지 않는 광고입니다"));
+            Ad ad = adRepository.findById(adId).orElseThrow(()-> new RuntimeException("존재하지 않는 광고입니다"));
             adRepository.delete(ad);
-            log.info("해당 광고가 삭제되었습니다. : ", postId);
+            log.info("해당 광고가 삭제되었습니다. : ", adId);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -113,7 +113,6 @@ public class AdService {
     private AdDto convertEntityToDto(Ad ad) {
         AdDto adDto = new AdDto();
         adDto.setId(ad.getId());
-        adDto.setPostId(ad.getPost().getId());
         adDto.setFee(ad.getFee());
         adDto.setPeriod(ad.getPeriod());
         adDto.setImage(ad.getImage());

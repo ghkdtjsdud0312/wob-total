@@ -49,10 +49,10 @@ public class AdController {
         return ResponseEntity.ok(pageCnt);
     }
     // 광고 삭제
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Boolean> adDelete(@PathVariable String postId) {
-        log.info("postId : ", postId );
-        boolean isTrue = adService.deleteAd(postId);
+    @DeleteMapping("/delete/{adId}")
+    public ResponseEntity<Boolean> adDelete(@PathVariable Long adId) {
+        log.info("adId : ", adId );
+        boolean isTrue = adService.deleteAd(adId);
         return ResponseEntity.ok(isTrue);
     }
     // 광고 등록
