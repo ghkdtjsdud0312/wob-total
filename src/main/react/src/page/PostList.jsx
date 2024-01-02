@@ -3,7 +3,6 @@ import styled from "styled-components";
 import PostAxiosApi from "../api/PostAxiosApi";
 import PostPreview from "../component/PostPreview";
 import moment from "moment";
-import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 const Container = styled.div`
@@ -19,35 +18,71 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 `;
 
-const PostList = ({ selectedDate }) => {
-  const navigate = useNavigate();
+// 페이지 네이션 큰 틀
+const PaginationContainer = styled.div`
+  text-align: center;
+  padding-top: 20px;
+`;
+
+// 페이지네이션 버튼
+const PageButton = styled.button`
+  border: 1px solid #ddd;
+  padding: 5px;
+  width: 28px;
+  margin: 0 5px;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: var(--MINT);
+  }
+
+  &:focus {
+    outline: none;
+    background-color: var(--GREEN);
+  }
+`;
+
+const PostList = () => {
   const [postList, setPostList] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPage, setTotalPage] = useState(0);
 
   useEffect(() => {
     const fetchPostList = async () => {
-      try {
-        const rsp = await PostAxiosApi.postListAll();
-        console.log(rsp.data);
-        if (rsp.status === 200) {
-          // 전체 게시글 받아온 후 날짜에 따라 정렬
-          const allPosts = rsp.data;
-          const sortedPosts = allPosts.sort(
-            (a, b) => moment(b.date).valueOf() - moment(a.date).valueOf()
-          );
-          // 선택 날짜에 따라 필터링
-          const filteredPosts = selectedDate
-            ? allPosts.filter((post) =>
-                moment(post.date).isSame(selectedDate, "day")
-              )
-            : sortedPosts;
-          setPostList(filteredPosts);
-        }
-      } catch (error) {
-        console.error("Error fetching post list:", error);
+      // 전체 페이지 수 가져오기
+      const rsp = await PostAxiosApi.postPageCount(0, 5);
+      setTotalPage(rsp.data);
+      console.log("리스트 와라!", rsp.data);
+
+      // 현재 페이지의 게시글 목록
+      const currentPageRsp = await PostAxiosApi.postPageList(currentPage, 5);
+      if (currentPageRsp.status === 200) {
+        const allPosts = currentPageRsp.data;
+        setPostList(allPosts);
       }
     };
     fetchPostList();
-  }, [selectedDate]);
+  }, [currentPage]);
+
+  const handlePageChange = (number) => {
+    console.log(number);
+    setCurrentPage(number - 1); // 페이지 번호는 0부터 시작하므로 1을 빼줍니다.
+  };
+
+  const renderPagination = () => {
+    return (
+      <PaginationContainer>
+        {Array.from({ length: totalPage }, (_, i) => i + 1).map((page) => (
+          <PageButton key={page} onClick={() => handlePageChange(page)}>
+            {page}
+          </PageButton>
+        ))}
+      </PaginationContainer>
+    );
+  };
 
   return (
     <>
@@ -68,6 +103,7 @@ const PostList = ({ selectedDate }) => {
               />
             </StyledLink>
           ))}
+        {renderPagination()}
       </Container>
     </>
   );

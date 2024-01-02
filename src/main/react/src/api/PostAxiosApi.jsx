@@ -42,6 +42,7 @@ const PostAxiosApi = {
       post.latitude,
       post.longitude
     );
+    console.log("post 형태 확인: ", typeof post);
     return await customAxios.post(KH_DOMAIN + "/post/new", post);
   },
 
@@ -59,6 +60,18 @@ const PostAxiosApi = {
   // 게시글 전체 조회
   postListAll: async () => {
     return await customAxios.get(KH_DOMAIN + "/post/list");
+  },
+
+  // 게시글 페이지네이션
+  postPageList: async (page, size) => {
+    return await customAxios.get(
+      KH_DOMAIN + `/post/list/page?page=${page}&size=${size}`
+    );
+  },
+
+  // 종목 페이지 수
+  postPageCount: async (page, size) => {
+    return await customAxios.get(KH_DOMAIN + `/post/count`);
   },
 
   // 카테고리 목록 활성화만 조회
