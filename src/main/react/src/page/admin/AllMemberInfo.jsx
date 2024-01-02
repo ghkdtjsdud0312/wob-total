@@ -8,21 +8,20 @@ import Layout from "../../component/admin/Layout";
 import Tr2 from "../../component/admin/UserElement";
 
 // 전체 큰 틀css
-const BoardContainer = styled.div`
+const UserContainer = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   padding-top: 100px;
 
-    .logo {
-      cursor: pointer;
-    }
-
-   // 카테고리 목록 css
-    p {
-      text-align: center;
-      font-size: 45px;
-      padding-bottom: 50px;
-    }
+  .logo {
+    cursor: pointer;
+  }
+  // 카테고리 목록 css
+  p {
+    text-align: center;
+    font-size: 45px;
+    padding-bottom: 50px;
+  }
 
   .tableBox {
     //table 표
@@ -40,22 +39,23 @@ const BoardContainer = styled.div`
       }
       tbody {
         text-align: center;
+
         tr {
           white-space: nowrap;
         }
       }
     }
   }
-   @media screen and (min-width: 375px) {
-      .tableBox {
-        width: 100%;
-        overflow-x: auto;
-        white-space: nowrap;
-        table {
-          width: auto;
-        }
+  @media screen and (min-width: 375px) {
+    .tableBox {
+      width: 100%;
+      overflow-x: auto;
+      white-space: nowrap;
+      table {
+        width: auto;
       }
     }
+  }
 `;
 
 // 등록 버튼
@@ -76,11 +76,13 @@ const Buttons = styled.div`
   }
 `;
 
+// 페이지 네이션 큰 틀
 const PaginationContainer = styled.div`
   text-align: center;
   margin-top: 20px;
 `;
 
+// 페이지 네이션 버튼
 const PageButton = styled.button`
   border: 1px solid #ddd;
   padding: 5px;
@@ -116,6 +118,7 @@ const AllMemberInfo = () => {
     navigate(path);
   };
 
+  // 회원 페이지 수 정하기
   const getTotalPage = async () => {
     try {
       const res = await AdminAxiosApi.userPageCount(0, 5);
@@ -139,6 +142,7 @@ const AllMemberInfo = () => {
     }
   }, [isChange]);
 
+  // 다음 페이지네이션 시 몇개씩 넘길 것인지
   const fetchUserGet = async () => {
     try {
       const res = await AdminAxiosApi.userPageList(currentPage, 5);
@@ -177,11 +181,11 @@ const AllMemberInfo = () => {
   };
 
   return (
-    <BoardContainer>
-      <div className="Logo"  onClick={() => handleClick("/AdminMain")}>
+    <UserContainer>
+      <div className="Logo" onClick={() => handleClick("/AdminMain")}>
         <FullLogoBth />
       </div>
-       <p>전체 회원 관리 목록</p>
+      <p>전체 회원 관리 목록</p>
       <div className="tableBox">
         <table>
           <thead>
@@ -219,7 +223,7 @@ const AllMemberInfo = () => {
       </Buttons>
       {/* 햄버거 토글 사이드바 */}
       <Layout />
-    </BoardContainer>
+    </UserContainer>
   );
 };
 

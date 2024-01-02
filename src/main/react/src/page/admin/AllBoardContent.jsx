@@ -1,4 +1,4 @@
-// 관리자 게시물 목록
+// 관리자 종목 목록
 import React, { useState, useEffect } from "react";
 import AdminAxiosApi from "../../api/AdminAxiosApi";
 import styled from "styled-components";
@@ -13,16 +13,16 @@ const BoardContainer = styled.div`
   margin: 0 auto;
   padding-top: 100px;
 
-    .logo {
-      cursor: pointer;
-    }
+  .logo {
+    cursor: pointer;
+  }
 
-  // 카테고리 목록 css
-    p {
-      text-align: center;
-      font-size: 45px;
-      padding-bottom: 50px;
-    }
+  // 종목 목록 css
+  p {
+    text-align: center;
+    font-size: 45px;
+    padding-bottom: 50px;
+  }
 
   .tableBox {
     //table 표
@@ -46,15 +46,15 @@ const BoardContainer = styled.div`
     }
   }
   @media screen and (min-width: 375px) {
-      .tableBox {
-        width: 100%;
-        overflow-x: auto;
-        white-space: nowrap;
-        table {
-          width: auto;
-        }
+    .tableBox {
+      width: 100%;
+      overflow-x: auto;
+      white-space: nowrap;
+      table {
+        width: auto;
       }
     }
+  }
 `;
 
 // 등록 버튼
@@ -102,10 +102,10 @@ const PageButton = styled.button`
   }
 `;
 
-// 게시판 목록 페이지
+// 종목 목록 페이지
 const AllBoardContent = () => {
   // 맵 돌릴 리스트
-  const [boardList, setBoardList] = useState([]);
+  const [boardList, setBoardList] = useState([]); // 종목 리스트
   const [currentPage, setCurrentPage] = useState(0); // 현재 페이지
   const [totalPage, setTotalPage] = useState(0); // 총 페이지 수
   const [num, setNum] = useState(1); // 인덱스 번호
@@ -117,6 +117,7 @@ const AllBoardContent = () => {
     navigate(path);
   };
 
+  // 종목 페이지 수 정하기
   const getTotalPage = async () => {
     try {
       const res = await AdminAxiosApi.boardPageCount(0, 5);
@@ -140,6 +141,7 @@ const AllBoardContent = () => {
     }
   }, [isChange]);
 
+  // 다음 페이지네이션 시 몇개씩 넘길 것인지
   const fetchBoardList = async () => {
     try {
       const res = await AdminAxiosApi.boardPageList(currentPage, 5);
@@ -150,7 +152,7 @@ const AllBoardContent = () => {
     }
   };
 
-  // 회원 목록 (페이지나누기)
+  // 종목 목록 (페이지나누기)
   useEffect(() => {
     fetchBoardList();
   }, [currentPage]);
@@ -164,7 +166,7 @@ const AllBoardContent = () => {
     setNum((number - 1) * 5 + 1); // 각 페이지의 첫번째 인덱스 번호
   };
 
-  // 페이지 네이션 버튼
+  // 페이지 네이션 페이지 버튼
   const renderPagination = () => {
     return (
       <PaginationContainer>
@@ -182,7 +184,7 @@ const AllBoardContent = () => {
       <div className="Logo" onClick={() => handleClick("/AdminMain")}>
         <FullLogoBth />
       </div>
-        <p>카테고리 목록</p>
+      <p>전체 종목 목록</p>
       <div className="tableBox">
         <table>
           <thead>
