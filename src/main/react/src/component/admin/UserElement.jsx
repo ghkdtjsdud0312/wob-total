@@ -27,6 +27,11 @@ const TrComp = styled.tr`
       }
     }
   }
+  @media screen and (min-width: 375px) {
+    td {
+      font-size: 13px;
+    }
+  }
 `;
 
 const Tr2 = ({ data, index, setIsChange }) => {
@@ -54,9 +59,9 @@ const Tr2 = ({ data, index, setIsChange }) => {
     if (rsp.data) {
       alert("해당 회원이 승인되었습니다.");
       setModalOpen(false); // 모달 여는 것
-      setIsChange(true); //
-      setConfirmRevise(false); //
-      setUserActive(true); //
+      setIsChange(true);
+      setConfirmRevise(false);
+      setUserActive(true);
     } else {
       alert("해당 회원이 수정되지 않았습니다.");
     }
@@ -67,7 +72,7 @@ const Tr2 = ({ data, index, setIsChange }) => {
     console.log("Data in Tr2 component:", data);
     console.log("삭제 데이터 : ", data.email);
     const resp = await AdminAxiosApi.userDelete(data.email);
-    console.log("rsp : ", resp.data);
+    console.log("resp : ", resp.data);
     if (resp.status === 200) {
       alert("해당 회원정보가 삭제 되었습니다.");
       setModalOpen(false);

@@ -37,6 +37,19 @@ const TrComp = styled.tr`
       }
     }
   }
+  @media screen and (min-width: 375px) {
+    td {
+      font-size: 14px;
+      &.image {
+        .imgBox {
+          img {
+            width: 45px;
+            height: 45px;
+          }
+        }
+      }
+    }
+  }
 `;
 
 const Tr3 = ({ data, index, setIsChange }) => {

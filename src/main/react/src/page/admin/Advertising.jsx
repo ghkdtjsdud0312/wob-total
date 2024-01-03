@@ -46,6 +46,11 @@ const AdContainer = styled.div`
     }
   }
   @media screen and (min-width: 375px) {
+    padding-top: 60px;
+    p {
+      font-size: 30px;
+      padding-bottom: 30px;
+    }
     .tableBox {
       width: 100%;
       overflow-x: auto;
@@ -73,6 +78,13 @@ const Buttons = styled.div`
     font-size: 15px;
     margin: 10px 10px;
     cursor: pointer;
+  }
+  @media screen and (min-width: 375px) {
+    button {
+      font-size: 13px;
+      margin: 15px 10px;
+      padding: 10px;
+    }
   }
 `;
 
@@ -210,7 +222,7 @@ const Advertising = () => {
                   key={data.id} // 고유한 키 생성
                   data={data}
                   index={index + num}
-                  active={data.active === "승인 미완료"}
+                  active={data.active === "active"}
                   setIsChange={setIsChange}
                 />
               ))}

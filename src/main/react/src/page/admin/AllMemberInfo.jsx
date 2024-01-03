@@ -47,12 +47,24 @@ const UserContainer = styled.div`
     }
   }
   @media screen and (min-width: 375px) {
+    padding-top: 60px;
+    p {
+      font-size: 25px;
+      padding-bottom: 30px;
+    }
     .tableBox {
       width: 100%;
       overflow-x: auto;
       white-space: nowrap;
       table {
         width: auto;
+        thead {
+          tr {
+            th {
+              font-size: 15px;
+            }
+          }
+        }
       }
     }
   }

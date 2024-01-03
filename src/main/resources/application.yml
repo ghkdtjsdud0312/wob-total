@@ -25,8 +25,8 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/spring-sample?userUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
-    username: root
+    url: jdbc:mysql://localhost:3306/spring_sample?userUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
+    username: test
     password:
 
   jpa:

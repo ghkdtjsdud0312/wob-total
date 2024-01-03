@@ -260,7 +260,7 @@ const SettingAxiosApi = {
       roomId: roomId,
       active: active,
     };
-    return await customAxios.delete(KH_DOMAIN + `/chat/stateRoom`, data);
+    return await customAxios.put(KH_DOMAIN + `/chat/stateRoom`, data);
   },
 };
 export default SettingAxiosApi;

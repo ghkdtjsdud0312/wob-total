@@ -28,6 +28,9 @@ export const Container = styled.div`
       display: flex;
       justify-content: center;
       color: #353535;
+      @media screen and (min-width: 375px) {
+        margin-top: 40px;
+      }
 
       .hambeger {
         position: relative;
@@ -59,6 +62,23 @@ export const List = styled.ul`
     display: flex;
     justify-content: end;
   }
+  @media screen and (min-width: 375px) {
+    margin: 30px;
+    .m-title {
+      font-size: 20px;
+      font-weight: bold;
+      line-height: 30px;
+      cursor: pointer;
+    }
+    .sub-menu {
+      line-height: 50px;
+      cursor: pointer;
+    }
+    .logoBox {
+      display: flex;
+      justify-content: end;
+    }
+  }
 `;
 // 햄버거 사이드메뉴 움직이는 css
 export const StyledSideMenu = styled.div`
@@ -74,6 +94,9 @@ export const StyledSideMenu = styled.div`
     props.isOpen ? "translateX(0)" : "translateX(-100%)"};
   transition: transform 0.3s ease;
   background-color: #dceae6;
+  @media screen and (min-width: 375px) {
+    height: 90vh;
+  }
 `;
 
 export const StyledMenuList = styled.ul`

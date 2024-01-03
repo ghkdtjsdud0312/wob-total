@@ -14,6 +14,7 @@ const BoardContainer = styled.div`
   padding-top: 100px;
 
   .Logo {
+    text-align: center;
     cursor: pointer;
   }
 
@@ -46,12 +47,25 @@ const BoardContainer = styled.div`
     }
   }
   @media screen and (min-width: 375px) {
+    padding-top: 60px;
+    // 종목 목록 css
+    p {
+      font-size: 30px;
+      padding-bottom: 20px;
+    }
     .tableBox {
       width: 100%;
       overflow-x: auto;
       white-space: nowrap;
       table {
         width: auto;
+        thead {
+          tr {
+            th {
+              font-size: 17px;
+            }
+          }
+        }
       }
     }
   }

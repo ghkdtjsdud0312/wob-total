@@ -18,6 +18,9 @@ const Container = styled.div`
   .Logo {
     cursor: pointer;
   }
+  @media screen and (min-width: 375px) {
+    padding-top: 60px;
+  }
 `;
 
 // 게시물 등록 제목
@@ -25,6 +28,10 @@ const Title = styled.div`
   text-align: center;
   font-size: 45px;
   padding-bottom: 50px;
+  @media screen and (min-width: 375px) {
+    font-size: 30px;
+    padding-bottom: 40px;
+  }
 `;
 
 // 게시물 등록 전체 감싸는 칸
@@ -36,13 +43,18 @@ const FormContainer = styled.div`
   @media screen and (min-width: 375px) {
     border: 1px solid #ddd;
     width: 100%;
+    height: 580px;
   }
 `;
 
-// 종목, 사진, 로고 감싸는 란
+// 종목 감싸는 란
 const FieldContainer = styled.div`
   align-items: center; // 수직 방향 중앙 정렬
   margin: 50px; // 여백 추가
+  @media screen and (min-width: 375px) {
+    margin: 30px 30px;
+    white-space: nowrap;
+  }
 `;
 
 // 제목(종목)
@@ -57,6 +69,10 @@ const StyledLabel2 = styled.label`
   margin: 50px 50px;
   font-weight: bold;
   font-size: 20px;
+  @media screen and (min-width: 375px) {
+    white-space: nowrap;
+    margin: 30px 30px;
+  }
 `;
 
 // 종목 칸
@@ -67,6 +83,10 @@ const StyledInput = styled.input`
   border-radius: 4px;
   font-size: 16px;
   margin-left: 45px;
+  @media screen and (min-width: 375px) {
+    width: 80%;
+    margin-left: 30px;
+  }
 `;
 // 사진, 로고 파일선택 칸
 const StyledInput2 = styled.input`
@@ -95,6 +115,9 @@ const UploadButton = styled.button`
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  @media screen and (min-width: 375px) {
+    margin-right: 17px;
+  }
 
   &:hover {
     background-color: #04bf8a;

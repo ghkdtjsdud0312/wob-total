@@ -19,6 +19,20 @@ const Container = styled.div`
     font-size: 40px;
     font-weight: bold;
   }
+  @media screen and (min-width: 375px) {
+    margin: 0 auto;
+    padding-top: 50px;
+
+    .Logo {
+      cursor: pointer;
+    }
+    span {
+      display: flex;
+      justify-content: center;
+      font-size: 30px;
+      font-weight: bold;
+    }
+  }
 `;
 
 const Buttons = styled.div`
@@ -66,7 +80,9 @@ const AdminMain = () => {
           전체 종목 관리
         </Click>
         <Click onClick={() => handleNavigate("/Advertising")}>광고 관리</Click>
-         <Click onClick={() => handleNavigate("/AllChatContent")}>관리자 1:1 문의 관리</Click>
+        <Click onClick={() => handleNavigate("/AllChatContent")}>
+          관리자 1:1 문의 관리
+        </Click>
       </Buttons>
       <Layout />
     </Container>

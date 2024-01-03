@@ -47,12 +47,25 @@ const PaymentContainer = styled.div`
     }
   }
   @media screen and (min-width: 375px) {
+    padding-top: 60px;
+    // 결제 목록 css
+    p {
+      font-size: 25px;
+      padding-bottom: 30px;
+    }
     .tableBox {
       width: 100%;
       overflow-x: auto;
       white-space: nowrap;
       table {
         width: auto;
+        thead {
+          tr {
+            th {
+              font-size: 15px;
+            }
+          }
+        }
       }
     }
   }
@@ -74,6 +87,13 @@ const Buttons = styled.div`
     font-size: 15px;
     margin: 10px 10px;
     cursor: pointer;
+  }
+  @media screen and (min-width: 375px) {
+    button {
+      padding: 10px;
+      font-size: 13px;
+      margin: 15px 10px;
+    }
   }
 `;
 
