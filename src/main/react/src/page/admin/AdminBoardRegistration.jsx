@@ -253,9 +253,9 @@ const AdminBoardRegistration = () => {
       <div className="Logo" onClick={() => handleBack("/AdminMain")}>
         <FullLogoBth />
       </div>
-      {/* 게시물 등록 */}
-      <Title>카테고리 등록</Title>
-      {/* 게시물 등록 내용 감쌈 */}
+      {/* 종목 등록 */}
+      <Title>종목 등록</Title>
+      {/* 종목 등록 내용 감쌈 */}
       <FormContainer>
         {/* 종목 쓰는 란 */}
         <FieldContainer>
