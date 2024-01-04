@@ -16,16 +16,18 @@ const Container = styled.div`
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   @media only screen and (max-width: 768px) {
-    height: 100vh;
+    height: 100%;
     margin: 0;
     border-radius: 0;
   }
 `;
 const ChatHeader = styled.div`
   font-size: 1.5em;
+  width: 100%;
+  padding-right: 10%;
   color: #333;
-  text-align: center;
-  margin-left: 35%;
+  display: flex;
+  justify-content: center;
 `;
 
 const MessagesContainer = styled.div`
@@ -37,11 +39,15 @@ const MessagesContainer = styled.div`
   border-bottom: 1px solid #ddd;
   padding: 10px;
   margin-bottom: 20px;
+
   @media only screen and (max-width: 768px) {
     height: 82vh;
   }
   @media only screen and (max-height: 700px) {
     height: 79vh;
+  }
+  @media only screen and (max-height: 600px) {
+    height: 76vh;
   }
 `;
 

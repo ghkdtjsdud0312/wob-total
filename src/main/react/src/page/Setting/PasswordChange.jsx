@@ -36,6 +36,11 @@ const SubContainer = styled.div`
     display: flex;
     justify-content: right;
   }
+  .title {
+    @media only screen and (max-width: 768px) {
+      font-size: 26px;
+    }
+  }
 `;
 
 const Input = styled.input`
@@ -55,7 +60,10 @@ const Input = styled.input`
 `;
 const ButtonBox = styled.div`
   position: absolute;
-  left: 42%;
+  left: 45%;
+  @media only screen and (max-width: 768px) {
+    left: 40%;
+  }
 `;
 
 const PasswordChange = () => {

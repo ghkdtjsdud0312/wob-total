@@ -5,16 +5,8 @@ import { useState } from "react";
 import { useEffect } from "react";
 import Modal from "../../utils/Modal";
 import SettingAxiosApi from "../../api/SettingAxiosApi";
+import { Container } from "../../component/Container";
 
-const Container = styled.div`
-  /* padding: 24px; */
-  border-radius: 8px;
-  width: 768px;
-  margin: 0px auto;
-  @media only screen and (max-width: 768px) {
-    width: 100%;
-  }
-`;
 const SubContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -24,10 +16,16 @@ const SubContainer = styled.div`
   .title {
     font-size: 20px;
     color: gray;
+    @media only screen and (max-width: 768px) {
+      font-size: 18px;
+    }
   }
   p {
     margin-top: 10px;
     font-size: 24px;
+    @media only screen and (max-width: 768px) {
+      font-size: 22px;
+    }
   }
   button {
     position: relative;
@@ -43,6 +41,10 @@ const SubContainer = styled.div`
       font-size: 26px;
       left: 30px;
       top: 30px;
+      color: var(--BLACK);
+      @media only screen and (max-width: 768px) {
+        font-size: 22px;
+      }
     }
     .pointer {
       position: absolute;
@@ -68,6 +70,7 @@ const SubContainer = styled.div`
       font-size: 20px;
       @media only screen and (max-width: 768px) {
         left: 25%;
+        font-size: 18px;
       }
     }
     .connected {
@@ -77,7 +80,7 @@ const SubContainer = styled.div`
       color: gray;
     }
   }
-`;
+  `;
 
 const Account = () => {
   const navigate = useNavigate();

@@ -11,7 +11,6 @@ const Container = styled.div`
   /* padding: 24px; */
   border-radius: 8px;
   width: 768px;
-  min-height: 800px;
   margin: 0px auto;
   margin-bottom: 100px;
   @media only screen and (max-width: 768px) {

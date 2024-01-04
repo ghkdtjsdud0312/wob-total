@@ -28,11 +28,21 @@ const SettingBtn = styled.button`
     width: 55px;
     height: 55px;
     margin-left: 50px;
+    @media only screen and (max-width: 768px) {
+      width: 45px;
+      height: 45px;
+      margin-left: 35px;
+    }
   }
 
   .text {
     margin-left: 50px;
     font-size: 26px;
+    color: var(--BLACK);
+    @media only screen and (max-width: 768px) {
+      margin-left: 30px;
+      font-size: 22px;
+    }
   }
   .pointer {
     position: absolute;

@@ -48,7 +48,7 @@ const SubContainer = styled.div`
   .btn {
     margin-left: 95%;
     @media only screen and (max-width: 768px) {
-      margin-left: 80%;
+      margin-left: 75%;
     }
   }
 `;
