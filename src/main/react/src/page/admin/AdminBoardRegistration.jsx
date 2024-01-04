@@ -18,8 +18,8 @@ const Container = styled.div`
   .Logo {
     cursor: pointer;
   }
-  @media screen and (max-width: 375px) {
-    padding-top: 60px;
+  @media screen and (max-width: 430px) {
+    padding-top: 50px;
   }
 `;
 
@@ -28,9 +28,9 @@ const Title = styled.div`
   text-align: center;
   font-size: 45px;
   padding-bottom: 50px;
-  @media screen and (max-width: 375px) {
-    font-size: 30px;
-    padding-bottom: 40px;
+  @media screen and (max-width: 430px) {
+    font-size: 27px;
+    padding-bottom: 30px;
   }
 `;
 
@@ -40,10 +40,10 @@ const FormContainer = styled.div`
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
-  @media screen and (max-width: 375px) {
+  @media screen and (max-width: 430px) {
     border: 1px solid #ddd;
     width: 100%;
-    height: 580px;
+    height: 550px;
   }
 `;
 
@@ -51,8 +51,8 @@ const FormContainer = styled.div`
 const FieldContainer = styled.div`
   align-items: center; // 수직 방향 중앙 정렬
   margin: 50px; // 여백 추가
-  @media screen and (max-width: 375px) {
-    margin: 30px 30px;
+  @media screen and (max-width: 430px) {
+    margin: 30px 20px;
     white-space: nowrap;
   }
 `;
@@ -69,23 +69,23 @@ const StyledLabel2 = styled.label`
   margin: 50px 50px;
   font-weight: bold;
   font-size: 20px;
-  @media screen and (max-width: 375px) {
+  @media screen and (max-width: 430px) {
     white-space: nowrap;
-    margin: 30px 30px;
+    margin: 30px 20px;
   }
 `;
 
 // 종목 칸
 const StyledInput = styled.input`
   border: 1px solid #ddd;
-  width: 85%;
+  width: 80%;
   padding: 10px;
   border-radius: 4px;
   font-size: 16px;
   margin-left: 45px;
-  @media screen and (max-width: 375px) {
+  @media screen and (max-width: 430px) {
     width: 80%;
-    margin-left: 30px;
+    margin-left: 20px;
   }
 `;
 // 사진, 로고 파일선택 칸
@@ -118,8 +118,8 @@ const UploadButton = styled.button`
   border-radius: 5px;
   cursor: pointer;
   color: #353535;
-  @media screen and (max-width: 375px) {
-    margin-right: 17px;
+  @media screen and (max-width: 430px) {
+    margin-left: -85px;
   }
 
   &:hover {
