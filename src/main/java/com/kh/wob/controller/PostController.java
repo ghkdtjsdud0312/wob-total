@@ -5,6 +5,7 @@ import com.kh.wob.dto.ScheduleDto;
 import com.kh.wob.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +34,23 @@ public class PostController {
     public ResponseEntity<List<PostDto>> postList() {
         List<PostDto> list = postService.getPostList();
         return ResponseEntity.ok(list);
+    }
+
+    // 전체 게시글 목록 페이징
+    @GetMapping("/list/page")
+    public ResponseEntity<List<PostDto>> getPostList(@RequestParam(defaultValue = "0") int page,
+                                                     @RequestParam(defaultValue = "10") int size) {
+        List<PostDto> list = postService.getPostPageList(page, size);
+        return ResponseEntity.ok(list);
+    }
+
+    // 페이지 수 조회
+    @GetMapping("/count")
+    public ResponseEntity<Integer> listPost(@RequestParam(defaultValue = "0") int page,
+                                            @RequestParam(defaultValue = "10") int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        int pageCnt = postService.getPosts(pageRequest);
+        return ResponseEntity.ok(pageCnt);
     }
 
     // postId로 게시글 상세 조회

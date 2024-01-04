@@ -15,6 +15,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -93,6 +95,22 @@ public class PostService {
         }
         return postDtos;
     }
+
+    // 게시글 페이지네이션
+    public List<PostDto> getPostPageList(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        List<Post> posts = postRepository.findAllByOrderByDateDesc(pageable).getContent();
+        List<PostDto> postDtos = new ArrayList<>();
+        for (Post post : posts) {
+            postDtos.add(convertEntityToDto(post));
+        }
+        return postDtos;
+    }
+    // 게시글 페이지 수 조회
+    public int getPosts(Pageable pageable) {
+        return postRepository.findAllByOrderByDateDesc(pageable).getTotalPages();
+    }
+
 
     // postId로 게시글 상세 조회
     public PostDto getPostListById(Long postId) {
