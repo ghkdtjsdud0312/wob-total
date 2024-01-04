@@ -19,7 +19,7 @@ const Container = styled.div`
     font-size: 40px;
     font-weight: bold;
   }
-  @media screen and (min-width: 375px) {
+  @media screen and (max-width: 430px) {
     margin: 0 auto;
     padding-top: 50px;
 

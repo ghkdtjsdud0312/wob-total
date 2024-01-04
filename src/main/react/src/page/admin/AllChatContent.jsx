@@ -46,7 +46,7 @@ const ChatContainer = styled.div`
       }
     }
   }
-  @media screen and (min-width: 375px) {
+  @media screen and (max-width: 430px) {
     padding-top: 60px;
     p {
       font-size: 30px;
@@ -87,7 +87,7 @@ const Buttons = styled.div`
     margin: 10px 10px;
     cursor: pointer;
   }
-  @media screen and (min-width: 375px) {
+  @media screen and (max-width: 430px) {
     button {
       padding: 10px;
       font-size: 13px;

@@ -28,7 +28,7 @@ const TrComp = styled.tr`
       }
     }
   }
-  @media screen and (min-width: 375px) {
+  @media screen and (max-width: 430px) {
     td {
       font-size: 15px;
     }

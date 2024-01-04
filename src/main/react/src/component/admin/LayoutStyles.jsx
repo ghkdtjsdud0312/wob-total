@@ -15,7 +15,7 @@ export const Container = styled.div`
     display: flex;
     justify-content: end;
     align-items: center;
-    @media screen and (min-width: 375px) {
+    @media screen and (max-width: 430px) {
       height: 60px;
       width: 7%;
       display: flex;
@@ -28,7 +28,7 @@ export const Container = styled.div`
       display: flex;
       justify-content: center;
       color: #353535;
-      @media screen and (min-width: 375px) {
+      @media screen and (max-width: 430px) {
         margin-top: 40px;
       }
 
@@ -62,7 +62,7 @@ export const List = styled.ul`
     display: flex;
     justify-content: end;
   }
-  @media screen and (min-width: 375px) {
+  @media screen and (max-width: 430px) {
     margin: 30px;
     .m-title {
       font-size: 20px;
@@ -94,7 +94,7 @@ export const StyledSideMenu = styled.div`
     props.isOpen ? "translateX(0)" : "translateX(-100%)"};
   transition: transform 0.3s ease;
   background-color: #dceae6;
-  @media screen and (min-width: 375px) {
+  @media screen and (max-width: 430px) {
     height: 90vh;
   }
 `;

@@ -46,7 +46,7 @@ const BoardContainer = styled.div`
       }
     }
   }
-  @media screen and (min-width: 375px) {
+  @media screen and (max-width: 430px) {
     padding-top: 60px;
     // 종목 목록 css
     p {

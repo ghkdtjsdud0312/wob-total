@@ -10,7 +10,7 @@ const AppContainer = styled.div`
     color: #353535;
     margin-bottom: 5px;
     strong {
-      font-size: 30px;
+      font-size: 25px;
     }
   }
   p {
@@ -23,11 +23,9 @@ const AppContainer = styled.div`
       }
     }
   }
-  @media screen and (min-width: 375px) {
-    text-align: center;
+  @media screen and (max-width: 430px) {
     h1 {
       font-size: 15px;
-      color: #353535;
       margin-bottom: 10px;
       strong {
         font-size: 15px;
@@ -36,12 +34,6 @@ const AppContainer = styled.div`
     p {
       font-size: 30px;
       margin-bottom: 10px;
-      span {
-        color: #028c65;
-        .names {
-          color: #04bf8a;
-        }
-      }
     }
   }
 `;
@@ -50,7 +42,7 @@ const MapContainer = styled.div`
   width: 65%;
   height: 45vh;
   margin: 0 auto;
-  @media screen and (min-width: 375px) {
+  @media screen and (max-width: 430px) {
     width: 85%;
     height: 50vh;
     margin: 0 auto;
@@ -68,7 +60,7 @@ const SearchContainer = styled.div`
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   display: flex;
-  @media screen and (min-width: 375px) {
+  @media screen and (max-width: 430px) {
     width: 80%;
     left: 10%;
   }
@@ -91,7 +83,7 @@ const InfoWindowContainer = styled.div`
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   line-height: 25px;
-  @media screen and (min-width: 375px) {
+  @media screen and (max-width: 430px) {
     width: 80%;
     left: 10%;
     overflow-y: auto;
@@ -120,7 +112,7 @@ const Button = styled.button`
 const InfoWindowContent = styled.div`
   padding: 10px;
   font-size: 16px;
-  @media screen and (min-width: 375px) {
+  @media screen and (max-width: 430px) {
     padding: 5px;
     font-size: 15px;
   }
