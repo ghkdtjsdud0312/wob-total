@@ -255,7 +255,7 @@ const SearchMain = () => {
       <Logo
         src="https://firebasestorage.googleapis.com/v0/b/mini-project-1f72d.appspot.com/o/wob-logo-green.png?alt=media&token=b89ea23a-e1f1-4863-a76f-54811d63edcb"
         alt="main logo"
-        onClick={() => navigate("/main")}
+        onClick={() => navigate("/")}
       />
       <AlignBox>
         <SearchContainer>
