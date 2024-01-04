@@ -9,6 +9,7 @@ const Container = styled.div`
   line-height: 1.8;
 
   h1 {
+    margin-top: 10px;
     font-size: 3em;
   }
   .term {

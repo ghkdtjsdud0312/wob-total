@@ -29,7 +29,16 @@ const SelectOptionBoard = styled.div`
   transition: height 0.5s ease; // 트랜지션 추가
   height: 685px;
   @media only screen and (max-width: 768px) {
-    width: 25em;
+    width: 18em;
+    /* font-size: small; */
+  }
+`;
+const HeaderFix = styled.div`
+  position: fixed;
+  width: 746px;
+  box-sizing: border-box;
+  @media only screen and (max-width: 768px) {
+    width: 16.7em;
   }
 `;
 
@@ -38,7 +47,8 @@ const SelectOptionBoardHeader = styled.div`
   height: 40px;
   background-color: #dfede9;
   @media only screen and (max-width: 768px) {
-    width: 25em;
+    width: 18em;
+    /* font-size: small; */
   }
 `;
 const OptionBoardHeaderLogo = styled.img`
@@ -89,7 +99,7 @@ const SelectOptionBoardFooter = styled.div`
   bottom: 0;
   cursor: pointer;
   @media only screen and (max-width: 768px) {
-    width: 25em;
+    width: 18em;
   }
 `;
 
@@ -206,27 +216,34 @@ const PolicyModal = ({ open, close }) => {
                 onChange={handleAllCheckedChange}
               />
               <UserPolicyBody>
-                <Checkbox
-                  text={"개인정보처리방침 동의"}
-                  checked={term1Checked}
-                  onChange={handleTerm1CheckedChange}
-                />
+                <HeaderFix>
+                  <Checkbox
+                    text={"개인정보처리방침 동의"}
+                    checked={term1Checked}
+                    onChange={handleTerm1CheckedChange}
+                  />
+                </HeaderFix>
+
                 <UserPolicy />
               </UserPolicyBody>
               <UserAgreementsBody>
-                <Checkbox
-                  text={"이용 약관 동의"}
-                  checked={term2Checked}
-                  onChange={handleTerm2CheckedChange}
-                />
+                <HeaderFix>
+                  <Checkbox
+                    text={"이용 약관 동의"}
+                    checked={term2Checked}
+                    onChange={handleTerm2CheckedChange}
+                  />
+                </HeaderFix>
                 <UserAgreements />
               </UserAgreementsBody>
               <UserSelectAgreementsBody>
-                <Checkbox
-                  text={"[선택] 개인정보 수집이용 및 약관"}
-                  checked={term3Checked}
-                  onChange={handleTerm3CheckedChange}
-                />
+                <HeaderFix>
+                  <Checkbox
+                    text={"[선택] 개인정보 수집이용 및 약관"}
+                    checked={term3Checked}
+                    onChange={handleTerm3CheckedChange}
+                  />
+                </HeaderFix>
                 <UserSelectAgreements />
               </UserSelectAgreementsBody>
             </OptionBoardBody>

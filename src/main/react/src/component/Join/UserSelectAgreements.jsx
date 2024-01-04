@@ -9,6 +9,7 @@ const Container = styled.div`
   line-height: 1.8;
 
   h1 {
+    margin-top: 10px;
     font-size: 3em;
   }
   .term {
@@ -91,6 +92,8 @@ const UserSelectAgreements = () => {
           저장하지 않음
         </p>
       </div>
+
+      {/* ... (이하 생략) */}
     </Container>
   );
 };
