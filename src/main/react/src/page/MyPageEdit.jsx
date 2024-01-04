@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import MyPageAxiosApi from "../api/MyPageAxiosApi";
@@ -10,18 +10,18 @@ import Setting from "../images/Setting.png";
 import { Link } from "react-router-dom";
 import SelectSports from "../component/interest/SelectSportsClon";
 import SelectArea from "../component/interest/SelectAreaClon";
-import { OptionBoardCom } from "../component/interest/SelectAreaClon";
 import SelectMBTI from "../component/MBTI/MBTI";
+import axios from "axios";
 
 const Container = styled.div`
   padding-bottom: 10%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  width: 768px;
   margin: 0px auto;
   @media only screen and (max-width: 768px) {
-    width: 100%;
+    width: 400px;
   }
 `;
 const FinalCon = styled.div`
@@ -75,11 +75,7 @@ const FooterBox = styled.div`
   position: fixed;
   bottom: 0px;
   align-items: center;
-  width: 768px;
   margin: 0px auto;
-  @media only screen and (max-width: 768px) {
-    width: 100%;
-  }
 `;
 
 const LogoImage = styled.img`

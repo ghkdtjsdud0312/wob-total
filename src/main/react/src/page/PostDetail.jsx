@@ -10,19 +10,26 @@ import MyPageAxiosApi from "../api/MyPageAxiosApi";
 
 const Container = styled.div`
   padding-bottom: 10%;
-  max-width: 768px;
-  min-width: 300px;
+  width: 768px;
   margin: 0 auto;
+  display: flex;
   justify-content: center;
   align-items: center;
   color: var(--BLACK);
   @media only screen and (max-width: 768px) {
-    width: 97%;
+    width: 400px;
   }
 `;
 
 const ContentBox = styled.div`
   margin-bottom: 15%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--BLACK);
+  @media only screen and (max-width: 768px) {
+    width: 95%;
+  }
 `;
 
 const PictureCon = styled.div`
@@ -47,6 +54,12 @@ const TitleBox = styled.div`
   height: 40px;
   font-size: 1.5rem;
   font-weight: bold;
+`;
+const MapContainer = styled.div`
+  width: 768px;
+  @media only screen and (max-width: 768px) {
+    width: 95%;
+  }
 `;
 
 const TextBox = styled.div`
@@ -293,7 +306,9 @@ const PostDetail = ({ categoryImage }) => {
             </div>
           </TextBox>
         </MiddleBox>
-        <PostMap />
+        <MapContainer>
+          <PostMap />
+        </MapContainer>
         <ButtonBox>
           {post.type === "normal" && (
             <ChatStart postId={postId}>채팅방입장</ChatStart>

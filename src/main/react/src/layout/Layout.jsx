@@ -26,6 +26,7 @@ const ContentContainer = styled.div`
 `;
 
 const FooterContainer = styled.div`
+  z-index: 9;
   display: flex;
   flex-direction: column;
   justify-content: center;
