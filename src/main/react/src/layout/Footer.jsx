@@ -9,23 +9,40 @@ import { Link, useNavigate } from "react-router-dom";
 import Common from "../utils/Common";
 
 const Container = styled.div`
-  display: flex;
   width: 768px;
-  background-color: white;
-`;
-const FooterIcon = styled.div`
-  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 0px auto;
+  @media only screen and (max-width: 768px) {
+    justify-content: space-around;
+  }
+`;
+const FooterIcon = styled.div`
+  padding: 10px 0;
+  width: 650px;
+  background-color: #ffffff;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  border: solid 1px #ccc;
+  border-bottom: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @media only screen and (max-width: 768px) {
+    width: 500px;
+  }
 `;
 
 const StyledLink = styled.div`
-  margin: 0 30px;
+  margin: 0 2em;
+  @media only screen and (max-width: 768px) {
+    margin: 0 0.9em;
+  }
 `;
 
 const Icon = styled.img`
-  height: 60px;
+  max-width: 3.5em;
 `;
 
 const Footer = () => {

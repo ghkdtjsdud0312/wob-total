@@ -7,9 +7,13 @@ import styled from "styled-components";
 import Header from "./Header";
 
 const Container = styled.div`
-  padding: 0 20px;
   display: flex;
   justify-content: center;
+  /* width: 768px; */
+  /* margin: 0px auto;
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+  } */
 `;
 const FooterContainer = styled.div`
   display: flex;
