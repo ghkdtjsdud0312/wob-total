@@ -31,12 +31,9 @@ import {
 const Container = styled.div`
   max-width: 768px;
   min-width: 300px;
-  margin: 0 auto;
+  margin: 0 auto 100px;
   display: flex;
   flex-direction: column;
-  @media only screen and (max-width: 768px) {
-    width: 100%;
-  }
 `;
 
 const DateBox = styled.div`
@@ -45,7 +42,6 @@ const DateBox = styled.div`
   align-items: center;
   height: 50px;
   margin-top: 15px;
-  /* border: 1px gray solid; */
   padding: 0 30px;
 `;
 
@@ -54,6 +50,9 @@ const CategoryBox = styled.div`
   margin-top: 20px;
   display: flex;
   justify-content: space-around; /* 일정 간격으로 벌어지게 함 */
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const MediumContainer = styled.div`
@@ -244,36 +243,17 @@ const Main = () => {
     const api = isAllLeisure ? "sports" : "areas";
     setSelectApi(api);
 
-    // console.log("dynamicHeader", dynamicHeader);
-    // console.log("modalOptions", modalOptions);
-    // console.log("modalTitle", modalTitle);
-
     setModalHeader(dynamicHeader);
     setModalOptions(modalOptions);
     setModalTitle(modalTitle);
     openModal();
   };
 
-  // const fetchPostByDate = async (selectDate) => {
-  //   try {
-  //     // 선택한 날짜에 해당하는 게시글 가져오는 api 호출 -> 백 코드 생성후 마저 생성 예정.
-  //     const response = await fetch();
-  //   } catch (error) {
-  //     console.error("Error fetching posts: ", error);
-  //   }
-  // };
-
   return (
     <>
       <Container>
         <AdCarousel />
         <CategoryBox>
-          {/* <Button label="모든 레져" size="category" />
-          {interest.map((interestItem, index) => (
-            <Button key={index} label={interestItem}>
-              {interestItem}
-            </Button>
-          ))} */}
           <Button
             label={allLeisure}
             size="category"
@@ -288,10 +268,6 @@ const Main = () => {
         </CategoryBox>
         <MediumContainer>
           <CategoryBox2>
-            {/* <Button label="모든 지역" size="category" />
-            <Button label="강남구" size="category" />
-            <Button label="관악구" size="category" />
-            <Button label="서초구" size="category" /> */}
             <Button
               label={allArea}
               size="category"
@@ -348,7 +324,6 @@ const Main = () => {
           <ListButton onClick={handleListIconClick} />
         </BottomContainer>
         <PostBox>
-          {/* <PostList selectedDate={(selectedDate, area, interest)} /> */}
           <PostList data={{ selectedDate, area, interest }} />
         </PostBox>
         <Modal
