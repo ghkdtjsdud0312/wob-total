@@ -150,14 +150,14 @@ const PasswordChange = () => {
             <ButtonBox>
               <Button
                 enabled
-                size={"large"}
+                size={"normal"}
                 label="수정하기"
                 onClick={() => onClickBtn()}
               ></Button>
             </ButtonBox>
           ) : (
             <ButtonBox>
-              <Button disabled size={"large"} label="수정하기"></Button>
+              <Button disabled size={"normal"} label="수정하기"></Button>
             </ButtonBox>
           )}
           <Modal open={modalOpen} close={closeModal} header="알림">

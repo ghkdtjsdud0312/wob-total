@@ -12,6 +12,8 @@ const SubContainer = styled.div`
   flex-direction: column;
   min-height: 100px;
   padding: 30px;
+  color: var(--BLACK);
+
 
   .title {
     font-size: 20px;
@@ -51,6 +53,7 @@ const SubContainer = styled.div`
       right: -10px;
       top: 30px;
       font-size: 30px;
+      color: var(--BLACK);
     }
   }
   div {

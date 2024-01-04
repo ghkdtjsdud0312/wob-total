@@ -17,6 +17,7 @@ const Container = styled.div`
 const SettingBtn = styled.button`
   width: 100%;
   height: 100px;
+  color: var(--BLACK);
   display: flex;
   position: relative;
   align-items: center;
