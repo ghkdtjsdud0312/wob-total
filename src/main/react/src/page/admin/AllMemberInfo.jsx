@@ -25,6 +25,7 @@ const UserContainer = styled.div`
 
   .tableBox {
     //table 표
+    overflow-x: auto;
     table {
       margin: 0 auto;
       thead {
@@ -54,7 +55,6 @@ const UserContainer = styled.div`
     }
     .tableBox {
       width: 100%;
-      overflow-x: auto;
       white-space: nowrap;
       table {
         width: auto;
