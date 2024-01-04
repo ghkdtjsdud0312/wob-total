@@ -154,7 +154,7 @@ const Tr = ({ data, index, setIsChange }) => {
       </td>
       <td>
         {confirmRevise ? (
-          <Button type="button" label="확인" size="normal" onClick={clickOn} />
+          <Button type="button" label="확인" size="small" onClick={clickOn} />
         ) : (
           <Button
             type="button"
