@@ -14,46 +14,6 @@ const CenterBox = styled.div`
     width: 100%;
   }
 `;
-
-export const SelectOptionBoardCom = styled.div`
-  width: 100%;
-  overflow: hidden;
-  position: relative;
-`;
-
-export const OptionBoardCom = styled.div`
-  color: #353535;
-  display: inline-block;
-  width: 100%;
-  box-sizing: border-box;
-`;
-
-export const SelectOptionBoardHeaderComp = styled.div`
-  font-size: 1.8em;
-  margin-top: 1em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 768px;
-  height: 60px;
-  background-color: #353535;
-  border-top-left-radius: 40px;
-  border-top-right-radius: 40px;
-`;
-export const SelectOptionBoardFooterCom = styled.div`
-  width: 768px;
-  height: 60px;
-  background-color: #dfede9;
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-bottom-left-radius: 40px; /* 왼쪽 하단 모서리 둥글게 */
-  border-bottom-right-radius: 40px; /* 오른쪽 하단 모서리 둥글게 */
-  /* position: absolute; */
-  bottom: 0;
-`;
-
 const AreasGird = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);

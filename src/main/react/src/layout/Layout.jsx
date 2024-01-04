@@ -6,30 +6,50 @@ import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 import Header from "./Header";
 
-const Container = styled.div`
+const MainContainer = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  /* width: 768px; */
-  /* margin: 0px auto;
+  width: 768px;
+  margin: 0px auto;
   @media only screen and (max-width: 768px) {
     width: 100%;
-  } */
+  }
 `;
+
+const ContentContainer = styled.div`
+  width: 768px;
+  margin: 0 auto;
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+  }
+`;
+
 const FooterContainer = styled.div`
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   position: fixed;
-  bottom: 0;
+  bottom: 0px;
+  align-items: center;
+  width: 768px;
+  margin: 0px auto;
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const Layout = () => (
   <>
-    <Header />
-    <Outlet />
-    <Container>
-      <FooterContainer>
-        <Footer /> {/* 푸터 표시 */}
-      </FooterContainer>
-    </Container>
+    <MainContainer>
+      <Header />
+      <ContentContainer>
+        <Outlet />
+        <FooterContainer>
+          <Footer /> {/* 푸터 표시 */}
+        </FooterContainer>
+      </ContentContainer>
+    </MainContainer>
   </>
 );
 

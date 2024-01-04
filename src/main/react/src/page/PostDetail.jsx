@@ -3,14 +3,13 @@ import styled from "styled-components";
 import PostAxiosApi from "../api/PostAxiosApi";
 import { useParams } from "react-router-dom";
 import PostMap from "../component/PostMap";
-import Footer from "../layout/Footer";
-import Header from "../layout/Header";
 import Payment from "../component/Payment";
 import ChatStart from "../component/ChatStart";
 import Modal from "../utils/Modal";
 import MyPageAxiosApi from "../api/MyPageAxiosApi";
 
 const Container = styled.div`
+  padding-bottom: 10%;
   max-width: 768px;
   min-width: 300px;
   margin: 0 auto;
@@ -139,15 +138,6 @@ const PayBox = styled.div`
   justify-content: center;
 `;
 
-const FooterBox = styled.div`
-  height: 90px;
-  background-color: white;
-  display: flex;
-  justify-content: center;
-  position: fixed;
-  bottom: 0px;
-`;
-
 const PostDetail = ({ categoryImage }) => {
   const { postId } = useParams(); //postId를 url에서 받아옴
   const [post, setPost] = useState("");
@@ -258,7 +248,6 @@ const PostDetail = ({ categoryImage }) => {
   return (
     <Container>
       <ContentBox>
-        <Header />
         <PictureCon>
           <Image
             src={post.type === "lesson" ? post.image : post.categoryImage}
@@ -368,9 +357,6 @@ const PostDetail = ({ categoryImage }) => {
           )}
         </ModalContainer>
       </Modal>
-      <FooterBox>
-        <Footer />
-      </FooterBox>
     </Container>
   );
 };

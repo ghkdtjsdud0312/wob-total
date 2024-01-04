@@ -1,7 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { TitleAlign, TextAlign, SelectButton } from "../MBTI/MBTIcommon";
-import LoginPageAxiosApi from "../../api/LoginPageAxiosApi";
+import { SelectButton } from "../MBTI/MBTIcommon";
 
 const CenterBox = styled.div`
   display: flex;
@@ -28,6 +27,7 @@ const SelectSports = ({ options, min, max, title, text, handleSelected }) => {
   const [value, setValue] = useState("");
   const minSelection = min; // 최소 선택 할 수 있는 개수
   const maxSelection = max; // 최대 선택 할 수 있는 개수
+
   const handleSelect = (item) => {
     console.log("선택된 운동들 : ", ...selectedSports);
     if (selectedSports.includes(item)) {

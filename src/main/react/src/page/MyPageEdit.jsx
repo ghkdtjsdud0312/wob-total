@@ -14,10 +14,11 @@ import { OptionBoardCom } from "../component/interest/SelectAreaClon";
 import SelectMBTI from "../component/MBTI/MBTI";
 
 const Container = styled.div`
+  padding-bottom: 10%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 768px;
+  width: 100%;
   margin: 0px auto;
   @media only screen and (max-width: 768px) {
     width: 100%;
@@ -42,11 +43,22 @@ const FooterCon = styled.div`
   font-size: 1em;
   color: #353535;
 `;
+const HeaderCon = styled.div`
+  display: flex;
+  color: --var(MINT);
+  align-items: center;
+  width: 100%;
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+  }
+`;
 const HeaderBox = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  max-width: 768px;
+  min-width: 300px;
   margin: 0 auto;
 `;
 const EditBox = styled.div`
@@ -58,9 +70,16 @@ const EditBox = styled.div`
 `;
 const FooterBox = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   position: fixed;
   bottom: 0px;
+  align-items: center;
+  width: 768px;
+  margin: 0px auto;
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const LogoImage = styled.img`
@@ -139,7 +158,9 @@ const EditLogo = styled.img`
 `;
 const EditLogoCon = styled.div`
   display: flex;
-  justify-content: right;
+  flex: 1;
+  justify-content: flex-end;
+  align-items: center;
 `;
 const EditBtn = styled.div`
   display: flex;
@@ -354,184 +375,190 @@ const MyPageEdit = () => {
 
   return (
     <Container>
-      <HeaderBox>
-        <LogoImage src={logoImage} alt="logo" onClick={goToHome} />
-        <EditLogoCon>
-          {!editMode && (
-            <EditLogo
-              onClick={() => {
-                setEditMode(true);
-                setIsOpen(!isOpen);
-              }}
-              src={Edit}
-              alt="edit"
-            />
-          )}
-          <StyledLink to="/Setting">
-            <EditLogo src={Setting} alt="Setting" />
-          </StyledLink>
-        </EditLogoCon>
-      </HeaderBox>
-      <EditBox>
-        <FinalCon>
-          <Text>프로필 사진</Text>
-          <UserInfo>
-            <Text>
-              <UserInformation>
-                <UserImage
-                  src={url || "http://via.placeholder.com/160"}
-                  alt="User"
-                />
-              </UserInformation>
-            </Text>
-          </UserInfo>
-          <EX>
-            <EditNick>
-              {!editMode ? (
-                <>
-                  <></>
-                </>
-              ) : (
-                <>
-                  <IMGField>
-                    <input
-                      type="file"
-                      name="file"
-                      onChange={handleUploadChange}
-                    />
-                  </IMGField>
-                </>
-              )}
-            </EditNick>
-          </EX>
-        </FinalCon>
-        <FinalCon>
-          <Text>닉네임</Text>
-          <EX>
-            <TextClon>
-              <EditNick>
-                {!editMode ? (
-                  <FooterCon>{user.nickname}</FooterCon>
-                ) : (
-                  <Input
-                    type="text"
-                    name="Nickname"
-                    placeholder="닉네임을 입력하세요."
-                    value={editNickname}
-                    onChange={handleChange}
-                  />
-                )}
-              </EditNick>
-            </TextClon>
-          </EX>
-        </FinalCon>
-        <FinalCon>
-          <Text>소개</Text>
-          <EX>
-            <TextClon>
-              <EditNick>
-                {!editMode ? (
-                  <FooterCon>{user.introduce}</FooterCon>
-                ) : (
-                  <Input
-                    type="text"
-                    name="Introduce"
-                    placeholder="소개글을 입력하세요."
-                    value={editIntroduce}
-                    onChange={handleChangeIntro}
-                  />
-                )}
-              </EditNick>
-            </TextClon>
-          </EX>
-        </FinalCon>
-        <FinalCon>
-          <Text>관심 지역</Text>
-          <EX>
-            <EditNick>
-              {!editMode ? (
-                <Text>
-                  <AreaSports>
-                    {area &&
-                      area.map((areaItem, index) => (
-                        <FooterCon key={index} value={areaItem}>
-                          {areaItem}
-                        </FooterCon>
-                      ))}
-                  </AreaSports>
-                </Text>
-              ) : (
-                <SelectArea
-                  options={activityAreaList}
-                  min={minValue}
-                  max={maxValue}
-                  text={`최소 ${minValue}개 최대 ${maxValue}개 선택해주세요.`}
-                  handleSelected={handleSelectedArea}
-                />
-              )}
-            </EditNick>
-          </EX>
-        </FinalCon>
-        <FinalCon>
-          <Text>관심 운동</Text>
-          <EX>
-            <EditNick>
-              {!editMode ? (
-                <Text>
-                  <AreaSports>
-                    {interest &&
-                      interest.map((interestItem, index) => (
-                        <FooterCon key={index} value={interestItem}>
-                          {interestItem}
-                        </FooterCon>
-                      ))}
-                  </AreaSports>
-                </Text>
-              ) : (
-                <SelectSports
-                  options={activityList}
-                  min={minValue}
-                  max={maxValue}
-                  text={`최소 ${minValue}개 최대 ${maxValue}개 선택해주세요.`}
-                  handleSelected={handleSelected}
-                />
-              )}
-            </EditNick>
-          </EX>
-        </FinalCon>
-        <FinalCon>
-          <Text>MBTI</Text>
-          <EditNick>
-            {!editMode ? (
-              <Text>
-                <FooterCon>{user.mbti}</FooterCon>
-              </Text>
-            ) : (
-              <SelectMBTI
-                options={mbtiList}
-                max={mbtiValue}
-                text={`MBTI를 선택해주세요.`}
-                handleSelectedItem={handleSelectedItem} // 함수 전달
+      <HeaderCon>
+        <HeaderBox>
+          <LogoImage src={logoImage} alt="logo" onClick={goToHome} />
+          <EditLogoCon>
+            {!editMode && (
+              <EditLogo
+                onClick={() => {
+                  setEditMode(true);
+                  setIsOpen(!isOpen);
+                }}
+                src={Edit}
+                alt="edit"
               />
             )}
-          </EditNick>
-        </FinalCon>
-        {!editMode ? (
-          <></>
-        ) : (
-          <OptionBoardCom isOpen={isOpen}>
+            <StyledLink to="/Setting">
+              <EditLogo src={Setting} alt="Setting" />
+            </StyledLink>
+          </EditLogoCon>
+        </HeaderBox>
+      </HeaderCon>
+      <Container>
+        <EditBox>
+          <FinalCon>
+            <Text>프로필 사진</Text>
+            <UserInfo>
+              <Text>
+                <UserInformation>
+                  <UserImage
+                    src={url || "http://via.placeholder.com/160"}
+                    alt="User"
+                  />
+                </UserInformation>
+              </Text>
+            </UserInfo>
+            <EX>
+              <EditNick>
+                {!editMode ? (
+                  <>
+                    <></>
+                  </>
+                ) : (
+                  <>
+                    <IMGField>
+                      <input
+                        type="file"
+                        name="file"
+                        onChange={handleUploadChange}
+                      />
+                    </IMGField>
+                  </>
+                )}
+              </EditNick>
+            </EX>
+          </FinalCon>
+          <FinalCon>
+            <Text>닉네임</Text>
+            <EX>
+              <TextClon>
+                <EditNick>
+                  {!editMode ? (
+                    <FooterCon>{user.nickname}</FooterCon>
+                  ) : (
+                    <Input
+                      type="text"
+                      name="Nickname"
+                      placeholder="닉네임을 입력하세요."
+                      value={editNickname}
+                      onChange={handleChange}
+                    />
+                  )}
+                </EditNick>
+              </TextClon>
+            </EX>
+          </FinalCon>
+          <FinalCon>
+            <Text>소개</Text>
+            <EX>
+              <TextClon>
+                <EditNick>
+                  {!editMode ? (
+                    <FooterCon>{user.introduce}</FooterCon>
+                  ) : (
+                    <Input
+                      type="text"
+                      name="Introduce"
+                      placeholder="소개글을 입력하세요."
+                      value={editIntroduce}
+                      onChange={handleChangeIntro}
+                    />
+                  )}
+                </EditNick>
+              </TextClon>
+            </EX>
+          </FinalCon>
+          <FinalCon>
+            <Text>관심 지역</Text>
+            <EX>
+              <EditNick>
+                {!editMode ? (
+                  <Text>
+                    <AreaSports>
+                      {area &&
+                        area.map((areaItem, index) => (
+                          <FooterCon key={index} value={areaItem}>
+                            {areaItem}
+                          </FooterCon>
+                        ))}
+                    </AreaSports>
+                  </Text>
+                ) : (
+                  <SelectArea
+                    options={activityAreaList}
+                    min={minValue}
+                    max={maxValue}
+                    text={`최소 ${minValue}개 최대 ${maxValue}개 선택해주세요.`}
+                    handleSelected={handleSelectedArea}
+                  />
+                )}
+              </EditNick>
+            </EX>
+          </FinalCon>
+          <FinalCon>
+            <Text>관심 운동</Text>
+            <EX>
+              <EditNick>
+                {!editMode ? (
+                  <Text>
+                    <AreaSports>
+                      {interest &&
+                        interest.map((interestItem, index) => (
+                          <FooterCon key={index} value={interestItem}>
+                            {interestItem}
+                          </FooterCon>
+                        ))}
+                    </AreaSports>
+                  </Text>
+                ) : (
+                  <SelectSports
+                    options={activityList}
+                    min={minValue}
+                    max={maxValue}
+                    text={`최소 ${minValue}개 최대 ${maxValue}개 선택해주세요.`}
+                    handleSelected={handleSelected}
+                  />
+                )}
+              </EditNick>
+            </EX>
+          </FinalCon>
+          <FinalCon>
+            <Text>MBTI</Text>
+            <EX>
+              <EditNick>
+                {!editMode ? (
+                  <Text>
+                    <AreaSports>
+                      <FooterCon>{user.mbti}</FooterCon>
+                    </AreaSports>
+                  </Text>
+                ) : (
+                  <SelectMBTI
+                    options={mbtiList}
+                    max={mbtiValue}
+                    text={`MBTI를 선택해주세요.`}
+                    handleSelectedItem={handleSelectedItem} // 함수 전달
+                  />
+                )}
+              </EditNick>
+            </EX>
+          </FinalCon>
+          {!editMode ? (
+            <></>
+          ) : (
             <EditBtn>
               <SubmitButton onClick={handleSubmit}>수정</SubmitButton>
               <SubmitButton onClick={() => setEditMode(false)}>
                 취소
               </SubmitButton>
             </EditBtn>
-          </OptionBoardCom>
-        )}
-      </EditBox>
-      <FooterBox>
-        <Footer />
-      </FooterBox>
+          )}
+        </EditBox>
+        <FooterBox>
+          <Footer />
+        </FooterBox>
+      </Container>
     </Container>
   );
 };

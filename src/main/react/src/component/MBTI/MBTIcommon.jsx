@@ -12,7 +12,7 @@ const TextAlign = styled.div`
 
 const SelectButton = styled.button`
   padding: 15px 20px;
-  font-size: 20px;
+  font-size: 1em;
   background-color: ${(props) => (props.selected ? "#04bf8a" : "transparent")};
   color: ${(props) => (props.selected ? "#fff" : "inherit")};
   border: 1px solid ${(props) => (props.selected ? "#04bf8a" : "#353535")};
@@ -23,6 +23,10 @@ const SelectButton = styled.button`
   &:hover {
     border-color: #04bf8a;
     color: ${(props) => (props.selected ? "#fff" : "#04bf8a")};
+  }
+  @media only screen and (max-width: 768px) {
+    padding: 10px 15px;
+    font-size: 0.8em;
   }
 `;
 

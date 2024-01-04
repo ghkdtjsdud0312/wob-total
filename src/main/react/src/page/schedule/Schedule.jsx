@@ -5,10 +5,13 @@ import CalendarComp from "../../component/CalendarComp";
 import JoinPost from "./JoinPost";
 
 const BoardContainer = styled.div`
+  margin: 0 auto;
   display: flex;
-  justify-content: center;
-  width: 100%;
   flex-direction: column;
+  width: 768px;
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const JoinCon = styled.div`
@@ -46,25 +49,23 @@ const Schedule = () => {
 
   return (
     <>
-      <div>
-        <BoardContainer>
-          <Boards>
-            <JoinCon>Buddy Schedule</JoinCon>
-            <>
-              <CalendarComp onDateSelect={onDateSelect} />
-            </>
-            <>
-              <DateCon>
-                <Date>{selectedDate.format("YYYY년 MM월 DD일")}</Date>
-              </DateCon>
-            </>
-            <BoardJoin>
-              {/* 선택된 날짜에 따라  */}
-              <JoinPost selectedDate={selectedDate} />
-            </BoardJoin>
-          </Boards>
-        </BoardContainer>
-      </div>
+      <BoardContainer>
+        <Boards>
+          <JoinCon>Buddy Schedule</JoinCon>
+          <>
+            <CalendarComp onDateSelect={onDateSelect} />
+          </>
+          <>
+            <DateCon>
+              <Date>{selectedDate.format("YYYY년 MM월 DD일")}</Date>
+            </DateCon>
+          </>
+          <BoardJoin>
+            {/* 선택된 날짜에 따라  */}
+            <JoinPost selectedDate={selectedDate} />
+          </BoardJoin>
+        </Boards>
+      </BoardContainer>
     </>
   );
 };
