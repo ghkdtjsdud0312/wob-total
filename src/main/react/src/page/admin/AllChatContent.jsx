@@ -124,6 +124,11 @@ const AllChatContent = () => {
     chatLists();
   }, [isChange]);
 
+   useEffect(() => {
+      const fetchData = async () => {};
+      fetchData();
+    }, [isChange]);
+
   return (
     <ChatContainer>
       <div className="Logo" onClick={() => handleClick("/AdminMain")}>

@@ -124,6 +124,11 @@ const AllPaymentList = () => {
     payList();
   }, [isChange]);
 
+    useEffect(() => {
+      const fetchData = async () => {};
+      fetchData();
+    }, [isChange]);
+
   return (
     <PaymentContainer>
       <div className="Logo" onClick={() => handleClick("/AdminMain")}>

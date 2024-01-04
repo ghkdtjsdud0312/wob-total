@@ -60,7 +60,7 @@ const Tr5 = ({ data, index, setIsChange }) => {
     if (rsp.data) {
       alert("해당 채팅방이 수정되었습니다.");
       setModalOpen(false);
-      setIsChange(true);
+      setIsChange((prev) => !prev); // 이전 상태의 반대 값을 사용하여 강제로 다시 렌더링
       setConfirmRevise(false);
       setChatActive(true);
     } else {
