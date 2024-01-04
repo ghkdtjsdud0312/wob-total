@@ -1,66 +1,49 @@
-// 관리자 회원 관리(전체 회원 조회)
-import React, { useState, useEffect } from "react";
-import AdminAxiosApi from "../../api/AdminAxiosApi";
+// 종목 목록
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
-import FullLogoBth from "../../component/admin/FullLogoBtn";
-import Layout from "../../component/admin/Layout";
-import Tr2 from "../../component/admin/UserElement";
+import { useState } from "react";
+import Button from "../Button";
+import AdminAxiosApi from "../../api/AdminAxiosApi";
+import Modal from "../../utils/Modal";
 
-// 전체 큰 틀css
-const UserContainer = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
-  padding-top: 100px;
-
-  .Logo {
-    cursor: pointer;
-  }
-  // 카테고리 목록 css
-  p {
+const TrComp = styled.tr`
+  td {
+    outline: 1px solid #dce0df;
+    padding: 15px;
     text-align: center;
-    font-size: 45px;
-    padding-bottom: 50px;
-  }
+    width: 50px;
+    vertical-align: middle;
+    background-color: ${(props) => (props.$active ? "white" : "#c4c1c1")};
 
-  .tableBox {
-    //table 표
-    table {
-      margin: 0 auto;
-      thead {
-        tr {
-          th {
-            padding: 20px 10px;
-            vertical-align: middle;
-            font-size: 20px;
-            white-space: nowrap;
-          }
+    &.center {
+      text-align: center;
+    }
+    &.image {
+      .imgBox {
+        width: 30%;
+        padding-bottom: 30%;
+        img {
+          width: 80px;
+          height: 70px;
         }
       }
-      tbody {
-        text-align: center;
-
-        tr {
-          white-space: nowrap;
+    }
+    &.selectBox {
+      select {
+        outline: none;
+        padding: 6px;
+        &:disabled {
+          opacity: 1;
         }
       }
     }
   }
   @media screen and (max-width: 430px) {
-    padding-top: 60px;
-    p {
-      font-size: 25px;
-      padding-bottom: 30px;
-    }
-    .tableBox {
-      width: 100%;
-      table {
-        width: auto;
-        thead {
-          tr {
-            th {
-              font-size: 15px;
-            }
+    td {
+      &.image {
+        .imgBox {
+          img {
+            width: 45px;
+            height: 45px;
           }
         }
       }
@@ -68,174 +51,148 @@ const UserContainer = styled.div`
   }
 `;
 
-// 등록 버튼
-const Buttons = styled.div`
-  border: 1px solid white;
-  background-color: white;
-  width: 100%;
-  text-align: center;
+const Tr = ({ data, index, setIsChange }) => {
+  const [categoryContent, setCategoryContent] = useState("");
+  const [categoryActive, setCategoryActive] = useState(true); // 종목 셀렉트 활성화 비활성화
+  const [confirmRevise, setConfirmRevise] = useState(false); // 수정 -> 확인
+  const [num, setNum] = useState(0); // 인덱스 번호
 
-  button {
-    font-weight: 500;
-    background-color: #dfede9;
-    border: 1px solid #04bf8a;
-    border-radius: 10px;
-    padding: 15px;
-    font-size: 15px;
-    margin: 10px 10px;
-    cursor: pointer;
-  }
-`;
+  // 모달 관련 변수
+  const [isOpen, setIsOpen] = useState(true);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalText, setModalText] = useState(false);
 
-// 페이지 네이션 큰 틀
-const PaginationContainer = styled.div`
-  text-align: center;
-  margin-top: 20px;
-`;
-
-// 페이지 네이션 버튼
-const PageButton = styled.button`
-  border: 1px solid #ddd;
-  padding: 5px;
-  width: 28px;
-  margin: 0 5px;
-  background-color: #f0f0f0;
-  cursor: pointer;
-  border-radius: 50%;
-  transition: background-color 0.3s;
-
-  &:hover {
-    background-color: darkgray;
-  }
-
-  &:focus {
-    outline: none;
-    background-color: royalblue;
-  }
-`;
-
-// 회원 목록 페이지
-const AllMemberInfo = () => {
-  // 맵 돌릴 리스트
-  const [userGet, setUserGet] = useState([]); // 회원리스트
-  const [currentPage, setCurrentPage] = useState(0); // 현재 페이지
-  const [totalPage, setTotalPage] = useState(0); // 총 페이지 수
-  const [num, setNum] = useState(1); // 인덱스 번호
-  const [isChange, setIsChange] = useState(false);
-  const navigate = useNavigate();
-
-  // 수정, 등록 시 경로 이동
-  const handleClick = (path) => {
-    navigate(path);
+  // 닫는 모달
+  const closeModal = () => {
+    setModalOpen(false);
   };
 
-  // 회원 페이지 수 정하기
-  const getTotalPage = async () => {
-    try {
-      const res = await AdminAxiosApi.userPageCount(0, 5);
-      setTotalPage(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-    setIsChange(false);
-  };
-
-  // 총 페이지 수 계산
-  useEffect(() => {
-    getTotalPage();
-  }, []);
-
-  useEffect(() => {
-    console.log("isChange? : " + isChange);
-    if (isChange) {
-      getTotalPage();
-      fetchUserGet();
-    }
-  }, [isChange]);
-
-  // 다음 페이지네이션 시 몇개씩 넘길 것인지
-  const fetchUserGet = async () => {
-    try {
-      const res = await AdminAxiosApi.userPageList(currentPage, 5);
-      console.log(res.data);
-      setUserGet(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  // 회원 목록 (페이지나누기)
-  useEffect(() => {
-    fetchUserGet();
-  }, [currentPage]);
-
-  // 페이지 이동
-  const handlePageChange = (number) => {
-    console.log(number);
-    setCurrentPage(number - 1);
-
-    // 페이지 변경 시 목록의 순서를 나타내는 코드 추가
-    setNum((number - 1) * 5 + 1); // 각 페이지의 첫번째 인덱스 번호
-  };
-
-  // 페이지 네이션 버튼
-  const renderPagination = () => {
-    return (
-      <PaginationContainer>
-        {Array.from({ length: totalPage }, (_, i) => i + 1).map((page) => (
-          <PageButton key={page} onClick={() => handlePageChange(page)}>
-            {page}
-          </PageButton>
-        ))}
-      </PaginationContainer>
+  // 수정 모달창
+  const confirmModal = async () => {
+    console.log("Data in Tr component:", data);
+    console.log("수정 데이터 : ", data.categoryId, categoryContent);
+    const rsp = await AdminAxiosApi.categoryListState(
+      data.categoryId,
+      categoryContent
     );
+    console.log("rsp : ", rsp.data);
+    if (rsp.data) {
+      alert("해당 종목이 수정되었습니다.");
+      setModalOpen(false);
+      setIsChange(true);
+      setConfirmRevise(false);
+      setCategoryActive(true);
+    } else {
+      alert("해당 종목이 수정되지 않았습니다.");
+    }
+  };
+
+  // 삭제 모달
+  const deleteModal = async () => {
+    const rsp = await AdminAxiosApi.boardDelete(data.categoryId);
+    console.log(data.categoryId);
+    if (rsp.status === 200) {
+      alert("해당 종목이 삭제 되었습니다.");
+      setModalOpen(false);
+      setIsChange(true);
+    } else {
+      alert("해당 종목이 삭제되지 않았습니다.");
+    }
+  };
+
+  // 버튼 누르면 바뀜(수정 -> 확인)
+  const clickRevise = () => {
+    setCategoryActive(false);
+    setConfirmRevise(true);
+  };
+
+  // 게시글 활성화 또는 비활성화 요청 보내기
+  const handleSelectChange = (e) => {
+    setCategoryContent(e.target.value);
+    console.log(categoryContent);
+  };
+  // 확인에서 수정된 값 들어감
+  const clickOn = async () => {
+    setIsOpen(true);
+    setModalText("상태를 변경하시겠습니까?");
+    setModalOpen(true);
+  };
+
+  // 등록한 종목 삭제
+  const clickDelete = () => {
+    setIsOpen(false);
+    setModalText("해당 종목을 삭제하시겠습니까?");
+    setModalOpen(true);
   };
 
   return (
-    <UserContainer>
-      <div className="Logo" onClick={() => handleClick("/AdminMain")}>
-        <FullLogoBth />
-      </div>
-      <p>전체 회원 관리 목록</p>
-      <div className="tableBox">
-        <table>
-          <thead>
-            <tr>
-              <th>번호</th>
-              <th>이메일</th>
-              <th>닉네임</th>
-              <th>탈퇴이유</th>
-              <th>약관동의</th>
-              <th>이름</th>
-              <th>전화번호</th>
-              <th>상태</th>
-              <th>분류선택</th>
-              <th>회원상태</th>
-              <th>회원삭제</th>
-            </tr>
-          </thead>
-          <tbody>
-            {userGet &&
-              userGet.map((data, index) => (
-                <Tr2
-                  key={data.id} // 고유한 키 생성
-                  data={data}
-                  index={index + num}
-                  active={data.active === "active"}
-                  setIsChange={setIsChange}
-                />
-              ))}
-          </tbody>
-        </table>
-      </div>
-      {renderPagination()}
-      <Buttons>
-        <button onClick={() => handleClick("/AdminMain")}>뒤로가기</button>
-      </Buttons>
-      {/* 햄버거 토글 사이드바 */}
-      <Layout />
-    </UserContainer>
+    <TrComp $active={data.active === "active"}>
+      {/* 숫자 자동증가 */}
+      <td className="center">{index + num}</td>
+      <td className="image">
+        <span className="imgBox">
+          <img src={data.logo} alt="logo" />
+        </span>
+      </td>
+      <td>{data.name}</td>
+      <td className="image">
+        <span className="imgBox">
+          <img src={data.image} alt="img" />
+        </span>
+      </td>
+      <td isEnabled={data.active}>{data.active}</td>
+      {/* 셀렉트 */}
+      <td className="selectBox">
+        <select
+          name="category"
+          disabled={categoryActive}
+          value={categoryContent}
+          onChange={handleSelectChange}>
+          <option value="active">활동종목</option>
+          <option value="inactive">비활동종목</option>
+        </select>
+      </td>
+      <td>
+        {confirmRevise ? (
+          <Button type="button" label="확인" size="normal" onClick={clickOn} />
+        ) : (
+          <Button
+            type="button"
+            label="수정"
+            size="normal"
+            onClick={clickRevise}
+          />
+        )}
+      </td>
+      <td>
+        <Button
+          type="button"
+          label="삭제"
+          size="normal"
+          value={data.id}
+          onClick={clickDelete}
+        />
+      </td>
+      {isOpen ? (
+        <Modal // 수정 모달
+          open={modalOpen}
+          close={closeModal}
+          confirm={confirmModal}
+          type={true}
+          header="안내">
+          {modalText}
+        </Modal>
+      ) : (
+        <Modal // 삭제 모달
+          open={modalOpen}
+          close={closeModal}
+          confirm={deleteModal}
+          type={true}
+          header="안내">
+          {modalText}
+        </Modal>
+      )}
+    </TrComp>
   );
 };
-
-export default AllMemberInfo;
+export default Tr;

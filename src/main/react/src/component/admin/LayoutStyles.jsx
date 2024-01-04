@@ -86,7 +86,7 @@ export const StyledSideMenu = styled.div`
   left: 0;
   top: 100px;
   width: 340px;
-  height: 80vh;
+  height: 88vh;
   box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
