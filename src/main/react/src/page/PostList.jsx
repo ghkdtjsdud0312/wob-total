@@ -9,9 +9,12 @@ const Container = styled.div`
   max-width: 768px;
   min-width: 300px;
   margin: 0 auto;
-  justify-content: center;
-  align-items: center;
   color: var(--GREEN);
+  margin-bottom: 15%;
+
+  @media only screen and (max-width: 768px) {
+    margin-bottom: 25%;
+  }
 `;
 
 const StyledLink = styled(Link)`
@@ -38,17 +41,37 @@ const PageButton = styled.button`
   &:hover {
     background-color: var(--MINT);
   }
-
   &:focus {
     outline: none;
-    background-color: var(--GREEN);
+    background-color: var(--MINT);
   }
+`;
+
+const PageButton2 = styled.button`
+  background-color: var(--MINT);
+  color: #555555;
+  padding: 8px 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  margin: 0 5px;
+  &:hover {
+    box-shadow: 0px 10px 10px #dfede9;
+  }
+`;
+
+const Title = styled.div`
+  font-size: 1.8rem;
+  color: #555555;
+  display: flex;
+  justify-content: center;
 `;
 
 const PostList = () => {
   const [postList, setPostList] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPage, setTotalPage] = useState(0);
+  const [pageRange, setPageRange] = useState({ start: 0, end: 5 });
 
   useEffect(() => {
     const fetchPostList = async () => {
@@ -72,14 +95,41 @@ const PostList = () => {
     setCurrentPage(number - 1); // 페이지 번호는 0부터 시작하므로 1을 빼줍니다.
   };
 
+  // 페이지 범위 이동 함수
+  const handlePageRange = (direction) => {
+    if (direction === "next") {
+      setPageRange((prevRange) => ({
+        start: prevRange.end,
+        end: prevRange.end + 5,
+      }));
+    } else if (direction === "prev") {
+      setPageRange((prevRange) => ({
+        start: prevRange.start - 5,
+        end: prevRange.start,
+      }));
+    }
+  };
+
   const renderPagination = () => {
     return (
       <PaginationContainer>
-        {Array.from({ length: totalPage }, (_, i) => i + 1).map((page) => (
-          <PageButton key={page} onClick={() => handlePageChange(page)}>
-            {page}
-          </PageButton>
-        ))}
+        {pageRange.start > 0 && (
+          <PageButton2 onClick={() => handlePageRange("prev")}>
+            이전
+          </PageButton2>
+        )}
+        {Array.from({ length: totalPage }, (_, i) => i + 1)
+          .slice(pageRange.start, pageRange.end)
+          .map((page) => (
+            <PageButton key={page} onClick={() => handlePageChange(page)}>
+              {page}
+            </PageButton>
+          ))}
+        {pageRange.end < totalPage && (
+          <PageButton2 onClick={() => handlePageRange("next")}>
+            다음
+          </PageButton2>
+        )}
       </PaginationContainer>
     );
   };
@@ -87,6 +137,7 @@ const PostList = () => {
   return (
     <>
       <Container>
+        <Title>전체글 보기</Title>
         {postList &&
           postList.map((post) => (
             // PostPreview 컴포넌트를 호출하면서 필요한 데이터를 전달
