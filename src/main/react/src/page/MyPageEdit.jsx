@@ -289,17 +289,17 @@ const MyPageEdit = () => {
       const selectedFile = e.target.files[0];
       if (selectedFile) {
         setFile(selectedFile);
+        const storageRef = storage.ref();
+        const fileRef = storageRef.child(selectedFile.name);
+        await fileRef.put(selectedFile); // 파일 업로드
+        console.log("파일 업로드 성공!!");
+        // 업로드 후 이미지 URL 가져오기
+        const uploadedUrl = await fileRef.getDownloadURL();
+        console.log("저장경로 확인 : ", uploadedUrl);
+        setUrl(uploadedUrl); // 미리보기 URL 업데이트 (상태 업데이트)
       } else {
         console.log("파일 선택 취소");
       }
-      const storageRef = storage.ref();
-      const fileRef = storageRef.child(file.name);
-      await fileRef.put(file); //파일 업로드 후 기다리기
-      console.log("파일 업로드 성공!!");
-      // 업로드 후 이미지 URL 가져오기
-      const uploadedUrl = await fileRef.getDownloadURL();
-      console.log("저장경로 확인 : ", uploadedUrl);
-      setUrl(uploadedUrl); //미리보기 URL업데이트 (상태 업데이트)
     } catch (error) {
       console.error("Upload failed 파일 업로드 에러 :", error);
     }
