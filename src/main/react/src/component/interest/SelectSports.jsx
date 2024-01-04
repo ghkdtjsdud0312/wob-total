@@ -15,7 +15,7 @@ const SportsGird = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 20px 30px;
-  padding: 40px;
+  padding: 60px;
 `;
 
 const SelectSports = ({ options, min, max, title, text, onComplete }) => {
@@ -73,16 +73,16 @@ const SelectSports = ({ options, min, max, title, text, onComplete }) => {
             {activity}
           </SelectButton>
         ))}
-        <InputBar
+        {/* <InputBar
           placeholder="기타"
           onChange={(e) => setValue(e.target.value)}
           disabled={selectedItems.length >= maxSelection}
-        />
+        /> */}
         <NextButton
           active={isNextButtonActive ? true : undefined}
           onClick={isNextButtonActive ? () => handleNext(selectedItems) : null}
         >
-          다음
+          확인
         </NextButton>
         <PrevNavigateBox onClick={handlePass}>건너뛰기</PrevNavigateBox>
       </SportsGird>

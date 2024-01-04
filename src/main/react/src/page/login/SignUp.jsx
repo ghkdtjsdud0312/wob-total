@@ -8,25 +8,30 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { KH_DOMAIN } from "../../utils/Common";
 import { useState } from "react";
 import LoginPageAxiosApi from "../../api/LoginPageAxiosApi";
-import Modal from "../../utils/Modal";
+import LoginModal from "../../utils/LoginModal";
 import Common from "../../utils/Common";
 
 const Container = styled.div`
-  max-width: 768px;
-  min-width: 300px;
+  width: 768px;
   margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  @media only screen and (max-width: 768px) {
+    width: 30em;
+  }
 `;
 
 const LoginBox = styled.div`
   background-color: #dfede9;
-  width: 320px;
+  width: 30em;
   padding: 20px;
   border-radius: 30px;
   text-align: center;
+  @media only screen and (max-width: 768px) {
+    width: 26em;
+  }
 `;
 
 const RowAlignBox = styled.div`
@@ -44,7 +49,8 @@ const AlignBox = styled.div`
 `;
 
 const Logo = styled.img`
-  width: 200px;
+  margin-top: 170px;
+  width: 300px;
   &:hover {
     cursor: pointer;
     background-color: #dfede9;
@@ -52,8 +58,8 @@ const Logo = styled.img`
   }
 `;
 const OauthLogo = styled.img`
-  width: 40px;
-  margin: 10px 20px;
+  width: 60px;
+  margin: 10px 30px;
   background-color: white;
   padding: 5px;
   border-radius: 50%;
@@ -64,6 +70,7 @@ const OauthLogo = styled.img`
 
 const BlackButton = styled(GreenButton)`
   background-color: #353535;
+  margin-top: 20px;
   &:hover {
     cursor: ${(props) => (props.disabled ? "default" : "pointer")};
   }
@@ -75,8 +82,8 @@ const SmallGreenButton = styled.button`
   margin: 10px;
   border: none;
   border-radius: 30px;
-  padding: 10px;
-  width: 70px;
+  padding: 20px;
+  width: 100px;
   opacity: ${(props) => (props.disabled ? 0.5 : 1)};
   &:hover {
     cursor: pointer;
@@ -84,7 +91,7 @@ const SmallGreenButton = styled.button`
 `;
 
 const PrevNavigateBox = styled.div`
-  margin-top: 20px;
+  margin: 20px 0;
   text-decoration: underline;
   opacity: 0.5;
   &:hover {
@@ -261,7 +268,7 @@ const SignUp = () => {
         <Logo
           src="https://firebasestorage.googleapis.com/v0/b/mini-project-1f72d.appspot.com/o/wob-logo.png?alt=media&token=ee78e613-1205-4e3d-8a9f-da0c898af49b"
           alt="main logo"
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/signin")}
         />
         <LoginBox>
           <AlignBox>
@@ -330,9 +337,9 @@ const SignUp = () => {
           이전으로
         </PrevNavigateBox>
       </AlignBox>
-      <Modal open={modalOpen} close={closeModal} header={`${modalHeader}`}>
+      <LoginModal open={modalOpen} close={closeModal} header={`${modalHeader}`}>
         {modalText}
-      </Modal>
+      </LoginModal>
     </Container>
   );
 };

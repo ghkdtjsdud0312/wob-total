@@ -1,22 +1,28 @@
 import styled from "styled-components";
 const InputBar = styled.input`
-  margin: 5px;
+  margin: 10px;
   border: none;
   border-radius: 30px;
-  padding: 15px;
-  width: 250px;
+  padding: 20px;
+  width: 400px;
   &:focus {
     outline: 2px solid #04bf8a;
+  }
+  @media only screen and (max-width: 768px) {
+    width: 350px;
   }
 `;
 const AuthInputBar = styled.input`
   margin: 5px;
   border: none;
   border-radius: 30px;
-  padding: 15px;
-  width: 160px;
+  padding: 20px;
+  width: 280px;
   &:focus {
     outline: 2px solid #04bf8a;
+  }
+  @media only screen and (max-width: 768px) {
+    width: 230px;
   }
 `;
 
@@ -26,8 +32,8 @@ const GreenButton = styled.button`
   margin: 10px;
   border: none;
   border-radius: 30px;
-  padding: 10px;
-  width: 250px;
+  padding: 20px;
+  width: 400px;
   opacity: ${(props) => (props.disabled ? 0.5 : 1)};
   ${(props) =>
     !props.disabled &&
@@ -36,6 +42,9 @@ const GreenButton = styled.button`
       cursor: pointer;
     }
   `}
+  @media only screen and (max-width: 768px) {
+    width: 350px;
+  }
 `;
 
 const BlackButton = styled.button`
@@ -46,9 +55,12 @@ const BlackButton = styled.button`
   border: none;
   border-radius: 30px;
   padding: 10px;
-  width: 120px;
+  width: 190px;
   &:hover {
     cursor: pointer;
+  }
+  @media only screen and (max-width: 768px) {
+    width: 165px;
   }
 `;
 export { InputBar, AuthInputBar, GreenButton, BlackButton };

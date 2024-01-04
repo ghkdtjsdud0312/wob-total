@@ -8,25 +8,30 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { KH_DOMAIN } from "../../utils/Common";
 import { useState } from "react";
 import LoginPageAxiosApi from "../../api/LoginPageAxiosApi";
-import Modal from "../../utils/Modal";
+import LoginModal from "../../utils/LoginModal";
 import Common from "../../utils/Common";
 
 const Container = styled.div`
-  max-width: 768px;
-  min-width: 300px;
+  width: 768px;
   margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  @media only screen and (max-width: 768px) {
+    width: 30em;
+  }
 `;
 
 const LoginBox = styled.div`
   background-color: #dfede9;
-  width: 320px;
+  width: 30em;
   padding: 20px;
   border-radius: 30px;
   text-align: center;
+  @media only screen and (max-width: 768px) {
+    width: 26em;
+  }
 `;
 
 const RowAlignBox = styled.div`
@@ -65,8 +70,8 @@ const SmallGreenButton = styled.button`
   margin: 10px;
   border: none;
   border-radius: 30px;
-  padding: 10px;
-  width: 70px;
+  padding: 20px;
+  width: 100px;
   opacity: ${(props) => (props.disabled ? 0.5 : 1)};
   &:hover {
     cursor: pointer;
@@ -184,7 +189,7 @@ const ForgotPassword = () => {
       setModalHeader(successModifyPassword);
       setModelText("비밀번호가 변경되었습니다.");
       setModalOpen(true);
-      // navigate("/signin");
+      // navigate("/");
     }
   };
 
@@ -205,7 +210,7 @@ const ForgotPassword = () => {
         <Logo
           src="https://firebasestorage.googleapis.com/v0/b/mini-project-1f72d.appspot.com/o/wob-logo-green.png?alt=media&token=b89ea23a-e1f1-4863-a76f-54811d63edcb"
           alt="main logo"
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/signin")}
         />
         <LoginBox>
           <AlignBox>
@@ -253,9 +258,9 @@ const ForgotPassword = () => {
           이전으로
         </PrevNavigateBox>
       </AlignBox>
-      <Modal open={modalOpen} close={closeModal} header={`${modalHeader}`}>
+      <LoginModal open={modalOpen} close={closeModal} header={`${modalHeader}`}>
         {modalText}
-      </Modal>
+      </LoginModal>
     </Container>
   );
 };

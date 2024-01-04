@@ -162,182 +162,182 @@ const PaginationInfo = styled.div`
 const ITEMS_PER_PAGE = 5;
 
 const SearchMain = () => {
-    // localStorage.clear();
-    const location = useLocation();
-    const { state } = location;
-    const navigate = useNavigate();
-    const [searchQuery, setSearchQuery] = useState("");
-    const [searchCriteria, setSearchCriteria] = useState("title");
-    const [searchResults, setSearchResults] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [recentSearches, setRecentSearches] = useState([]);
+  // localStorage.clear();
+  const location = useLocation();
+  const { state } = location;
+  const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchCriteria, setSearchCriteria] = useState("title");
+  const [searchResults, setSearchResults] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [recentSearches, setRecentSearches] = useState([]);
 
-    useEffect(() => {
-        const storedRecentSearches =
-            JSON.parse(localStorage.getItem("recentSearches")) || [];
-        setRecentSearches(storedRecentSearches);
-    }, []);
+  useEffect(() => {
+    const storedRecentSearches =
+      JSON.parse(localStorage.getItem("recentSearches")) || [];
+    setRecentSearches(storedRecentSearches);
+  }, []);
 
-    useEffect(() => {
-        if (state && state.searchQuery) {
-            setSearchQuery(state.searchQuery);
-            handleSearch();
-        }
-    }, [state]);
+  useEffect(() => {
+    if (state && state.searchQuery) {
+      setSearchQuery(state.searchQuery);
+      handleSearch();
+    }
+  }, [state]);
 
-    const handleRecentSearchClick = (clickedSearch) => {
-        // 클릭한 최근 검색어로 검색어 설정
-        setSearchQuery(clickedSearch.query);
-        // 검색 실행
-        handleSearch();
-    };
+  const handleRecentSearchClick = (clickedSearch) => {
+    // 클릭한 최근 검색어로 검색어 설정
+    setSearchQuery(clickedSearch.query);
+    // 검색 실행
+    handleSearch();
+  };
 
-    const handleEnterKeyPress = (event) => {
-        if (event.key === "Enter") {
-            handleSearch();
-        }
-    };
+  const handleEnterKeyPress = (event) => {
+    if (event.key === "Enter") {
+      handleSearch();
+    }
+  };
 
-    const handleSearch = async () => {
-        try {
-            if (!searchQuery.trim()) {
-                setSearchResults([]);
-                return;
-            }
+  const handleSearch = async () => {
+    try {
+      if (!searchQuery.trim()) {
+        setSearchResults([]);
+        return;
+      }
 
-            const response =
-                searchCriteria === "title"
-                    ? await SearchAxiosApi.searchTitle(searchQuery)
-                    : await SearchAxiosApi.searchIntroduction(searchQuery);
+      const response =
+        searchCriteria === "title"
+          ? await SearchAxiosApi.searchTitle(searchQuery)
+          : await SearchAxiosApi.searchIntroduction(searchQuery);
 
-            setSearchResults(response.data);
-            setCurrentPage(1);
+      setSearchResults(response.data);
+      setCurrentPage(1);
 
-            const maxRecentSearches = 5;
-            const storedRecentSearches =
-                JSON.parse(localStorage.getItem("recentSearches")) || [];
+      const maxRecentSearches = 5;
+      const storedRecentSearches =
+        JSON.parse(localStorage.getItem("recentSearches")) || [];
 
-            const updatedSearches = [
-                { query: searchQuery, results: response.data },
-                ...storedRecentSearches,
-            ];
+      const updatedSearches = [
+        { query: searchQuery, results: response.data },
+        ...storedRecentSearches,
+      ];
 
-            const uniqueSearches = Array.from(
-                new Set(updatedSearches.map((search) => search.query))
-            ).map((query) => {
-                // 중복된 검색어가 있을 경우 최신 결과로 갱신
-                const duplicateSearches = updatedSearches.filter(
-                    (search) => search.query === query
-                );
-                return duplicateSearches.reduce((acc, curr) =>
-                    acc.results.length > curr.results.length ? acc : curr
-                );
-            });
+      const uniqueSearches = Array.from(
+        new Set(updatedSearches.map((search) => search.query))
+      ).map((query) => {
+        // 중복된 검색어가 있을 경우 최신 결과로 갱신
+        const duplicateSearches = updatedSearches.filter(
+          (search) => search.query === query
+        );
+        return duplicateSearches.reduce((acc, curr) =>
+          acc.results.length > curr.results.length ? acc : curr
+        );
+      });
 
-            const trimmedSearches = uniqueSearches.slice(0, maxRecentSearches);
+      const trimmedSearches = uniqueSearches.slice(0, maxRecentSearches);
 
-            localStorage.setItem("recentSearches", JSON.stringify(trimmedSearches));
-            setRecentSearches(trimmedSearches);
-        } catch (error) {
-            console.error("검색 중 오류 발생:", error);
-        }
-    };
+      localStorage.setItem("recentSearches", JSON.stringify(trimmedSearches));
+      setRecentSearches(trimmedSearches);
+    } catch (error) {
+      console.error("검색 중 오류 발생:", error);
+    }
+  };
 
-    const totalPages = Math.ceil(searchResults.length / ITEMS_PER_PAGE);
+  const totalPages = Math.ceil(searchResults.length / ITEMS_PER_PAGE);
 
-    const paginatedResults = searchResults.slice(
-        (currentPage - 1) * ITEMS_PER_PAGE,
-        currentPage * ITEMS_PER_PAGE
-    );
+  const paginatedResults = searchResults.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
 
-    return (
-        <Container>
-            <Logo
-                src="https://firebasestorage.googleapis.com/v0/b/mini-project-1f72d.appspot.com/o/wob-logo-green.png?alt=media&token=b89ea23a-e1f1-4863-a76f-54811d63edcb"
-                alt="main logo"
-                onClick={() => navigate("/main")}
-            />
-            <AlignBox>
-                <SearchContainer>
-                    <SearchCriteriaSelect
-                        onChange={(e) => setSearchCriteria(e.target.value)}
-                    >
-                        <TitleOption value="title">제목</TitleOption>
-                        <ContentOption value="content">내용</ContentOption>
-                    </SearchCriteriaSelect>
-                    <SearchIcon icon={faSearch} />
-                    <SearchInput
-                        type="text"
-                        placeholder="Search..."
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        onKeyPress={handleEnterKeyPress}
-                    />
-                    <SearchButton onClick={handleSearch}>Search</SearchButton>
-                </SearchContainer>
-            </AlignBox>
-            <ContentContainer>
-                <RecentResult>최근 검색어</RecentResult>
-                <RecentResultBox>
-                    {recentSearches.map((recentSearch, index) => (
-                        <div
-                            key={index}
-                            onClick={() => handleRecentSearchClick(recentSearch)}
-                        >
-                            <RecentResultContents>{recentSearch.query}</RecentResultContents>
-                        </div>
-                    ))}
-                </RecentResultBox>
-                <SearchResult>검색 결과</SearchResult>
-                {searchResults.length === 0 ? (
-                    <p>검색 결과가 없습니다.</p>
-                ) : (
-                    paginatedResults.map((result) => (
-                        <StyledLink to={`/postDetail/${result.id}`} key={result.id}>
-                            <SearchResultContents type={result.type} key={result.id}>
-                                <div>
-                                    <FlexBox>
-                                        <h3>{result.title}</h3>
-                                        <h3>{result.type}</h3>
-                                    </FlexBox>
-                                    <FlexBox>
-                                        <p>{result.regDate}</p>
-                                    </FlexBox>
-                                    <FlexBox>
-                                        <p>{result.local}</p>
-                                        <p>{result.people}</p>
-                                        <p>{result.categoryName}</p>
-                                    </FlexBox>
-                                    <p>{result.introduction}</p>
-                                </div>
-                            </SearchResultContents>
-                        </StyledLink>
-                    ))
-                )}
-                {searchResults.length > ITEMS_PER_PAGE && (
-                    <PaginationContainer>
-                        <PaginationButton
-                            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-                            disabled={currentPage === 1}
-                        >
-                            이전
-                        </PaginationButton>
-                        <PaginationInfo>
-                            {currentPage} / {totalPages}
-                        </PaginationInfo>
-                        <PaginationButton
-                            onClick={() =>
-                                setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-                            }
-                            disabled={currentPage === totalPages}
-                        >
-                            다음
-                        </PaginationButton>
-                    </PaginationContainer>
-                )}
-            </ContentContainer>
-        </Container>
-    );
+  return (
+    <Container>
+      <Logo
+        src="https://firebasestorage.googleapis.com/v0/b/mini-project-1f72d.appspot.com/o/wob-logo-green.png?alt=media&token=b89ea23a-e1f1-4863-a76f-54811d63edcb"
+        alt="main logo"
+        onClick={() => navigate("/main")}
+      />
+      <AlignBox>
+        <SearchContainer>
+          <SearchCriteriaSelect
+            onChange={(e) => setSearchCriteria(e.target.value)}
+          >
+            <TitleOption value="title">제목</TitleOption>
+            <ContentOption value="content">내용</ContentOption>
+          </SearchCriteriaSelect>
+          <SearchIcon icon={faSearch} />
+          <SearchInput
+            type="text"
+            placeholder="Search..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyPress={handleEnterKeyPress}
+          />
+          <SearchButton onClick={handleSearch}>Search</SearchButton>
+        </SearchContainer>
+      </AlignBox>
+      <ContentContainer>
+        <RecentResult>최근 검색어</RecentResult>
+        <RecentResultBox>
+          {recentSearches.map((recentSearch, index) => (
+            <div
+              key={index}
+              onClick={() => handleRecentSearchClick(recentSearch)}
+            >
+              <RecentResultContents>{recentSearch.query}</RecentResultContents>
+            </div>
+          ))}
+        </RecentResultBox>
+        <SearchResult>검색 결과</SearchResult>
+        {searchResults.length === 0 ? (
+          <p>검색 결과가 없습니다.</p>
+        ) : (
+          paginatedResults.map((result) => (
+            <StyledLink to={`/postDetail/${result.id}`} key={result.id}>
+              <SearchResultContents type={result.type} key={result.id}>
+                <div>
+                  <FlexBox>
+                    <h3>{result.title}</h3>
+                    <h3>{result.type}</h3>
+                  </FlexBox>
+                  <FlexBox>
+                    <p>{result.regDate}</p>
+                  </FlexBox>
+                  <FlexBox>
+                    <p>{result.local}</p>
+                    <p>{result.people}</p>
+                    <p>{result.categoryName}</p>
+                  </FlexBox>
+                  <p>{result.introduction}</p>
+                </div>
+              </SearchResultContents>
+            </StyledLink>
+          ))
+        )}
+        {searchResults.length > ITEMS_PER_PAGE && (
+          <PaginationContainer>
+            <PaginationButton
+              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+              disabled={currentPage === 1}
+            >
+              이전
+            </PaginationButton>
+            <PaginationInfo>
+              {currentPage} / {totalPages}
+            </PaginationInfo>
+            <PaginationButton
+              onClick={() =>
+                setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+              }
+              disabled={currentPage === totalPages}
+            >
+              다음
+            </PaginationButton>
+          </PaginationContainer>
+        )}
+      </ContentContainer>
+    </Container>
+  );
 };
 
 export default SearchMain;

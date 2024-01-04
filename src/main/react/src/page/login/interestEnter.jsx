@@ -14,7 +14,11 @@ import {
 } from "../../component/login/select";
 
 const Container = styled.div`
-  width: 768px;
+  max-width: 768px;
+  min-width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100vh;
   margin: 0px auto;
   background-color: #04bf8a;

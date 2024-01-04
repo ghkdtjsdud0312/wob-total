@@ -11,7 +11,7 @@ const TextAlign = styled.div`
 `;
 
 const SelectButton = styled.button`
-  padding: 20px 30px;
+  padding: 5px 30px;
   font-size: 20px;
   background-color: ${(props) => (props.selected ? "#04bf8a" : "transparent")};
   color: ${(props) => (props.selected ? "#fff" : "inherit")};
@@ -55,7 +55,7 @@ const NextButton = styled.button`
 `;
 
 const PrevNavigateBox = styled.div`
-  margin-top: 20px;
+  /* margin-top: 10px; */
   text-align: center;
   text-decoration: underline;
   opacity: 0.5;
