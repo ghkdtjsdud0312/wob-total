@@ -122,7 +122,7 @@ const UploadButton = styled.button`
   cursor: pointer;
   color: #353535;
   @media screen and (max-width: 430px) {
-    margin-left: -85px;
+    margin-left: -100px;
   }
 
   &:hover {
