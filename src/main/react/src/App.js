@@ -61,7 +61,7 @@ function App() {
           <Route path="/forgot-pw" element={<ForgotPassword />} />
           <Route path="/interestenter" element={<InterestEnter />} />
           <Route path="/condition" element={<Condition />} />
-          <Route path="/login" element={<TestLoginPage />} />
+          {/* <Route path="/login" element={<TestLoginPage />} /> */}
           <Route path="/searchmain" element={<SearchMain />} />
           <Route element={<Layout />}>
             <Route path="/" element={<Main />} />

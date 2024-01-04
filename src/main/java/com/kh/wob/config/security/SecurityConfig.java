@@ -49,7 +49,13 @@ public class SecurityConfig implements WebMvcConfigurer {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .formLogin().disable() // FormLogin 사용 X
+//                .formLogin().disable() // FormLogin 사용 X
+                .formLogin()
+                .loginPage("/signin") // 로그인 페이지 URL 설정
+                .defaultSuccessUrl("/") // 로그인 성공 시 이동할 URL 설정
+                .permitAll()
+                .and()
+//
                 .httpBasic()
                 .and()
                 .csrf().disable() // csrf 보안 사용 X
