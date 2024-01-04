@@ -49,7 +49,7 @@ const AdContainer = styled.div`
   @media screen and (max-width: 430px) {
     padding-top: 60px;
     p {
-      font-size: 30px;
+      font-size: 27px;
       padding-bottom: 30px;
     }
     .tableBox {
@@ -57,6 +57,13 @@ const AdContainer = styled.div`
       white-space: nowrap;
       table {
         width: auto;
+        thead {
+                  tr {
+                    th {
+                      font-size: 17px;
+                    }
+                  }
+                }
       }
     }
   }
