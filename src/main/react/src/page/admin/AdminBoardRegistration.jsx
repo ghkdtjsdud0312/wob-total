@@ -91,6 +91,7 @@ const StyledInput = styled.input`
 // 사진, 로고 파일선택 칸
 const StyledInput2 = styled.input`
   font-size: 16px;
+  color: none;
 `;
 
 // 사진파일, 로고파일 올리는 컨테이너
@@ -98,6 +99,7 @@ const FileUploadContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  color: none;
 `;
 
 // 밑에 사진 업로드 파일 뜨는 것
@@ -115,6 +117,7 @@ const UploadButton = styled.button`
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  color: none;
   @media screen and (max-width: 430px) {
     margin-right: 17px;
   }
@@ -140,6 +143,7 @@ const SubmitButton = styled.button`
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
+  color: none;
 
   &:hover {
     background-color: #04bf8a;

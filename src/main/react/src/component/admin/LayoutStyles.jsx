@@ -6,7 +6,10 @@ export const Container = styled.div`
   margin: auto;
   position: absolute;
   top: 30px;
-  left: 30px;
+  left: -70px;
+  @media screen and (max-width: 430px) {
+    left: -20px;
+  }
 
   // 햄버거 버튼
   .mainhead {
@@ -15,12 +18,6 @@ export const Container = styled.div`
     display: flex;
     justify-content: end;
     align-items: center;
-    @media screen and (max-width: 430px) {
-      height: 60px;
-      width: 7%;
-      display: flex;
-      align-items: center;
-    }
 
     // 관리자 관리 내역
     .welcome {

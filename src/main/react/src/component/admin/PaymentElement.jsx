@@ -136,7 +136,7 @@ const Tr4 = ({ data, index, setIsChange }) => {
           <Button
             type="button"
             label="수정"
-            size="normal"
+            size="small"
             onClick={clickRevise}
           />
         )}
@@ -145,7 +145,7 @@ const Tr4 = ({ data, index, setIsChange }) => {
         <Button
           type="button"
           label="삭제"
-          size="normal"
+          size="small"
           value={data.id}
           onClick={clickDelete}
         />
