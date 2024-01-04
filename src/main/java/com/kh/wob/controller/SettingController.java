@@ -17,7 +17,7 @@ import java.util.List;
 public class SettingController {
     private final UserService userService;
 
-    // 회원 탈퇴 시 active를 inactive로 변경
+    // 회원 탈퇴 시 active를 inactive로 변경..
     @PutMapping("/state")
     public ResponseEntity<Boolean> updateUserActive(@RequestBody UserMyPageDto userMyPageDto) {
         log.info("userDto: {}", userMyPageDto);
