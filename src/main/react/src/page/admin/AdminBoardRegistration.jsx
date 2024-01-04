@@ -23,7 +23,7 @@ const Container = styled.div`
   }
 `;
 
-// 게시물 등록 제목
+// 카테고리 등록 제목
 const Title = styled.div`
   text-align: center;
   font-size: 45px;
@@ -34,11 +34,14 @@ const Title = styled.div`
   }
 `;
 
-// 게시물 등록 전체 감싸는 칸
+// 카테고리 등록 전체 감싸는 칸
 const FormContainer = styled.div`
+  width: 50%;
   height: 700px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding-top: 5px;
+  margin: 0 auto;
 
   @media screen and (max-width: 430px) {
     border: 1px solid #ddd;
@@ -50,10 +53,10 @@ const FormContainer = styled.div`
 // 종목 감싸는 란
 const FieldContainer = styled.div`
   align-items: center; // 수직 방향 중앙 정렬
-  margin: 50px; // 여백 추가
+  margin: 70px; // 여백 추가
+  white-space: nowrap;
   @media screen and (max-width: 430px) {
     margin: 30px 20px;
-    white-space: nowrap;
   }
 `;
 
@@ -66,11 +69,11 @@ const StyledLabel = styled.label`
 // 제목 (사진,로고)
 const StyledLabel2 = styled.label`
   text-align: center;
-  margin: 50px 50px;
+  margin: 50px 70px;
   font-weight: bold;
   font-size: 20px;
+  white-space: nowrap;
   @media screen and (max-width: 430px) {
-    white-space: nowrap;
     margin: 30px 20px;
   }
 `;
