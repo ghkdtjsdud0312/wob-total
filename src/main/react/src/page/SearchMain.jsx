@@ -180,7 +180,12 @@ const SearchMain = () => {
     const storedRecentSearches =
       JSON.parse(localStorage.getItem("recentSearches")) || [];
     setRecentSearches(storedRecentSearches);
-  }, []);
+    const delayTimer = setTimeout(() => {
+      // 1초 후 최근 검색어 갱신 실행
+      handleSearch();
+    }, 1000);
+    return () => clearTimeout(delayTimer); // 컴포넌트 언마운트 시 타이머 클리어
+  }, [searchQuery]);
 
   useEffect(() => {
     if (state && state.searchQuery) {
