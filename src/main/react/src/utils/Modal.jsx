@@ -110,8 +110,14 @@ const Modal = (props) => {
             </header>
             <main>{children}</main>
             <footer>
-              {type && <Button onClick={confirm}>확인</Button>}
-              <Button onClick={close}>취소</Button>
+                {type ? (
+                    <>
+                        <Button onClick={confirm}>확인</Button>
+                        <Button onClick={close}>취소</Button>
+                    </>
+                ) : (
+                    <Button onClick={close}>확인</Button>
+                )}
             </footer>
           </section>
         )}
