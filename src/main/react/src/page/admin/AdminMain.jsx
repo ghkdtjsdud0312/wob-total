@@ -81,7 +81,7 @@ const AdminMain = () => {
         </Click>
         <Click onClick={() => handleNavigate("/Advertising")}>광고 관리</Click>
         <Click onClick={() => handleNavigate("/AllChatContent")}>
-          관리자 1:1 문의 관리
+          전체 채팅 내역 관리
         </Click>
       </Buttons>
       <Layout />

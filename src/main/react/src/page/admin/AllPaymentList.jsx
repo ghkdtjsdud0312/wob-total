@@ -251,8 +251,8 @@ const AllPaymentList = () => {
               <th>주문자이름</th>
               <th>주문자 전화번호</th>
               <th>주문금액</th>
-              <th>강사명</th>
-              <th>강사 전화번호</th>
+              <th>담당자</th>
+              <th>담당자 전화번호</th>
               <th>상태</th>
               <th>분류선택</th>
               <th>수정</th>

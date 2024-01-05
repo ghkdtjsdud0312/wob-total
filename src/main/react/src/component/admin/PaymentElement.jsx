@@ -58,7 +58,7 @@ const Tr4 = ({ data, index, setIsChange }) => {
     const rsp = await AdminAxiosApi.paymentListState(data.id, paymentContent);
     console.log("rsp : ", rsp.data);
     if (rsp.data) {
-      alert("해당 결제가 승인되었습니다.");
+      alert("해당 결제가 정상처리되었습니다.");
       setModalOpen(false);
       setIsChange((prev) => !prev); // 이전 상태의 반대 값을 사용하여 강제로 다시 렌더링
       setConfirmRevise(false);
