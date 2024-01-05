@@ -30,4 +30,7 @@ public class Chat {
     @JoinColumn(name = "room_id")
     @JsonIgnore
     private ChatRoom chatRoom; // 채팅방과 조인
+
+    private String active;
+
 }

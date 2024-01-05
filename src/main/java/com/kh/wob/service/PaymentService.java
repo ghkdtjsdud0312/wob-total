@@ -1,10 +1,8 @@
 package com.kh.wob.service;
 
+import com.kh.wob.dto.CategoryDto;
 import com.kh.wob.dto.PaymentDto;
-import com.kh.wob.entity.Ad;
-import com.kh.wob.entity.Payment;
-import com.kh.wob.entity.Post;
-import com.kh.wob.entity.User;
+import com.kh.wob.entity.*;
 import com.kh.wob.repository.AdRepository;
 import com.kh.wob.repository.PaymentRepository;
 import com.kh.wob.repository.PostRepository;
@@ -90,6 +88,22 @@ public class PaymentService {
         return convertEntityToDto(payment);
 
     }
+    // 결제 내역 전체 조회 페이지네이션
+    public List<PaymentDto> paymentAllList(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        List<Payment> payments = paymentRepository.findAll(pageable).getContent();
+        List<PaymentDto> paymentDtos = new ArrayList<>();
+        for(Payment payment : payments) {
+            paymentDtos.add(convertEntityToDto(payment));
+        }
+        return paymentDtos;
+
+    }
+    // 결제 내역 전체 페이지 수 조회
+    public int getPaymentAllPage(Pageable pageable) {
+        return paymentRepository.findAll(pageable).getTotalPages();
+    }
+
     // 결제 내역 페이지네이션
     public List<PaymentDto> paymentListByEmail(String email, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);

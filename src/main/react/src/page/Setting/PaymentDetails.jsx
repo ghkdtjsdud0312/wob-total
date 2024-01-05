@@ -104,46 +104,66 @@ const PageButton = styled.button`
     background-color: royalblue;
   }
 `;
+const PageButton2 = styled.button`
+  background-color: var(--MINT);
+  color: #555555;
+  width: 70px;
+  height: 40px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  margin: 8px 5px;
+  border-radius: 15%;
+`;
 
 const PaymentDatails = () => {
-  const [pay, setPay] = useState([]);
+  const [payList, setPayList] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(0); // 현재 페이지
   const [totalPage, setTotalPage] = useState(0); // 총 페이지 수
+  const [pageRange, setPageRange] = useState({ start: 0, end: 5 });
 
   // 총 페이지 수 계산
+  // useEffect(() => {
+  //   const totalPage = async () => {
+  //     try {
+  //       const res = await SettingAxiosApi.paymentPage(
+  //         localStorage.getItem("email"),
+  //         0,
+  //         1
+  //       );
+  //       setTotalPage(res.data);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   totalPage();
+  // }, []);
+
+  // 현재 페이지
   useEffect(() => {
-    const totalPage = async () => {
+    const paymentList = async () => {
       try {
-        const res = await SettingAxiosApi.paymentPage(
+        // 전체 페이지 수 가져오기
+        const res1 = await SettingAxiosApi.paymentPage(
             localStorage.getItem("email"),
             0,
             1
         );
-        setTotalPage(res.data);
+        setTotalPage(res1.data);
       } catch (error) {
         console.log(error);
       }
+      // 현재 페이지의 결제 내역 목록
+      const res = await SettingAxiosApi.paymentPageList(
+          localStorage.getItem("email"),
+          currentPage,
+          1
+      );
+      console.log(res.data);
+      setPayList(res.data);
     };
-    totalPage();
-  }, []);
-
-  // 현재 페이지
-  useEffect(() => {
-    const movieList = async () => {
-      try {
-        const res = await SettingAxiosApi.paymentPageList(
-            localStorage.getItem("email"),
-            currentPage,
-            1
-        );
-        console.log(res.data);
-        setPay(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    movieList();
+    paymentList();
   }, [currentPage]);
 
   // 페이지 이동
@@ -152,30 +172,57 @@ const PaymentDatails = () => {
     setCurrentPage(number - 1);
   };
 
+  // 페이지 범위 이동 함수
+  const handlePageRange = (direction) => {
+    if (direction === "next") {
+      setPageRange((prevRange) => ({
+        start: prevRange.end,
+        end: prevRange.end + 5,
+      }));
+    } else if (direction === "prev") {
+      setPageRange((prevRange) => ({
+        start: prevRange.start - 5,
+        end: prevRange.start,
+      }));
+    }
+  };
+
   // 버튼
   const renderPagination = () => {
     return (
         <PaginationContainer>
-          {Array.from({ length: totalPage }, (_, i) => i + 1).map(
-              (
-                  page // Array.from() : 배열을 만드는 함수
-              ) => (
-                  <PageButton key={page} onClick={() => handlePageChange(page)}>
-                    {page}
-                  </PageButton>
-              )
+          {pageRange.start > 0 && (
+              <PageButton2 onClick={() => handlePageRange("prev")}>
+                이전
+              </PageButton2>
+          )}
+          {Array.from({ length: totalPage }, (_, i) => i + 1)
+              .slice(pageRange.start, pageRange.end)
+              .map(
+                  (
+                      page // Array.from() : 배열을 만드는 함수
+                  ) => (
+                      <PageButton key={page} onClick={() => handlePageChange(page)}>
+                        {page}
+                      </PageButton>
+                  )
+              )}
+          {pageRange.end < totalPage && (
+              <PageButton2 onClick={() => handlePageRange("next")}>
+                다음
+              </PageButton2>
           )}
         </PaginationContainer>
     );
   };
 
-  if (!pay) return <></>;
+  if (!payList) return <></>;
   return (
       <>
         <SettingHeader title="결제내역" />
         <Container>
-          {pay &&
-              pay.map((payment) => (
+          {payList &&
+              payList.map((payment) => (
                   <SubContainer className="sub2" key={payment.id}>
                     <BottomBox>
                       <SubBottomBox className="subBox1">

@@ -24,6 +24,8 @@ public class ChatRoomResDto {
     private String name; // 채팅방 이름
     private LocalDateTime regDate; // 채팅방 생성 시간
     private Long postId; // 게시글 ID
+    private String active;
+
 
     @JsonIgnore // 이 어노테이션으로 WebSocketSession의 직렬화를 방지
     private Set<WebSocketSession> sessions; // 채팅방에 입장한 세션 정보를 담을 Set

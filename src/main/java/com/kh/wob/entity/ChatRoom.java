@@ -32,5 +32,7 @@ public class ChatRoom {
     @JoinColumn(name = "post_id")
     private Post post; // 채팅방과 연결된 일반 게시글
 
+    private String active;
+
 
 }

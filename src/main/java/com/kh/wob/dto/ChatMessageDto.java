@@ -10,7 +10,10 @@ public class ChatMessageDto {
         ENTER, TALK, CLOSE
     }
     private MessageType type;
+    private Long id;
     private String roomId;
     private String sender;
     private String message;
+    private String active;
+
 }

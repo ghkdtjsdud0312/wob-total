@@ -50,7 +50,8 @@ const CategoryBox = styled.div`
   margin-top: 20px;
   display: flex;
   justify-content: space-around; /* 일정 간격으로 벌어지게 함 */
-  @media (max-width: 768px) {
+
+  @media only screen and (max-width: 768px) {
     width: 100%;
   }
 `;
@@ -239,7 +240,6 @@ const Main = () => {
     const modalOptions = isAllLeisure ? sportsList : areaList;
     const modalTitle = isAllLeisure ? selectSportsTitle : selectAreaTitle;
 
-    // Set the appropriate API based on the condition
     const api = isAllLeisure ? "sports" : "areas";
     setSelectApi(api);
 
@@ -250,102 +250,103 @@ const Main = () => {
   };
 
   return (
-    <>
-      <Container>
-        <AdCarousel />
-        <CategoryBox>
-          <Button
-            label={allLeisure}
-            size="category"
-            onClick={() => handleCategoryButtonClick(allLeisure)}
-          />
-          {interest &&
-            interest.map((interestItem, index) => (
-              <Button key={index} label={interestItem}>
-                {interestItem}
-              </Button>
-            ))}
-        </CategoryBox>
-        <MediumContainer>
-          <CategoryBox2>
+      <>
+        <Container>
+          <AdCarousel />
+          <CategoryBox>
             <Button
-              label={allArea}
-              size="category"
-              onClick={() => handleCategoryButtonClick(allArea)}
+                label={allLeisure}
+                size="category"
+                onClick={() => handleCategoryButtonClick(allLeisure)}
             />
-            {area &&
-              area.map((areastItem, index) => (
-                <Button key={index} label={areastItem}>
-                  {areastItem}
-                </Button>
-              ))}
-          </CategoryBox2>
-          <WeatherBox>
-            {addr} {temp} {sky === "알 수 없음" ? pty : sky}
-          </WeatherBox>
-        </MediumContainer>
-        <DateBox style={{ position: "relative", zIndex: 1 }}>
-          {selectedDate.format("YYYY년 MM월 DD일")}
-          <FontAwesomeIcon
-            icon={faCalendarDays}
-            style={{
-              color: "var(--GREEN)",
-              position: "absolute",
-              top: 10,
-              right: 20,
-            }}
-            fontSize="33px"
-            cursor="pointer"
-            onClick={handleIconClick}
-          />
-          {showCalendar && (
-            <div ref={calendarRef} style={{ position: "relative", zIndex: 1 }}>
-              <DatePicker
-                selected={selectedDate.toDate()}
-                onChange={(date) => {
-                  handleDatePickerChange(date);
-                }}
-                onSelect={handleDateSelect}
-                inline
+            {interest &&
+                interest.map((interestItem, index) => (
+                    <Button key={index} label={interestItem} size="category">
+                      {interestItem}
+                    </Button>
+                ))}
+          </CategoryBox>
+          <MediumContainer>
+            <CategoryBox2>
+              <Button
+                  label={allArea}
+                  size="category"
+                  onClick={() => handleCategoryButtonClick(allArea)}
               />
-            </div>
-          )}
-        </DateBox>
-        <CalenderBox>
-          <CalendarComp
-            onDateSelect={handleDateSelect}
-            selectedDate={selectedDate}
-            calendarDate={calendarDate}
-          />
-        </CalenderBox>
-        <BottomContainer>
-          <Subtitle>신나게 운동하자 우리 ☺</Subtitle>
-          <PlusButton onClick={handlePlusIconClick} />
-          <ListButton onClick={handleListIconClick} />
-        </BottomContainer>
-        <PostBox>
-          <PostList data={{ selectedDate, area, interest }} />
-        </PostBox>
-        <Modal
-          open={modalOpen}
-          confirm={handleConfirm}
-          header={modalHeader}
-          type={false}
-          close={closeModal}
-          children={
-            <SelectMain
-              api={selectApi}
-              closeModal={closeModal}
-              options={modalOptions}
-              min={minNumber}
-              max={maxNumber}
-              title={modalTitle}
-              text={selectText}
+              {area &&
+                  area.map((areastItem, index) => (
+                      <Button key={index} label={areastItem} size="category">
+                        {areastItem}
+                      </Button>
+                  ))}
+            </CategoryBox2>
+            <WeatherBox>
+              {addr} {temp} {sky === "알 수 없음" ? pty : sky}
+            </WeatherBox>
+          </MediumContainer>
+          <DateBox style={{ position: "relative", zIndex: 1 }}>
+            {selectedDate.format("YYYY년 MM월 DD일")}
+            <FontAwesomeIcon
+                icon={faCalendarDays}
+                style={{
+                  color: "var(--GREEN)",
+                  position: "absolute",
+                  top: 10,
+                  right: 20,
+                }}
+                fontSize="33px"
+                cursor="pointer"
+                onClick={handleIconClick}
             />
-          }
-        />
-      </Container>
-    </>
+            {showCalendar && (
+                <div ref={calendarRef} style={{ position: "relative", zIndex: 1 }}>
+                  <DatePicker
+                      selected={selectedDate.toDate()}
+                      onChange={(date) => {
+                        handleDatePickerChange(date);
+                      }}
+                      onSelect={handleDateSelect}
+                      inline
+                  />
+                </div>
+            )}
+          </DateBox>
+          <CalenderBox>
+            <CalendarComp
+                onDateSelect={handleDateSelect}
+                selectedDate={selectedDate}
+                calendarDate={calendarDate}
+            />
+          </CalenderBox>
+          <BottomContainer>
+            <Subtitle>신나게 운동하자 우리 ☺</Subtitle>
+            <PlusButton onClick={handlePlusIconClick} />
+            <ListButton onClick={handleListIconClick} />
+          </BottomContainer>
+          <PostBox>
+            {/* <PostList selectedDate={(selectedDate, area, interest)} /> */}
+            <PostList data={{ selectedDate, area, interest }} />
+          </PostBox>
+          <Modal
+              open={modalOpen}
+              confirm={handleConfirm}
+              header={modalHeader}
+              type={false}
+              close={closeModal}
+              children={
+                <SelectMain
+                    api={selectApi}
+                    closeModal={closeModal}
+                    options={modalOptions}
+                    min={minNumber}
+                    max={maxNumber}
+                    title={modalTitle}
+                    text={selectText}
+                />
+              }
+          />
+        </Container>
+      </>
   );
 };
 

@@ -5,7 +5,7 @@ import FullLogoBth from "../../component/admin/FullLogoBtn";
 import Layout from "../../component/admin/Layout";
 import { useNavigate } from "react-router-dom";
 import Tr4 from "../../component/admin/PaymentElement";
-import AdminAxiosApi from "../../api/AdminAxiosApi";
+import SettingAxiosApi from "../../api/SettingAxiosApi";
 
 // 전체 큰 틀css
 const PaymentContainer = styled.div`
@@ -98,11 +98,50 @@ const Buttons = styled.div`
     }
   }
 `;
+const PaginationContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  /* margin-bottom: 20px; */
+`;
+
+const PageButton = styled.button`
+  border: 1px solid #ddd;
+  padding: 5px;
+  width: 28px;
+  margin: 15px 5px;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: darkgray;
+  }
+
+  &:focus {
+    outline: none;
+    background-color: royalblue;
+  }
+`;
+const PageButton2 = styled.button`
+  background-color: var(--MINT);
+  color: #555555;
+  width: 70px;
+  height: 40px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  margin: 8px 5px;
+  border-radius: 15%;
+`;
 
 // 결제 목록 페이지
 const AllPaymentList = () => {
   // 맵 돌릴 리스트
   const [paymentList, setPaymentList] = useState([]); // 결제 리스트
+  const [currentPage, setCurrentPage] = useState(0); // 현재 페이지
+  const [totalPage, setTotalPage] = useState(0); // 총 페이지 수
+  const [pageRange, setPageRange] = useState({ start: 0, end: 5 }); // 버튼 범위
   const [num, setNum] = useState(1); // 인덱스 번호
   const [isChange, setIsChange] = useState(false);
   const navigate = useNavigate();
@@ -112,32 +151,99 @@ const AllPaymentList = () => {
     navigate(path);
   };
 
-  useEffect(() => {
-    const payList = async () => {
-      const rsp = await AdminAxiosApi.paymentList();
+  const getTotalPage = async () => {
+    try {
+      // 전체 페이지 수 가져오기
+      const rsp = await SettingAxiosApi.paymentAllPage(0, 5);
       console.log("rsp.data : ", rsp.data);
-      if (rsp.data) {
-        console.log("정상출력");
-        setPaymentList(rsp.data);
-      }
-    };
-    payList();
+      setTotalPage(rsp.data);
+    } catch (error) {
+      console.log(error);
+    }
+    setIsChange(false);
+  };
+  const fetchPaymentList = async () => {
+    try {
+      // 현재 페이지의 결제 내역 목록
+      const rsp2 = await SettingAxiosApi.paymentPageAllList(currentPage, 5);
+      console.log("rsp2.data : ", rsp2.data);
+      setPaymentList(rsp2.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // 현재 페이지 변경 시, 현재 페이지의 목록을 가져오는 함수 호출
+  useEffect(() => {
+    fetchPaymentList();
+  }, [currentPage]);
+
+  // 첫 렌더링 & active의 상태가 바뀌었을 시, 바로 적용하기 위한 useEffect()
+  useEffect(() => {
+    getTotalPage();
+    if (isChange) {
+      fetchPaymentList();
+    }
   }, [isChange]);
 
-    useEffect(() => {
-      const fetchData = async () => {};
-      fetchData();
-    }, [isChange]);
+  // 페이지 이동
+  const handlePageChange = (number) => {
+    console.log(number);
+    setCurrentPage(number - 1);
+  };
 
+  // 페이지 범위 이동 함수
+  const handlePageRange = (direction) => {
+    if (direction === "next") {
+      setPageRange((prevRange) => ({
+        start: prevRange.end,
+        end: prevRange.end + 5,
+      }));
+    } else if (direction === "prev") {
+      setPageRange((prevRange) => ({
+        start: prevRange.start - 5,
+        end: prevRange.start,
+      }));
+    }
+  };
+
+  // 버튼
+  const renderPagination = () => {
+    return (
+        <PaginationContainer>
+          {pageRange.start > 0 && (
+              <PageButton2 onClick={() => handlePageRange("prev")}>
+                이전
+              </PageButton2>
+          )}
+          {Array.from({ length: totalPage }, (_, i) => i + 1)
+              .slice(pageRange.start, pageRange.end)
+              .map(
+                  (
+                      page // Array.from() : 배열을 만드는 함수
+                  ) => (
+                      <PageButton key={page} onClick={() => handlePageChange(page)}>
+                        {page}
+                      </PageButton>
+                  )
+              )}
+          {pageRange.end < totalPage && (
+              <PageButton2 onClick={() => handlePageRange("next")}>
+                다음
+              </PageButton2>
+          )}
+        </PaginationContainer>
+    );
+  };
   return (
-    <PaymentContainer>
-      <div className="Logo" onClick={() => handleClick("/AdminMain")}>
-        <FullLogoBth />
-      </div>
-      <p>전체 결제 내역 목록</p>
-      <div className="tableBox">
-        <table>
-          <thead>
+      <PaymentContainer>
+        <div className="Logo" onClick={() => handleClick("/AdminMain")}>
+          <FullLogoBth />
+        </div>
+        <p>전체 결제 내역 목록</p>
+        <div className="tableBox">
+          <table>
+            <thead>
             <tr>
               <th>번호</th>
               <th>주문번호</th>
@@ -152,28 +258,29 @@ const AllPaymentList = () => {
               <th>수정</th>
               <th>삭제</th>
             </tr>
-          </thead>
-          <tbody>
+            </thead>
+            <tbody>
             {/* map으로 반복할 요소 */}
             {paymentList &&
-              paymentList.map((data, index) => (
-                <Tr4
-                  key={data.id}
-                  data={data}
-                  index={index + num}
-                  active={data.active === "active"}
-                  setIsChange={setIsChange}
-                />
-              ))}
-          </tbody>
-        </table>
-      </div>
-      <Buttons>
-        <button onClick={() => handleClick("/AdminMain")}>뒤로가기</button>
-      </Buttons>
-      {/* 햄버거 토글 사이드바 */}
-      <Layout />
-    </PaymentContainer>
+                paymentList.map((data, index) => (
+                    <Tr4
+                        key={data.id}
+                        data={data}
+                        index={index + num}
+                        active={data.active === "active"}
+                        setIsChange={setIsChange}
+                    />
+                ))}
+            </tbody>
+          </table>
+        </div>
+        {renderPagination()}
+        <Buttons>
+          <button onClick={() => handleClick("/AdminMain")}>뒤로가기</button>
+        </Buttons>
+        {/* 햄버거 토글 사이드바 */}
+        <Layout />
+      </PaymentContainer>
   );
 };
 
