@@ -21,7 +21,7 @@ const Container = styled.div`
 `;
 
 const Logo = styled.img`
-  width: 100px;
+  width: 150px;
   margin: 10px;
   &:hover {
     cursor: pointer;
@@ -40,6 +40,7 @@ const AlignBox = styled.div`
 const SearchContainer = styled.div`
   text-align: center;
   margin-top: 20px;
+  margin-right: 20px;
 `;
 
 const SearchInput = styled.input`
@@ -50,6 +51,9 @@ const SearchInput = styled.input`
   border-bottom: 2px solid #04bf8a;
   outline: none;
   margin-right: 10px;
+  @media only screen and (max-width: 768px) {
+    width: 200px;
+  }
 `;
 
 const SearchButton = styled.button`

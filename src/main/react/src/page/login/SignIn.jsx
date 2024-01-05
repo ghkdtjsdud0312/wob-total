@@ -231,19 +231,19 @@ const SignIn = () => {
             <BlackButton onClick={handleSignUpClick}>회원가입</BlackButton>
           </RowAlignBox>
 
-{/*           <div> */}
-{/*             <button onClick={() => handleOAuthLogin("google")}> */}
-{/*               Google 로그인 */}
-{/*             </button> */}
+          {/*           <div> */}
+          {/*             <button onClick={() => handleOAuthLogin("google")}> */}
+          {/*               Google 로그인 */}
+          {/*             </button> */}
 
-{/*             <button onClick={() => handleOAuthLogin("naver")}> */}
-{/*               Naver 로그인 */}
-{/*             </button> */}
+          {/*             <button onClick={() => handleOAuthLogin("naver")}> */}
+          {/*               Naver 로그인 */}
+          {/*             </button> */}
 
-{/*             <button onClick={() => handleOAuthLogin("kakao")}> */}
-{/*               Kakao 로그인 */}
-{/*             </button> */}
-{/*           </div> */}
+          {/*             <button onClick={() => handleOAuthLogin("kakao")}> */}
+          {/*               Kakao 로그인 */}
+          {/*             </button> */}
+          {/*           </div> */}
 
           {/* <Link to={`${KH_DOMAIN}/oauth2/authorization/google`}>
             <OauthLogo src="https://firebasestorage.googleapis.com/v0/b/mini-project-1f72d.appspot.com/o/google-log.png?alt=media&token=a417ad1a-6da7-4f81-b28f-0226d8f0096c" />
@@ -255,15 +255,15 @@ const SignIn = () => {
             <OauthLogo src="https://firebasestorage.googleapis.com/v0/b/mini-project-1f72d.appspot.com/o/kakao-log.png?alt=media&token=aefe60b6-c0e5-41dd-b2c3-43ed4249873a" />
           </Link> */}
 
-          {/*           <a href={`${KH_DOMAIN}/oauth2/authorization/google`}> */}
-          {/*             <OauthLogo src="https://firebasestorage.googleapis.com/v0/b/mini-project-1f72d.appspot.com/o/google-log.png?alt=media&token=a417ad1a-6da7-4f81-b28f-0226d8f0096c" /> */}
-          {/*           </a> */}
-          {/*           <a href={`${KH_DOMAIN}/oauth2/authorization/naver`}> */}
-          {/*             <OauthLogo src="https://firebasestorage.googleapis.com/v0/b/mini-project-1f72d.appspot.com/o/naver-log.png?alt=media&token=afba4a4c-d10d-4727-9855-0d68729a5562" /> */}
-          {/*           </a> */}
-          {/*           <a href={`${KH_DOMAIN}/oauth2/authorization/kakao`}> */}
-          {/*             <OauthLogo src="https://firebasestorage.googleapis.com/v0/b/mini-project-1f72d.appspot.com/o/kakao-log.png?alt=media&token=aefe60b6-c0e5-41dd-b2c3-43ed4249873a" /> */}
-          {/*           </a> */}
+          <a href={`${KH_DOMAIN}/oauth2/authorization/google`}>
+            <OauthLogo src="https://firebasestorage.googleapis.com/v0/b/mini-project-1f72d.appspot.com/o/google-log.png?alt=media&token=a417ad1a-6da7-4f81-b28f-0226d8f0096c" />
+          </a>
+          <a href={`${KH_DOMAIN}/oauth2/authorization/naver`}>
+            <OauthLogo src="https://firebasestorage.googleapis.com/v0/b/mini-project-1f72d.appspot.com/o/naver-log.png?alt=media&token=afba4a4c-d10d-4727-9855-0d68729a5562" />
+          </a>
+          <a href={`${KH_DOMAIN}/oauth2/authorization/kakao`}>
+            <OauthLogo src="https://firebasestorage.googleapis.com/v0/b/mini-project-1f72d.appspot.com/o/kakao-log.png?alt=media&token=aefe60b6-c0e5-41dd-b2c3-43ed4249873a" />
+          </a>
         </LoginBox>
       </AlignBox>
       <LoginModal open={modalOpen} close={closeModal} header={`${modalHeader}`}>
