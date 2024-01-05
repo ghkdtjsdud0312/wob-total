@@ -66,8 +66,9 @@ public class SecurityConfig implements WebMvcConfigurer {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
 
-                //== URL별 권한 관리 옵션 ==//
+                //== URL별 권한 관리 옵션 ==//authorizeRequests
                 .authorizeRequests()
+//                .antMatchers( "*").permitAll()
                 .antMatchers( "/static/**","/adminmain").permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
@@ -77,12 +78,13 @@ public class SecurityConfig implements WebMvcConfigurer {
                 // 기본 페이지, css, image, js 하위 폴더에 있는 자료들은 모두 접근 가능, h2-console에 접근 가능
                 .antMatchers("/css/**","/images/**","/js/**","/favicon.ico","/h2-console/**").permitAll()
                 .antMatchers("/sign-up", "/check-nickname", "/login/mailConfirm", "/login/mailVerify", "/forgot-pw", "/post/searchtitle", "/post/searchintroduction").permitAll() // 회원가입 접근 가능
+                .antMatchers("/oauth2/authorization/google", "/oauth2/authorization/naver", "/oauth2/authorization/kakao", "oauth2/sign-up").permitAll()
 
 //                .antMatchers("/category/add").hasRole("ADMIN")
                 .anyRequest().authenticated() // 위의 경로 이외에는 모두 인증된 사용자만 접근 가능
                 .and()
-                .cors() // .and().cors() 추가 된 부분
-                .and()
+//                .cors() // .and().cors() 추가 된 부분
+//                .and()
                 //== 소셜 로그인 설정 ==//
                 .oauth2Login()
                     .loginPage("/signin") // OAuth2 로그인 페이지 경로
@@ -163,7 +165,8 @@ public class SecurityConfig implements WebMvcConfigurer {
 //    public void addCorsMappings(CorsRegistry registry) {
 //        registry.addMapping("/**")
 ////                .allowedOrigins(CORS_ORIGIN)
-//                .allowedOrigins("http://localhost:3000")
+////                .allowedOrigins("http://localhost:3000")
+//                .allowedOrigins("http://localhost:8111")
 //                .allowedMethods("*")
 //                .allowedHeaders("*")
 //                .exposedHeaders("Authorization", "Authorization-refresh") //클라이언트에 노출할 헤더 지정(이거 안하면 토큰 안보임)

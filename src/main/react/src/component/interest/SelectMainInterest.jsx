@@ -23,17 +23,23 @@ const StyledNextButton = styled(NextButton)`
   /* position: relative; */
   bottom: 0;
   margin-bottom: 50px;
+  @media only screen and (max-width: 768px) {
+    width: 24em;
+  }
 `;
 
 const SelectOptionBoard = styled.div`
   width: 650px;
-  height: 160px;
+  height: 100px;
   background-color: #fff;
   overflow: hidden;
   position: relative;
   transition: height 0.5s ease; // 트랜지션 추가
   height: ${({ isOpen }) =>
-    isOpen ? "550px" : "160px"}; // isOpen에 따라 높이 변경
+    isOpen ? "420px" : "160px"}; // isOpen에 따라 높이 변경
+  @media only screen and (max-width: 768px) {
+    width: 24em;
+  }
 `;
 
 const SelectOptionBoardHeader = styled.div`
@@ -42,6 +48,9 @@ const SelectOptionBoardHeader = styled.div`
   background-color: #dfede9;
   border-top-left-radius: 40px;
   border-top-right-radius: 40px;
+  @media only screen and (max-width: 768px) {
+    width: 24em;
+  }
 `;
 const OptionBoardHeaderLogo = styled.img`
   width: 80px;
@@ -54,7 +63,7 @@ const OptionBoardBody = styled.div`
   border: 2px solid #dfede9;
   transition: height 0.5s ease; // 트랜지션 추가
   height: ${({ isOpen }) =>
-    isOpen ? "400px" : "50px"}; // isOpen에 따라 높이 변경
+    isOpen ? "270px" : "50px"}; // isOpen에 따라 높이 변경
 `;
 
 const SelectOptionBoardFooter = styled.div`
@@ -70,6 +79,9 @@ const SelectOptionBoardFooter = styled.div`
   position: absolute;
   bottom: 0;
   cursor: pointer;
+  @media only screen and (max-width: 768px) {
+    width: 24em;
+  }
 `;
 
 const AreasGird = styled.div`
@@ -77,6 +89,9 @@ const AreasGird = styled.div`
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 20px 30px;
   padding: 40px;
+  /* @media only screen and (max-width: 768px) {
+    margin: 0 100px;
+  } */
 `;
 
 const SelectMain = ({ api, closeModal, options, min, max, title, text }) => {
@@ -138,7 +153,7 @@ const SelectMain = ({ api, closeModal, options, min, max, title, text }) => {
       <TextAlign>{text}</TextAlign>
       <SelectOptionBoard isOpen={isOpen}>
         <SelectOptionBoardHeader>
-          <OptionBoardHeaderLogo src="/wob-logo-green.png" />
+          <OptionBoardHeaderLogo src="https://firebasestorage.googleapis.com/v0/b/mini-project-1f72d.appspot.com/o/wob-logo-green.png?alt=media&token=b89ea23a-e1f1-4863-a76f-54811d63edcb" />
         </SelectOptionBoardHeader>
         <OptionBoardBody isOpen={isOpen}>
           <AreasGird>

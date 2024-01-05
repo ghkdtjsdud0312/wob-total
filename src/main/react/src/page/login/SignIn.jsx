@@ -12,6 +12,7 @@ import Common from "../../utils/Common";
 import LoginPageAxiosApi from "../../api/LoginPageAxiosApi";
 import LoginModal from "../../utils/LoginModal";
 import PolicyModal from "./SignUpPolicy";
+import axios from "axios";
 
 const Container = styled.div`
   max-width: 768px;
@@ -90,6 +91,26 @@ const SignIn = () => {
   const [modalText, setModelText] = useState("");
   const [modalHeader, setModalHeader] = useState("");
   const [policyModalOpen, setPolicyModalOpen] = useState(false);
+
+  const handleOAuthLogin = async (provider) => {
+    try {
+      // OAuth 로그인을 위한 API 호출
+      const response = await axios.get(
+        `${KH_DOMAIN}/oauth2/authorization/${provider}`
+      );
+
+      if (response.status === 200) {
+        // OAuth 로그인 성공 시, 로그인 페이지로 리다이렉트
+        window.location.href = response.request.responseURL;
+      } else {
+        // OAuth 로그인 실패 시
+        console.error("OAuth login failed");
+      }
+    } catch (error) {
+      // 예외 처리
+      console.error("OAuth login error:", error);
+    }
+  };
 
   useEffect(() => {
     const storedEmail = localStorage.getItem("rememberedEmail");
@@ -210,15 +231,39 @@ const SignIn = () => {
             <BlackButton onClick={handleSignUpClick}>회원가입</BlackButton>
           </RowAlignBox>
 
-          <Link to={`http://localhost:8111/oauth2/authorization/google`}>
+{/*           <div> */}
+{/*             <button onClick={() => handleOAuthLogin("google")}> */}
+{/*               Google 로그인 */}
+{/*             </button> */}
+
+{/*             <button onClick={() => handleOAuthLogin("naver")}> */}
+{/*               Naver 로그인 */}
+{/*             </button> */}
+
+{/*             <button onClick={() => handleOAuthLogin("kakao")}> */}
+{/*               Kakao 로그인 */}
+{/*             </button> */}
+{/*           </div> */}
+
+          {/* <Link to={`${KH_DOMAIN}/oauth2/authorization/google`}>
             <OauthLogo src="https://firebasestorage.googleapis.com/v0/b/mini-project-1f72d.appspot.com/o/google-log.png?alt=media&token=a417ad1a-6da7-4f81-b28f-0226d8f0096c" />
           </Link>
-          <Link to={`http://localhost:8111/oauth2/authorization/naver`}>
+          <Link to={`${KH_DOMAIN}/oauth2/authorization/naver`}>
             <OauthLogo src="https://firebasestorage.googleapis.com/v0/b/mini-project-1f72d.appspot.com/o/naver-log.png?alt=media&token=afba4a4c-d10d-4727-9855-0d68729a5562" />
           </Link>
-          <Link to={`http://localhost:8111/oauth2/authorization/kakao`}>
+          <Link to={`${KH_DOMAIN}/oauth2/authorization/kakao`}>
             <OauthLogo src="https://firebasestorage.googleapis.com/v0/b/mini-project-1f72d.appspot.com/o/kakao-log.png?alt=media&token=aefe60b6-c0e5-41dd-b2c3-43ed4249873a" />
-          </Link>
+          </Link> */}
+
+          {/*           <a href={`${KH_DOMAIN}/oauth2/authorization/google`}> */}
+          {/*             <OauthLogo src="https://firebasestorage.googleapis.com/v0/b/mini-project-1f72d.appspot.com/o/google-log.png?alt=media&token=a417ad1a-6da7-4f81-b28f-0226d8f0096c" /> */}
+          {/*           </a> */}
+          {/*           <a href={`${KH_DOMAIN}/oauth2/authorization/naver`}> */}
+          {/*             <OauthLogo src="https://firebasestorage.googleapis.com/v0/b/mini-project-1f72d.appspot.com/o/naver-log.png?alt=media&token=afba4a4c-d10d-4727-9855-0d68729a5562" /> */}
+          {/*           </a> */}
+          {/*           <a href={`${KH_DOMAIN}/oauth2/authorization/kakao`}> */}
+          {/*             <OauthLogo src="https://firebasestorage.googleapis.com/v0/b/mini-project-1f72d.appspot.com/o/kakao-log.png?alt=media&token=aefe60b6-c0e5-41dd-b2c3-43ed4249873a" /> */}
+          {/*           </a> */}
         </LoginBox>
       </AlignBox>
       <LoginModal open={modalOpen} close={closeModal} header={`${modalHeader}`}>

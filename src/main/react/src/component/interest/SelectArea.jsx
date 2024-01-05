@@ -37,7 +37,7 @@ const SelectOptionBoard = styled.div`
   position: relative;
   transition: height 0.5s ease; // 트랜지션 추가
   height: ${({ isOpen }) =>
-    isOpen ? "460px" : "80px"}; // isOpen에 따라 높이 변경
+    isOpen ? "410px" : "80px"}; // isOpen에 따라 높이 변경
   @media only screen and (max-width: 768px) {
     width: 25em;
   }
@@ -64,7 +64,7 @@ const OptionBoardBody = styled.div`
   border: 2px solid #dfede9;
   transition: height 0.5s ease; // 트랜지션 추가
   height: ${({ isOpen }) =>
-    isOpen ? "380px" : "10px"}; // isOpen에 따라 높이 변경
+    isOpen ? "330px" : "10px"}; // isOpen에 따라 높이 변경
 `;
 
 const SelectOptionBoardFooter = styled.div`
