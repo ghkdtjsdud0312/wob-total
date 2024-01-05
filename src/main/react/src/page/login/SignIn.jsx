@@ -215,6 +215,7 @@ const SignIn = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               onKeyDown={handleEnterKey}
+              type="password"
             />
           </AlignBox>
           <RememberMe>
