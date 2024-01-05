@@ -93,9 +93,11 @@ const RecentResult = styled.div`
   opacity: 0.5;
 `;
 
-const RecentResultContents = styled.span`
+const RecentResultContents = styled.div`
   margin: 10px 10px;
   background-color: #dfede9;
+  text-align: center;
+  width: 100px;
   padding: 10px;
   border-radius: 40px;
 `;

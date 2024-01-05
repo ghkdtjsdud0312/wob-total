@@ -169,14 +169,14 @@ const SelectMain = ({ api, closeModal, options, min, max, title, text }) => {
           </AreasGird>
         </OptionBoardBody>
         <SelectOptionBoardFooter onClick={handleToggle}>
-          지역선택하기
+          선택하기
         </SelectOptionBoardFooter>
       </SelectOptionBoard>
       <StyledNextButton
         active={isNextButtonActive}
         onClick={isNextButtonActive ? () => handleNext(selectedItems) : null}
       >
-        다음
+        확인
       </StyledNextButton>
     </CenterBox>
   );
