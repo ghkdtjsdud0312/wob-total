@@ -564,8 +564,13 @@ const PostSubmit = () => {
 
             {selectedOption === "lesson" && (
               <>
+                {/* 이미지 업로드 필드 (선택) */}
+                <Input
+                  type="file"
+                  name="file"
+                  onChange={handleFileInputChange}
+                />
                 <LectureBox>강사 정보 입력란</LectureBox>
-
                 <Input
                   type="text"
                   value={user}
@@ -577,12 +582,6 @@ const PostSubmit = () => {
                   value={phoneNumber}
                   placeholder="전화번호('-'포함해서 기재)"
                   onChange={(e) => setPhoneNumer(e.target.value)}
-                />
-                {/* 이미지 업로드 필드 (선택) */}
-                <Input
-                  type="file"
-                  name="file"
-                  onChange={handleFileInputChange}
                 />
               </>
             )}
