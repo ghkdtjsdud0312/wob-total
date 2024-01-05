@@ -160,7 +160,11 @@ const SignIn = () => {
           Common.setAccessToken(accessToken);
           Common.setRefreshToken(refreshToken);
           // console.log("login email : ", Common.getEmail());
-          navigate("/");
+          if (email === "admin@workout.com") {
+            navigate("/adminmain");
+          } else {
+            navigate("/");
+          }
 
           if (rememberMe) {
             localStorage.setItem("rememberedEmail", email);
