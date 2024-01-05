@@ -24,6 +24,10 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   background-color: var(--MINT);
+
+  @media only screen and (max-width: 768px) {
+    margin-bottom: 25%;
+  }
 `;
 
 const SubContainer = styled.div`
@@ -69,6 +73,9 @@ const Input = styled.input`
 
 const ExplainBox = styled.div`
   color: #555555;
+  @media only screen and (max-width: 768px) {
+    font-size: 14px;
+  }
 `;
 
 const InputDate = styled.input`
@@ -256,7 +263,7 @@ const AdSubmit = () => {
 
   const confirmCancel = () => {
     // 취소버튼 확인 누르면 홈으로 이동
-    navigate("/");
+    navigate("/main");
   };
 
   // 취소 모달 닫음
@@ -278,7 +285,20 @@ const AdSubmit = () => {
     console.log(userPhoneNum);
   };
 
-
+  // // 강사의 이름과 전화번호 받아오기
+  // useEffect(() => {
+  //   const getPostUserInfo = async () => {
+  //     const rsp = await PostAxiosApi.getPostUserInfo(
+  //       localStorage.getItem("email")
+  //     );
+  //     console.log("회원의 이름과 전화번호 : ", rsp.data[0]);
+  //     if (rsp.data) {
+  //       setTeaName(rsp.data[0].name);
+  //       setTeaPhone(rsp.data[0].phoneNumber);
+  //     }
+  //   };
+  //   getPostUserInfo();
+  // }, []);
 
   // 포스트 정보 가져오기
   useEffect(() => {
@@ -322,7 +342,7 @@ const AdSubmit = () => {
 
       // if (rsp.data) {
       //   alert("등록 요청 완료");
-      //   navigate("/"); // 성공 시 홈으로 이동
+      //   navigate("/main"); // 성공 시 홈으로 이동
       // }
     } catch (error) {
       console.error("광고 등록 중 오류 발생", error);

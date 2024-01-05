@@ -11,7 +11,6 @@ const Container = styled.div`
   margin: 0 auto;
   color: var(--GREEN);
   margin-bottom: 15%;
-
   @media only screen and (max-width: 768px) {
     margin-bottom: 25%;
   }
@@ -41,6 +40,7 @@ const PageButton = styled.button`
   &:hover {
     background-color: var(--MINT);
   }
+
   &:focus {
     outline: none;
     background-color: var(--MINT);
