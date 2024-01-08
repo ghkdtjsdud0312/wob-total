@@ -36,6 +36,7 @@ public class ChatService {
     public List<ChatRoomResDto> findAllRoom() { // 채팅방 리스트 반환
         return new ArrayList<>(chatRooms.values());
     }
+
     // 채팅 내역 전체 조회
     public List<ChatMessageDto> findAllChat() {
         List<Chat> chat = chatRepository.findAll();
@@ -82,7 +83,6 @@ public class ChatService {
         return chatRoomResDtoList;
     }
     public ChatRoomResDto findRoomById(String roomId) {
-        System.out.println("findRoomById : "+ chatRooms.get(roomId));
         return chatRooms.get(roomId);
     }
 
@@ -234,9 +234,6 @@ public class ChatService {
             ChatRoom chatRoom = chatRoomRepository.findById(postDto.getRoomId()).orElseThrow(
                     () -> new RuntimeException("게시글에 roomId 추가 : 해당 채팅방이 존재하지 않습니다.")
             );
-            System.out.println("post : " + postDto.getId());
-            System.out.println("roomID : " + postDto.getRoomId());
-
 
             // Post(게시글)에 roomId값을 이용해서 ChatRoom과 연결
             post.setChatRoom(chatRoom);
@@ -251,7 +248,6 @@ public class ChatService {
     }
     // postId로 게시글 상세 조회
     public PostDto getPostListById(Long postId) {
-        System.out.println("chatService에서 받은 postId : " + postId);
         Post post = postRepository.findById(postId).orElseThrow(
                 () -> new RuntimeException("해당 게시글이 존재하지 않습니다.")
         );

@@ -1,12 +1,10 @@
 package com.kh.wob.controller;
 
 import com.kh.wob.dto.PaymentDto;
-import com.kh.wob.entity.Payment;
 import com.kh.wob.service.PaymentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +20,6 @@ public class PaymentController {
     // 결제 내역 저장
     @PostMapping("/add")
     public ResponseEntity<PaymentDto> paymentAdd(@RequestBody PaymentDto paymentDto) {
-        System.out.println("paymentAdd orderNum : " + paymentDto.getOrderNum());
         PaymentDto paymentDto1 = paymentService.savePayment(paymentDto);
         return ResponseEntity.ok(paymentDto1);
     }
@@ -30,7 +27,6 @@ public class PaymentController {
     // 결제 내역에 광고 데이터 추가하기
     @PostMapping("add/addAdId")
     public ResponseEntity<PaymentDto> paymentAddAdId(@RequestBody PaymentDto paymentDto) {
-        System.out.println("adId : " + paymentDto.getAdId() + "paymentId : " + paymentDto.getId());
         PaymentDto paymentDto1 = paymentService.paymentAddAdId(paymentDto);
         return ResponseEntity.ok(paymentDto1);
     }
@@ -85,7 +81,6 @@ public class PaymentController {
     // 활성화 비활성화 상태 바꾸기
     @PutMapping("/state")
     public ResponseEntity<Boolean> updatePaymentIsActive(@RequestBody PaymentDto paymentDto) {
-        log.info("paymentDto: {}", paymentDto);
         boolean isTrue = paymentService.updatePaymentIsActive(paymentDto);
         return ResponseEntity.ok(isTrue);
     }

@@ -1,6 +1,5 @@
 package com.kh.wob.controller;
 
-import com.kh.wob.dto.CategoryDto;
 import com.kh.wob.dto.UserMyPageDto;
 import com.kh.wob.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -36,8 +35,6 @@ public class UserMyPageController {
     @PutMapping("/modify")
     public ResponseEntity<Boolean> userModify(@RequestBody UserMyPageDto userMyPageDto) {
         boolean isTrue = userService.modifyUser(userMyPageDto);
-        System.out.println("userMyPage dto !!회원수정!! mbti 들어왔나 확인!! : " + userMyPageDto.getMbti());
-        System.out.println("userMyPage dto email, 탈퇴사유 : " + userMyPageDto.getEmail()+userMyPageDto.getWithdrawal());
         return ResponseEntity.ok(isTrue);
     }
 

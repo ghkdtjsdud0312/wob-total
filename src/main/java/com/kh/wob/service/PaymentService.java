@@ -1,6 +1,5 @@
 package com.kh.wob.service;
 
-import com.kh.wob.dto.CategoryDto;
 import com.kh.wob.dto.PaymentDto;
 import com.kh.wob.entity.*;
 import com.kh.wob.repository.AdRepository;
@@ -12,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -29,7 +27,6 @@ public class PaymentService {
 
     // 결제 내역 추가
     public PaymentDto savePayment(PaymentDto paymentDto) {
-        System.out.println("savePayment orderNum : " + paymentDto.getOrderNum());
         // 만약 레슨 결제인 경우, post와 조인하는 데이터 넣기
         Payment payment = new Payment();
         if(!paymentDto.getPostTitle().equals("광고 등록")) {
@@ -148,7 +145,6 @@ public class PaymentService {
         try {
             Payment payment = paymentRepository.findById(paymentId).orElseThrow(()-> new RuntimeException("존재하지 않는 결제입니다"));
             paymentRepository.delete(payment);
-            log.info("해당 결제가 삭제되었습니다. : ", paymentId);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
