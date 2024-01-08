@@ -5,7 +5,6 @@ import PaymentAxiosApi from "../../api/PaymentAxiosApi";
 import Loading from "../../component/Loading";
 
 const Container = styled.div`
-  /* padding: 24px; */
   border-radius: 8px;
   width: 768px;
   min-height: 900px;
@@ -101,22 +100,22 @@ const TopTextBox = styled.div`
   }
 `;
 
-// 주문 완료 페이지
+// 결제 완료 페이지
 const CompletePayment = () => {
   const navigate = useNavigate();
   const { paymentId } = useParams();
   const [pay, setPay] = useState();
 
   useEffect(() => {
-    console.log("paymentId in params : " + paymentId);
+    // payment 테이블의 Id로 해당 결제 내역 불러오기
+    // paymentId는 useParams로 가져옴
     const getPaymentId = async () => {
       const rsp = await PaymentAxiosApi.payGetById(paymentId);
-      console.log("paymentId의 결제 내역 : " + rsp.data[0]);
       if (rsp.data) {
         setPay(rsp.data);
-        console.log("setPay : ", pay);
       } else {
-        console.log("rsp.data == 0");
+        alert("error : 결제 내역을 불러오지 못했습니다. 메인으로 이동합니다.");
+        navigate("/main");
       }
     };
     getPaymentId();
@@ -199,7 +198,7 @@ const CompletePayment = () => {
                     </BottomTextBox>
                   </SubBottomBox>
                   <SubBottomBox className="subBox4">
-                    <HomeBtn onClick={() => navigate("/")}>메인으로</HomeBtn>
+                    <HomeBtn onClick={() => navigate("/main")}>메인으로</HomeBtn>
                   </SubBottomBox>
                 </BottomBox>
               </SubContainer>

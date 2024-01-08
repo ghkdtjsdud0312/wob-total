@@ -1,4 +1,3 @@
-import SettingHeader from "../../layout/SettingHeader";
 import styled from "styled-components";
 import { useParams, useNavigate } from "react-router-dom";
 import React, { useState, useEffect, useRef } from "react";
@@ -57,9 +56,9 @@ const Message = styled.div`
   margin: 10px;
   border-radius: 10px;
   background-color: ${(props) => (props.isSender ? "#04BF8A" : "#FFFFFF")};
-  /* align-self: ${(props) => (props.isSender ? "flex-end" : "flex-start")}; */
+    /* align-self: ${(props) => (props.isSender ? "flex-end" : "flex-start")}; */
   border: ${(props) =>
-    props.isSender ? "1px solid #04BF8A" : "1px solid #FFFFFF"};
+      props.isSender ? "1px solid #04BF8A" : "1px solid #FFFFFF"};
 `;
 
 const MessageSender = styled.div`
@@ -139,44 +138,36 @@ const Chatting = () => {
   };
 
   const onEnterKey = (e) => {
+    // enter 키 눌렀을 때 메세지 보내는 함수 호출
     if (e.key === "Enter" && inputMsg) {
-      e.preventDefault(); // 이거 뭐징?
+      e.preventDefault();
       onClickMsgSend();
     }
   };
 
+  // 전송 버튼
   const onClickMsgSend = () => {
-    // if (inputMsg === "/채팅종료") {
-    //   onClickMsgClose();
-    // } else {
+    // 웹소켓 연결이 되어있다면, 정보들 보내기
     if (ws.current && ws.current.readyState === WebSocket.OPEN) {
       ws.current.send(
-        JSON.stringify({
-          type: "TALK",
-          roomId: roomId,
-          sender: sender,
-          message: inputMsg,
-        })
+          JSON.stringify({
+            type: "TALK",
+            roomId: roomId,
+            sender: sender,
+            message: inputMsg,
+          })
       );
       setInputMsg("");
     } else {
-      console.error("WebSocket is not open.");
+      alert("error : 채팅 연결에 실패했습니다. 이전 페이지로 이동합니다.");
     }
-    // }
   };
 
-  // 종료하기 버튼
+  // 종료 버튼
   const onClickMsgClose = () => {
-    // ws.current.send(
-    //   JSON.stringify({
-    //     type: "CLOSE",
-    //     roomId: roomId,
-    //     sender: sender,
-    //     message: "종료 합니다.",
-    //   })
-    // );
+    // 웹소켓 연결 끊고 이전 페이지로 이동
     ws.current.close();
-    navigate(-1); // 임시로 해놓음
+    navigate(-1);
   };
 
   // 이전 채팅 내용을 가져오는 함수
@@ -184,10 +175,9 @@ const Chatting = () => {
     try {
       const res = await SettingAxiosApi.recentChatLoad(roomId);
       const recentMessages = res.data;
-      console.log("recentMessages : ", recentMessages);
       setChatList(recentMessages);
     } catch (error) {
-      console.error("Failed to load previous chat:", error);
+      alert("error : 이전 대화내용을 불러오지 못했습니다.");
     }
   };
 
@@ -198,7 +188,7 @@ const Chatting = () => {
   //   const timeoutId = setTimeout(() => {
   //     if (ws.current) {
   //       ws.current.close();
-  //       navigate("/"); // 이 부분 수정해야 함
+  //       navigate("/main"); // 이 부분 수정해야 함
   //       console.log("정상 종료");
   //     } else {
   //       console.log("소켓 없음");
@@ -208,16 +198,18 @@ const Chatting = () => {
   // }, []);
 
   useEffect(() => {
-    // 이메일로 회원 닉네임 가져 오기
+    // 이메일로 회원 닉네임 가져와서 sender에 저장
     const getMember = async () => {
       try {
         const rsp = await MyPageAxiosApi.userGetOne(
-          window.localStorage.getItem("email")
+            window.localStorage.getItem("email")
         );
-        console.log("닉네임:" + rsp.data.nickname);
         setSender(rsp.data.nickname);
       } catch (error) {
-        console.log(error);
+        alert(
+            "error : 회원 닉네임을 불러오지 못했습니다. 이전 페이지로 이동합니다."
+        );
+        navigate(-1);
       }
     };
     getMember();
@@ -228,50 +220,52 @@ const Chatting = () => {
     const getChatRoom = async () => {
       try {
         const rsp = await SettingAxiosApi.chatDetail(roomId);
-        console.log("roomId : " + roomId);
-        console.log("방이름 : " + rsp.data.name);
         setRoomName(rsp.data.name);
       } catch (error) {
-        console.log(error);
+        alert(
+            "error : 채팅방 정보를 불러오지 못했습니다. 이전 페이지로 이동합니다."
+        );
+        navigate(-1);
       }
     };
     getChatRoom();
   });
 
   useEffect(() => {
+    // 웹소켓 연결하는 부분, 이전 대화내용 불러오는 함수 호출
     console.log("방번호 : " + roomId);
     if (!ws.current) {
       ws.current = new WebSocket(KH_SOCKET_URL);
       ws.current.onopen = () => {
-        console.log("connected to " + KH_SOCKET_URL);
         setSocketConnected(true);
       };
     }
     if (socketConnected) {
+      // 웹소켓 연결이 되어있다면,
       ws.current.send(
-        JSON.stringify({
-          type: "ENTER",
-          roomId: roomId,
-          sender: sender,
-          message: "처음으로 접속 합니다.",
-        })
+          JSON.stringify({
+            type: "ENTER",
+            roomId: roomId,
+            sender: sender,
+            message: "처음으로 접속 합니다.",
+          })
       );
       loadPreviousChat();
     }
     ws.current.onmessage = (evt) => {
       const data = JSON.parse(evt.data);
-      console.log(data.message);
       setChatList((prevItems) => [...prevItems, data]);
     };
 
+    // 홈페이지의 뒤로가기를 눌렀을 때, 웹소켓 연결 끊기도록 return을 적어줌
     return () => {
       ws.current.send(
-        JSON.stringify({
-          type: "CLOSE",
-          roomId: roomId,
-          sender: sender,
-          message: "종료 합니다.",
-        })
+          JSON.stringify({
+            type: "CLOSE",
+            roomId: roomId,
+            sender: sender,
+            message: "종료 합니다.",
+          })
       );
     };
   }, [socketConnected]);
@@ -282,47 +276,46 @@ const Chatting = () => {
   useEffect(() => {
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop =
-        chatContainerRef.current.scrollHeight;
+          chatContainerRef.current.scrollHeight;
     }
   }, [chatList]);
   return (
-    <>
-      <Container>
-        <HeaderBox>
-          <BackBtn onClick={onClickMsgClose}>
-            <img
-              src="https://firebasestorage.googleapis.com/v0/b/mini-project-1f72d.appspot.com/o/%EB%92%A4%EB%A1%9C%EA%B0%80%EA%B8%B0%EB%B2%84%ED%8A%BC.png?alt=media&token=5fab2a09-453f-4736-8d86-3ac2850a7007"
-              alt="뒤로가기버튼"
-            />
-          </BackBtn>
-          <ChatHeader>&lt; {roomName} &gt;</ChatHeader>
-        </HeaderBox>
+      <>
+        <Container>
+          <HeaderBox>
+            <BackBtn onClick={onClickMsgClose}>
+              <img
+                  src="https://firebasestorage.googleapis.com/v0/b/mini-project-1f72d.appspot.com/o/%EB%92%A4%EB%A1%9C%EA%B0%80%EA%B8%B0%EB%B2%84%ED%8A%BC.png?alt=media&token=5fab2a09-453f-4736-8d86-3ac2850a7007"
+                  alt="뒤로가기버튼"
+              />
+            </BackBtn>
+            <ChatHeader>&lt; {roomName} &gt;</ChatHeader>
+          </HeaderBox>
 
-        <MessagesContainer ref={chatContainerRef}>
-          {chatList.map((chat, index) => (
-            <MessageBox key={index} isSender={chat.sender === sender}>
-              <MessageSender
-                isSender={chat.sender === sender}
-              >{`${chat.sender}`}</MessageSender>
-              <Message isSender={chat.sender === sender}>
-                {/*채팅 보낸 사람과 내가 일치하면 나에게 출력*/}
-                {`${chat.message}`}
-              </Message>
-            </MessageBox>
-          ))}
-        </MessagesContainer>
-        <InputContainer>
-          <Input
-            placeholder="메세지를 입력해주세요."
-            value={inputMsg}
-            onChange={onChangMsg}
-            onKeyUp={onEnterKey}
-          />
-          <SendButton onClick={onClickMsgSend}>전송</SendButton>
-        </InputContainer>
-        {/* <CloseButton onClick={onClickMsgClose}>채팅 종료 하기</CloseButton> */}
-      </Container>
-    </>
+          <MessagesContainer ref={chatContainerRef}>
+            {chatList.map((chat, index) => (
+                <MessageBox key={index} isSender={chat.sender === sender}>
+                  <MessageSender
+                      isSender={chat.sender === sender}
+                  >{`${chat.sender}`}</MessageSender>
+                  <Message isSender={chat.sender === sender}>
+                    {/*채팅 보낸 사람과 내가 일치하면 나에게 출력*/}
+                    {`${chat.message}`}
+                  </Message>
+                </MessageBox>
+            ))}
+          </MessagesContainer>
+          <InputContainer>
+            <Input
+                placeholder="메세지를 입력해주세요."
+                value={inputMsg}
+                onChange={onChangMsg}
+                onKeyUp={onEnterKey}
+            />
+            <SendButton onClick={onClickMsgSend}>전송</SendButton>
+          </InputContainer>
+        </Container>
+      </>
   );
 };
 export default Chatting;

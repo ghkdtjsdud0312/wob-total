@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { useState } from "react";
 import SettingAxiosApi from "../api/SettingAxiosApi";
 import Common from "../utils/Common";
 import { useNavigate } from "react-router-dom";
@@ -21,26 +20,22 @@ const ChatBtn = styled.button`
 
 const ChatStart = ({ postId, children }) => {
   const navigate = useNavigate();
-  const [roomId, setRoomId] = useState();
 
   // 채팅방 생성
   const handleCreateChatRoom = async () => {
     // 1. 해당 게시글의 roomId 값 조회
     const rsp = await SettingAxiosApi.postListById(postId); // postId 값 전달
-    console.log("해당 게시글의 roomId 조회 : " + rsp.data.roomId);
-    setRoomId(rsp.data.roomId);
-    console.log("setRoomId : " + roomId);
     // 2. 해당 게시글의 roomId가 공백이면 ( 첫 채팅방 생성 ) 채팅방 생성하기.
     if (rsp.data.roomId === null) {
       const accessToken = Common.getAccessToken();
       try {
-        // 채팅방 제목 전달하여 roomId 받아오기
+        // 2.1. 채팅방 제목 전달하여 roomId 받아오기
         const response = await SettingAxiosApi.chatCreate(
-          rsp.data.title,
-          postId
+            rsp.data.title,
+            postId
         );
+        // 2.2. post 테이블에 생성된 roomId 추가
         const req = await SettingAxiosApi.postAddRoomId(postId, response.data);
-        console.log("rsq.data : ", req.data);
         navigate(`/Chatting/${response.data}`);
       } catch (e) {
         if (e.response.status === 401) {
@@ -58,9 +53,9 @@ const ChatStart = ({ postId, children }) => {
     }
   };
   return (
-    <>
-      <ChatBtn onClick={handleCreateChatRoom}>{children}</ChatBtn>
-    </>
+      <>
+        <ChatBtn onClick={handleCreateChatRoom}>{children}</ChatBtn>
+      </>
   );
 };
 export default ChatStart;

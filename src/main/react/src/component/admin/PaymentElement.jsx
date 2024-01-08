@@ -53,10 +53,7 @@ const Tr4 = ({ data, index, setIsChange }) => {
 
   // 수정 모달창
   const confirmModal = async () => {
-    console.log("Data in Tr4 component:", data);
-    console.log("수정 데이터 : ", data.id, paymentContent);
     const rsp = await AdminAxiosApi.paymentListState(data.id, paymentContent);
-    console.log("rsp : ", rsp.data);
     if (rsp.data) {
       alert("해당 결제가 정상처리되었습니다.");
       setModalOpen(false);
@@ -71,7 +68,6 @@ const Tr4 = ({ data, index, setIsChange }) => {
   // 삭제 모달
   const deleteModal = async () => {
     const rsp = await AdminAxiosApi.paymentDelete(data.id);
-    console.log(data.id);
     if (rsp.status === 200) {
       alert("해당 결제내역이 삭제 되었습니다.");
       setModalOpen(false);
@@ -90,7 +86,6 @@ const Tr4 = ({ data, index, setIsChange }) => {
   // 결제 활성화 또는 비활성화 요청 보내기
   const handleSelectChange = (e) => {
     setPaymentContent(e.target.value);
-    console.log(paymentContent);
   };
   // 확인에서 수정된 값 들어감
   const clickOn = async () => {
@@ -107,69 +102,72 @@ const Tr4 = ({ data, index, setIsChange }) => {
   };
 
   return (
-    <TrComp $active={data.active === "active"}>
-      {/* 숫자 자동증가 */}
-      <td className="center">{index + num}</td>
-      <td>{data.orderNum}</td> {/* 주문번호 */}
-      <td>{data.userEmail}</td> {/* 주문자 이메일 */}
-      <td>{data.userName}</td> {/* 주문자 이름 */}
-      <td>{data.phoneNum}</td> {/* 주문자 전화번호 */}
-      <td>{data.fee}</td> {/* 주문 금액 */}
-      <td>{data.postUserName}</td> {/* 강사명 */}
-      <td>{data.postPhoneNum}</td> {/* 강사 전화번호 */}
-      <td isEnabled={data.active}>{data.active}</td>
-      {/* 셀렉트 */}
-      <td className="selectBox">
-        <select
-          name="category"
-          disabled={categoryActive}
-          value={paymentContent}
-          onChange={handleSelectChange}>
-          <option value="active">결제승인</option>
-          <option value="inactive">결제미승인</option>
-        </select>
-      </td>
-      <td>
-        {confirmRevise ? (
-          <Button type="button" label="확인" size="small" onClick={clickOn} />
-        ) : (
+      <TrComp $active={data.active === "active"}>
+        {/* 숫자 자동증가 */}
+        <td className="center">{index + num}</td>
+        <td>{data.orderNum}</td> {/* 주문번호 */}
+        <td>{data.userEmail}</td> {/* 주문자 이메일 */}
+        <td>{data.userName}</td> {/* 주문자 이름 */}
+        <td>{data.phoneNum}</td> {/* 주문자 전화번호 */}
+        <td>{data.fee}</td> {/* 주문 금액 */}
+        <td>{data.postUserName}</td> {/* 강사명 */}
+        <td>{data.postPhoneNum}</td> {/* 강사 전화번호 */}
+        <td isEnabled={data.active}>{data.active}</td>
+        {/* 셀렉트 */}
+        <td className="selectBox">
+          <select
+              name="category"
+              disabled={categoryActive}
+              value={paymentContent}
+              onChange={handleSelectChange}
+          >
+            <option value="active">결제승인</option>
+            <option value="inactive">결제미승인</option>
+          </select>
+        </td>
+        <td>
+          {confirmRevise ? (
+              <Button type="button" label="확인" size="small" onClick={clickOn} />
+          ) : (
+              <Button
+                  type="button"
+                  label="수정"
+                  size="small"
+                  onClick={clickRevise}
+              />
+          )}
+        </td>
+        <td>
           <Button
-            type="button"
-            label="수정"
-            size="small"
-            onClick={clickRevise}
+              type="button"
+              label="삭제"
+              size="small"
+              value={data.id}
+              onClick={clickDelete}
           />
+        </td>
+        {isOpen ? (
+            <Modal // 수정 모달
+                open={modalOpen}
+                close={closeModal}
+                confirm={confirmModal}
+                type={true}
+                header="안내"
+            >
+              {modalText}
+            </Modal>
+        ) : (
+            <Modal // 삭제 모달
+                open={modalOpen}
+                close={closeModal}
+                confirm={deleteModal}
+                type={true}
+                header="안내"
+            >
+              {modalText}
+            </Modal>
         )}
-      </td>
-      <td>
-        <Button
-          type="button"
-          label="삭제"
-          size="small"
-          value={data.id}
-          onClick={clickDelete}
-        />
-      </td>
-      {isOpen ? (
-        <Modal // 수정 모달
-          open={modalOpen}
-          close={closeModal}
-          confirm={confirmModal}
-          type={true}
-          header="안내">
-          {modalText}
-        </Modal>
-      ) : (
-        <Modal // 삭제 모달
-          open={modalOpen}
-          close={closeModal}
-          confirm={deleteModal}
-          type={true}
-          header="안내">
-          {modalText}
-        </Modal>
-      )}
-    </TrComp>
+      </TrComp>
   );
 };
 export default Tr4;

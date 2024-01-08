@@ -4,16 +4,8 @@ import styled from "styled-components";
 import Modal from "../../utils/Modal";
 import Button from "../../component/Button";
 import SettingAxiosApi from "../../api/SettingAxiosApi";
+import { Container } from "../../component/Container";
 
-const Container = styled.div`
-  /* padding: 24px; */
-  border-radius: 8px;
-  max-width: 768px;
-  margin: 0px auto;
-  @media only screen and (max-width: 768px) {
-    width: 100%;
-  }
-`;
 const SubContainer = styled.div`
   position: relative;
   align-items: center;
@@ -85,8 +77,8 @@ const PasswordChange = () => {
   const onClickBtn = async () => {
     // 비밀번호 변경하기 위해 email, rePw 전달
     const rsp = await SettingAxiosApi.passwordChange(
-      localStorage.getItem("email"),
-      rePw
+        localStorage.getItem("email"),
+        rePw
     );
     if (rsp.data) {
       setModalOpen(true);
@@ -100,7 +92,7 @@ const PasswordChange = () => {
     }
   };
 
-  // 비밀번호 입력 됐을 때,
+  // 입력된 비밀번호 검증
   const onChangePw = (e) => {
     const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/;
     const passwordCurrent = e.target.value;
@@ -114,7 +106,7 @@ const PasswordChange = () => {
     }
   };
 
-  // 비밀번호 확인 입력 됐을 때,
+  // 입력된 비밀번호 확인 검증
   const onChangeRePw = (e) => {
     const passwordCurrent = e.target.value;
     setRePw(passwordCurrent);
@@ -128,44 +120,44 @@ const PasswordChange = () => {
   };
 
   return (
-    <>
-      <SettingHeader title="비밀번호 변경" />
-      <Container>
-        <SubContainer className="item">
-          <span className="title">새 비밀번호</span>
-          <Input type="password" value={pw} onChange={onChangePw} />
-        </SubContainer>
-        <SubContainer className="hint">
-          {pw.length > 0 && <span>{pwMessage}</span>}
-        </SubContainer>
-        <SubContainer className="item">
-          <span className="title">새 비밀번호 확인</span>
-          <Input type="password" value={rePw} onChange={onChangeRePw} />
-        </SubContainer>
-        <SubContainer className="hint">
-          {pw.length > 0 && <span>{rePwMessage}</span>}
-        </SubContainer>
-        <SubContainer className="item">
-          {isPw && isRePw ? (
-            <ButtonBox>
-              <Button
-                enabled
-                size={"normal"}
-                label="수정하기"
-                onClick={() => onClickBtn()}
-              ></Button>
-            </ButtonBox>
-          ) : (
-            <ButtonBox>
-              <Button disabled size={"normal"} label="수정하기"></Button>
-            </ButtonBox>
-          )}
-          <Modal open={modalOpen} close={closeModal} header="알림">
-            {modalText}
-          </Modal>
-        </SubContainer>
-      </Container>
-    </>
+      <>
+        <SettingHeader title="비밀번호 변경" />
+        <Container>
+          <SubContainer className="item">
+            <span className="title">새 비밀번호</span>
+            <Input type="password" value={pw} onChange={onChangePw} />
+          </SubContainer>
+          <SubContainer className="hint">
+            {pw.length > 0 && <span>{pwMessage}</span>}
+          </SubContainer>
+          <SubContainer className="item">
+            <span className="title">새 비밀번호 확인</span>
+            <Input type="password" value={rePw} onChange={onChangeRePw} />
+          </SubContainer>
+          <SubContainer className="hint">
+            {pw.length > 0 && <span>{rePwMessage}</span>}
+          </SubContainer>
+          <SubContainer className="item">
+            {isPw && isRePw ? (
+                <ButtonBox>
+                  <Button
+                      enabled
+                      size={"normal"}
+                      label="수정하기"
+                      onClick={() => onClickBtn()}
+                  ></Button>
+                </ButtonBox>
+            ) : (
+                <ButtonBox>
+                  <Button disabled size={"normal"} label="수정하기"></Button>
+                </ButtonBox>
+            )}
+            <Modal open={modalOpen} close={closeModal} header="알림">
+              {modalText}
+            </Modal>
+          </SubContainer>
+        </Container>
+      </>
   );
 };
 export default PasswordChange;

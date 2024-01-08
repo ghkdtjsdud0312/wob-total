@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import PaymentAxiosApi from "../api/PaymentAxiosApi";
@@ -45,7 +44,6 @@ const Payment = (props) => {
       buyer_name: userName, // 구매자 이름
       buyer_tel: userPhone, // 구매자 전화번호
       buyer_email: localStorage.getItem("email"), // 구매자 이메일
-
     };
 
     /* 4. 결제 창 호출하기 */
@@ -66,21 +64,23 @@ const Payment = (props) => {
 
     if (success) {
       // 결제 내역 저장해서 paymentId 값 받아오기
+
+      // post 결제일 때 api
       const rsp = await PaymentAxiosApi.payAdd(
-        merchant_uid,
-        buyer_name,
-        buyer_tel,
-        buyer_email,
-        fee,
-        name,
-        postUserName,
-        postPhoneNum,
+          merchant_uid,
+          buyer_name,
+          buyer_tel,
+          buyer_email,
+          fee,
+          name,
+          postUserName,
+          postPhoneNum
       );
+
       if (rsp.data) {
-        console.log("rsp2.data.paymentId", rsp.data.id);
-        props.onPaymentComplete(rsp.data.id);
+        props.onPaymentComplete(rsp.data.id); // 부모로 paymentId 보내기
         alert("결제가 완료되었습니다.");
-        navigate(`/CompletePayment/${rsp.data.id}`);
+        navigate(`/CompletePayment/${rsp.data.id}`); // 해당 결제 내역의 상세 페이지로 이동
       } else {
         alert("결제를 실패했습니다.");
       }
@@ -89,11 +89,11 @@ const Payment = (props) => {
     }
   };
   return (
-    <>
-      <PaymentBtn disabled={setDisabled} onClick={onClickPayment}>
-        {children}
-      </PaymentBtn>
-    </>
+      <>
+        <PaymentBtn disabled={setDisabled} onClick={onClickPayment}>
+          {children}
+        </PaymentBtn>
+      </>
   );
 };
 export default Payment;
