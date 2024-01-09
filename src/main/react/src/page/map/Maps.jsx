@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const AppContainer = styled.div`
   text-align: center;
+  margin-bottom: 20%;
   h1 {
     font-size: 25px;
     color: #353535;
