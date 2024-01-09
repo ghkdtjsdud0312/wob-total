@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Container = styled.div`
-  margin: 70px;
+  margin: 50px;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -10,7 +10,7 @@ const Container = styled.div`
 
   h1 {
     margin-top: 10px;
-    font-size: 3em;
+    font-size: 2em;
   }
   .term {
   }
@@ -31,9 +31,9 @@ const Container = styled.div`
     list-style-type: disc;
   }
   @media screen and (max-width: 768px) {
-    margin: 20px;
+    margin: 30px;
     h1 {
-      font-size: 3em;
+      font-size: 1.6em;
     }
   }
 `;

@@ -12,7 +12,7 @@ const WhiteBoard = styled.div`
   transform: translateY(${(props) => (props.show ? "0" : "100%")});
   overflow: hidden;
   @media only screen and (max-width: 768px) {
-    width: 26em;
+    width: 95%;
   }
 `;
 

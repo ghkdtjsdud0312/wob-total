@@ -24,7 +24,7 @@ const StyledNextButton = styled(NextButton)`
   bottom: 0;
   margin-bottom: 50px;
   @media only screen and (max-width: 768px) {
-    width: 24em;
+    width: 100%;
   }
 `;
 
@@ -38,7 +38,7 @@ const SelectOptionBoard = styled.div`
   height: ${({ isOpen }) =>
     isOpen ? "420px" : "160px"}; // isOpen에 따라 높이 변경
   @media only screen and (max-width: 768px) {
-    width: 24em;
+    width: 100%;
   }
 `;
 
@@ -49,7 +49,7 @@ const SelectOptionBoardHeader = styled.div`
   border-top-left-radius: 40px;
   border-top-right-radius: 40px;
   @media only screen and (max-width: 768px) {
-    width: 24em;
+    width: 100%;
   }
 `;
 const OptionBoardHeaderLogo = styled.img`
@@ -80,7 +80,7 @@ const SelectOptionBoardFooter = styled.div`
   bottom: 0;
   cursor: pointer;
   @media only screen and (max-width: 768px) {
-    width: 24em;
+    width: 100%;
   }
 `;
 
