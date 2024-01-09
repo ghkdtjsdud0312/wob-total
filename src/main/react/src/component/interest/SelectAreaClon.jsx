@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { TitleAlign, TextAlign, SelectButton } from "../MBTI/MBTIcommon";
 
 const CenterBox = styled.div`
@@ -7,7 +7,6 @@ const CenterBox = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
   width: 768px;
   margin: 0px auto;
   @media only screen and (max-width: 768px) {
@@ -17,8 +16,11 @@ const CenterBox = styled.div`
 const AreasGird = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-gap: 10px;
+  grid-gap: 0.5em 1em;
   padding: 20px;
+  @media only screen and (max-width: 768px) {
+    grid-gap: 0.3em 0.5em;
+  }
 `;
 
 const SelectArea = ({ options, min, max, title, text, handleSelected }) => {
@@ -27,7 +29,6 @@ const SelectArea = ({ options, min, max, title, text, handleSelected }) => {
   const maxSelection = max; // 최대 선택 할 수 있는 개수
 
   const handleSelect = (item) => {
-    console.log("선택된 운동들 : ", ...selectedItems);
     if (selectedItems.includes(item)) {
       setSelectedItems(
         selectedItems.filter((selectedItem) => selectedItem !== item)

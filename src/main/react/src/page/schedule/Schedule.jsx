@@ -10,7 +10,7 @@ const BoardContainer = styled.div`
   flex-direction: column;
   width: 768px;
   @media only screen and (max-width: 768px) {
-    width: 400px;
+    width: 100%;
   }
 `;
 

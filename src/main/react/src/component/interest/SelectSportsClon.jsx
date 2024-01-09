@@ -7,7 +7,6 @@ const CenterBox = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
   width: 768px;
   margin: 0px auto;
   @media only screen and (max-width: 768px) {
@@ -18,7 +17,7 @@ const CenterBox = styled.div`
 const SportsGird = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-gap: 10px;
+  grid-gap: 0.5em 1em;
   padding: 20px;
 `;
 

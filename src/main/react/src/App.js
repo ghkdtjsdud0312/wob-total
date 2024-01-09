@@ -9,7 +9,6 @@ import Common from "./utils/Common";
 import Schedule from "./page/schedule/Schedule";
 import MyPost from "./page/schedule/MyPost";
 import JoinPost from "./page/schedule/JoinPost";
-import CalendarComp from "./component/CalendarComp";
 import GlobalStyle from "./globalStyle";
 import Main from "./page/Main";
 import Layout from "./layout/Layout";
@@ -55,7 +54,7 @@ function App() {
       <GlobalStyle />
       <Router>
         <Routes>
-          <Route path="/signin" element={<SignIn />} />
+          <Route path="/" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/forgot-pw" element={<ForgotPassword />} />
           <Route path="/interestenter" element={<InterestEnter />} />
@@ -63,7 +62,7 @@ function App() {
           {/* <Route path="/login" element={<TestLoginPage />} /> */}
           <Route path="/searchmain" element={<SearchMain />} />
           <Route element={<Layout />}>
-            <Route path="/" element={<Main />} />
+            <Route path="/main" element={<Main />} />
             <Route path="/schedule" element={<Schedule />} />
             <Route path="/postlist" element={<PostList />} />
             <Route path="/postdetail/:postId" element={<PostDetail />} />
@@ -126,4 +125,3 @@ function App() {
 }
 
 export default App;
-

@@ -11,8 +11,9 @@ const TextAlign = styled.div`
 `;
 
 const SelectButton = styled.button`
-  padding: 15px 20px;
-  font-size: 1em;
+  padding: 13px 17px;
+  font-size: 1.2em;
+  white-space: nowrap;
   background-color: ${(props) => (props.selected ? "#04bf8a" : "transparent")};
   color: ${(props) => (props.selected ? "#fff" : "inherit")};
   border: 1px solid ${(props) => (props.selected ? "#04bf8a" : "#353535")};
@@ -25,21 +26,8 @@ const SelectButton = styled.button`
     color: ${(props) => (props.selected ? "#fff" : "#04bf8a")};
   }
   @media only screen and (max-width: 768px) {
-    padding: 10px 15px;
+    padding: 8px 13px;
     font-size: 0.8em;
-  }
-`;
-
-const InputBar = styled.input`
-  font-size: 20px;
-  border: 1px solid ${(props) => (props.hasValue ? "#04bf8a" : "#353535")};
-  border-radius: 30px;
-  padding: 20px 60px;
-  grid-column: span 2;
-  background-color: ${(props) => (props.disabled ? "#ebebeb" : "transparent")};
-  color: ${(props) => (props.disabled ? "gray" : "inherit")};
-  &:focus {
-    outline-color: #04bf8a;
   }
 `;
 
@@ -57,4 +45,4 @@ const NextButton = styled.button`
     outline: none;
   }
 `;
-export { TitleAlign, TextAlign, SelectButton, InputBar, NextButton };
+export { TitleAlign, TextAlign, SelectButton, NextButton };

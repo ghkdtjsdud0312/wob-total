@@ -11,7 +11,6 @@ import { Link } from "react-router-dom";
 import SelectSports from "../component/interest/SelectSportsClon";
 import SelectArea from "../component/interest/SelectAreaClon";
 import SelectMBTI from "../component/MBTI/MBTI";
-import axios from "axios";
 
 const Container = styled.div`
   padding-bottom: 10%;
@@ -21,7 +20,7 @@ const Container = styled.div`
   width: 768px;
   margin: 0px auto;
   @media only screen and (max-width: 768px) {
-    width: 400px;
+    width: 100%;
   }
 `;
 const FinalCon = styled.div`
@@ -203,7 +202,6 @@ const MyPageEdit = () => {
   useEffect(() => {
     const userInfo = async () => {
       const rsp = await MyPageAxiosApi.userGetOne(localStorage.email);
-      console.log("useEffect의 rsp data 확인 :", rsp.data);
       if (rsp.status === 200) {
         setUser(rsp.data);
         setUrl(rsp.data.image);
@@ -213,9 +211,7 @@ const MyPageEdit = () => {
     };
     userInfo();
 
-    // 로컬 스토리지에서 로그인한 사용자 정보를 가져옵니다.
     const loginUserEmail = localStorage.getItem("email");
-    // 로그인한 사용자와 글쓴이가 같은지 비교
     if (loginUserEmail === email) {
       setIsCurrentUser(true);
     }
@@ -227,7 +223,6 @@ const MyPageEdit = () => {
   const goToHome = () => {
     navigate("/");
   };
-  //입력 필드 변경 처리
   const handleChange = (e) => {
     setEditNickname(e.target.value);
   };
@@ -236,29 +231,21 @@ const MyPageEdit = () => {
   };
   //MBTI 선택 부분
   const [selectedItem, setSelectedItem] = useState("");
-  // MBTI 선택됐을 때 실행될 함수
   const handleSelectedItem = (item) => {
-    console.log("부모 컴포넌트에서 선택된 mbti아이템:", item);
-    // 선택된 아이템을 부모 컴포넌트의 상태로 설정
     setSelectedItem(item);
   };
 
   //선택 종목
   const [selectedSports, setSelectedSports] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
-  //선택종목 실행함수
   const handleSelected = (selectedSports) => {
-    console.log("부모 컴포넌트에서 선택된 스포츠 아이템 : ", selectedSports);
-
-    //선택 아이템 부모 컴포넌트 상태로 설정
     setSelectedSports(selectedSports);
   };
   const handleSelectedArea = (selectedItems) => {
-    console.log("부모 컴포넌트에서 선택된 지역 아이템 : ", selectedItems);
     setSelectedItems(selectedItems);
   };
 
-  //회원정보 업데이트 Axios호출 . 회원정보 수정 '수정' 버튼
+  //수정 '수정' 버튼
   const handleSubmit = async (e) => {
     const rsp = await MyPageAxiosApi.userUpdate(
       localStorage.email,
@@ -282,7 +269,6 @@ const MyPageEdit = () => {
       }
     }
   };
-  //handle clike 파일 업로드
   const handleUploadChange = async (e) => {
     try {
       const selectedFile = e.target.files[0];
@@ -291,13 +277,9 @@ const MyPageEdit = () => {
         const storageRef = storage.ref();
         const fileRef = storageRef.child(selectedFile.name);
         await fileRef.put(selectedFile); // 파일 업로드
-        console.log("파일 업로드 성공!!");
-        // 업로드 후 이미지 URL 가져오기
         const uploadedUrl = await fileRef.getDownloadURL();
         console.log("저장경로 확인 : ", uploadedUrl);
-        setUrl(uploadedUrl); // 미리보기 URL 업데이트 (상태 업데이트)
-      } else {
-        console.log("파일 선택 취소");
+        setUrl(uploadedUrl);
       }
     } catch (error) {
       console.error("Upload failed 파일 업로드 에러 :", error);

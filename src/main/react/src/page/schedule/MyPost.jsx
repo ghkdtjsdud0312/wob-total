@@ -2,15 +2,13 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import PostAxiosApi from "../../api/PostAxiosApi";
 import PostPreview from "../../component/PostPreview";
-import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 const Container = styled.div`
   max-width: 768px;
-  min-width: 300px;
   margin: 0 auto;
-  margin-bottom: 8%;
+  margin-bottom: 25%;
   justify-content: center;
   align-items: center;
   color: var(--GREEN);
@@ -20,7 +18,7 @@ const Container = styled.div`
 `;
 
 const Mine = styled.div`
-  font-size: 2.5em;
+  font-size: 2em;
   color: #333;
   text-align: center;
   margin: 20px 0;
@@ -32,7 +30,6 @@ const StyledLink = styled(Link)`
 const MyPost = ({ postId, selectedDate }) => {
   const [postList, setPostList] = useState([]);
   const navigate = useNavigate();
-  const [selectPost, setSelectPost] = useState(null);
 
   useEffect(() => {
     const fetchPostList = async () => {

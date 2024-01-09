@@ -10,7 +10,10 @@ const Container = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-  /* padding: 5px; */
+  padding-left: 20px;
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const SliderContainer = styled.div`
