@@ -6,7 +6,7 @@ export const Container = styled.div`
   margin: auto;
   position: absolute;
   top: 30px;
-  left: -70px;
+  left: -150px;
   @media screen and (max-width: 430px) {
     left: -20px;
   }
@@ -83,7 +83,7 @@ export const StyledSideMenu = styled.div`
   left: 0;
   top: 100px;
   width: 340px;
-  height: 88vh;
+  height: 85vh;
   box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
