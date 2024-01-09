@@ -36,11 +36,12 @@ const Container = styled.div`
 `;
 
 const Buttons = styled.div`
-  width: 768px;
+  width: 64%;
   margin: 0 auto;
   @media screen and (max-width: 430px) {
-   margin: 30px 10px;
-   }
+  width: 95%;
+  margin: 30px 10px;
+  }
 `;
 
 const Click = styled.div`

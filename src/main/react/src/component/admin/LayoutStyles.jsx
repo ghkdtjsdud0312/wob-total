@@ -6,7 +6,7 @@ export const Container = styled.div`
   margin: auto;
   position: absolute;
   top: 30px;
-  left: 150px;
+  left: 30px;
   @media screen and (max-width: 430px) {
     left: -20px;
   }
