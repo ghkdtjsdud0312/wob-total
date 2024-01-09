@@ -54,7 +54,7 @@ function App() {
       <GlobalStyle />
       <Router>
         <Routes>
-          <Route path="/" element={<SignIn />} />
+          <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/forgot-pw" element={<ForgotPassword />} />
           <Route path="/interestenter" element={<InterestEnter />} />
@@ -62,7 +62,7 @@ function App() {
           {/* <Route path="/login" element={<TestLoginPage />} /> */}
           <Route path="/searchmain" element={<SearchMain />} />
           <Route element={<Layout />}>
-            <Route path="/main" element={<Main />} />
+            <Route path="/" element={<Main />} />
             <Route path="/schedule" element={<Schedule />} />
             <Route path="/postlist" element={<PostList />} />
             <Route path="/postdetail/:postId" element={<PostDetail />} />
