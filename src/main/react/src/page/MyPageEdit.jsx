@@ -274,7 +274,6 @@ const MyPageEdit = () => {
       setNickname(editNickname);
       setIntroduce(editIntroduce);
       const rsp = await MyPageAxiosApi.userGetOne(localStorage.email);
-      console.log("회원정보 업데이트 rsp 확인 : ", rsp.data);
       if (rsp.status === 200) {
         setUser(rsp.data);
         setUrl(rsp.data.image);
