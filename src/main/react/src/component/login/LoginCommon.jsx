@@ -9,7 +9,7 @@ const InputBar = styled.input`
     outline: 2px solid #04bf8a;
   }
   @media only screen and (max-width: 768px) {
-    width: 350px;
+    width: 95%;
   }
 `;
 const AuthInputBar = styled.input`
@@ -22,7 +22,7 @@ const AuthInputBar = styled.input`
     outline: 2px solid #04bf8a;
   }
   @media only screen and (max-width: 768px) {
-    width: 230px;
+    width: 100%;
   }
 `;
 
@@ -43,7 +43,7 @@ const GreenButton = styled.button`
     }
   `}
   @media only screen and (max-width: 768px) {
-    width: 350px;
+    width: 95%;
   }
 `;
 
@@ -60,7 +60,7 @@ const BlackButton = styled.button`
     cursor: pointer;
   }
   @media only screen and (max-width: 768px) {
-    width: 165px;
+    width: 95%;
   }
 `;
 export { InputBar, AuthInputBar, GreenButton, BlackButton };

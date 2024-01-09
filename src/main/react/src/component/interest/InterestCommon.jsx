@@ -17,6 +17,7 @@ const SelectButton = styled.button`
   color: ${(props) => (props.selected ? "#fff" : "inherit")};
   border: 1px solid ${(props) => (props.selected ? "#04bf8a" : "#353535")};
   border-radius: 30px;
+  white-space: nowrap;
   &:focus {
     outline: none;
   }
@@ -47,6 +48,7 @@ const NextButton = styled.button`
   border: 1px solid gray;
   border-radius: 30px;
   grid-column: span 2;
+  white-space: nowrap;
   cursor: ${(props) =>
     props.active ? "pointer" : "default"}; /* 포인터가 생기도록 설정 */
   &:focus {

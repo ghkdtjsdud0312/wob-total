@@ -19,7 +19,7 @@ const Container = styled.div`
   align-items: center;
   height: 100vh;
   @media only screen and (max-width: 768px) {
-    width: 30em;
+    width: 100%;
   }
 `;
 
@@ -39,6 +39,10 @@ const RowAlignBox = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  /* border: 1px solid black; */
+  @media only screen and (max-width: 768px) {
+    width: 98%;
+  }
 `;
 
 const AlignBox = styled.div`
@@ -72,6 +76,7 @@ const SmallGreenButton = styled.button`
   border-radius: 30px;
   padding: 20px;
   width: 100px;
+  white-space: nowrap;
   opacity: ${(props) => (props.disabled ? 0.5 : 1)};
   &:hover {
     cursor: pointer;

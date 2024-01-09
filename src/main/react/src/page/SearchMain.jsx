@@ -16,7 +16,7 @@ const Container = styled.div`
   margin: 0 auto;
   margin-bottom: 100px;
   @media only screen and (max-width: 768px) {
-    width: 30em;
+    width: 100%;
   }
 `;
 
@@ -52,7 +52,7 @@ const SearchInput = styled.input`
   outline: none;
   margin-right: 10px;
   @media only screen and (max-width: 768px) {
-    width: 200px;
+    width: 35%;
   }
 `;
 
@@ -100,6 +100,9 @@ const RecentResultContents = styled.div`
   width: 100px;
   padding: 10px;
   border-radius: 40px;
+  @media only screen and (max-width: 768px) {
+    width: 70%;
+  }
 `;
 
 const SearchResult = styled.h3`

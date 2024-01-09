@@ -36,7 +36,7 @@ const LoginBox = styled.div`
   border-radius: 30px;
   text-align: center; /* Center the content */
   @media only screen and (max-width: 768px) {
-    width: 26em;
+    width: 100%;
   }
 `;
 
