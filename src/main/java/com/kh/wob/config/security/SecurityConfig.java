@@ -49,13 +49,13 @@ public class SecurityConfig implements WebMvcConfigurer {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-//                .formLogin().disable() // FormLogin 사용 X
+                .formLogin().disable() // FormLogin 사용 X
                 .formLogin()
                 .loginPage("/signin") // 로그인 페이지 URL 설정
                 .defaultSuccessUrl("/") // 로그인 성공 시 이동할 URL 설정
                 .permitAll()
                 .and()
-//
+
                 .httpBasic()
                 .and()
                 .csrf().disable() // csrf 보안 사용 X
@@ -63,7 +63,7 @@ public class SecurityConfig implements WebMvcConfigurer {
                 .and()
 //
                 // 세션 사용하지 않으므로 STATELESS로 설정
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
                 .and()
 
                 //== URL별 권한 관리 옵션 ==//authorizeRequests
@@ -81,17 +81,17 @@ public class SecurityConfig implements WebMvcConfigurer {
                 .antMatchers("/oauth2/authorization/google", "/oauth2/authorization/naver", "/oauth2/authorization/kakao", "oauth2/sign-up").permitAll()
 
 //                .antMatchers("/category/add").hasRole("ADMIN")
-                .anyRequest().authenticated() // 위의 경로 이외에는 모두 인증된 사용자만 접근 가능
-                .and()
+                .anyRequest().authenticated(); // 위의 경로 이외에는 모두 인증된 사용자만 접근 가능
+//                .and()
 //                .cors() // .and().cors() 추가 된 부분
 //                .and()
                 //== 소셜 로그인 설정 ==//
-                .oauth2Login()
-                    .loginPage("/signin") // OAuth2 로그인 페이지 경로
-                    .permitAll()
-                .successHandler(oAuth2LoginSuccessHandler) // 동의하고 계속하기를 눌렀을 때 Handler 설정
-                .failureHandler(oAuth2LoginFailureHandler) // 소셜 로그인 실패 시 핸들러 설정
-                .userInfoEndpoint().userService(customOAuth2UserService); // customUserService 설정
+//                .oauth2Login()
+//                    .loginPage("/signin") // OAuth2 로그인 페이지 경로
+//                    .permitAll()
+//                .successHandler(oAuth2LoginSuccessHandler) // 동의하고 계속하기를 눌렀을 때 Handler 설정
+//                .failureHandler(oAuth2LoginFailureHandler) // 소셜 로그인 실패 시 핸들러 설정
+//                .userInfoEndpoint().userService(customOAuth2UserService); // customUserService 설정
 
         // 원래 스프링 시큐리티 필터 순서가 LogoutFilter 이후에 로그인 필터 동작
         // 따라서, LogoutFilter 이후에 우리가 만든 필터 동작하도록 설정
