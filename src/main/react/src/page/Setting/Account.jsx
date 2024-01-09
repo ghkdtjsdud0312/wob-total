@@ -134,7 +134,7 @@ const Account = () => {
     // 로컬스토리지의 키의 개수를 확인하여 0이면 비워진 것으로 판단
     if (Object.keys(localStorage).length === 0) {
       alert("로그아웃 되었습니다.");
-      navigate("/");
+      navigate("/signin");
     } else {
       alert("로그아웃이 정상적으로 처리되지 않았습니다.");
     }
