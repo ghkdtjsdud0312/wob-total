@@ -6,7 +6,7 @@ export const Container = styled.div`
   margin: auto;
   position: absolute;
   top: 30px;
-  left: -150px;
+  left: 150px;
   @media screen and (max-width: 430px) {
     left: -20px;
   }
@@ -88,7 +88,7 @@ export const StyledSideMenu = styled.div`
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
   transform: ${(props) =>
-    props.isOpen ? "translateX(0)" : "translateX(-100%)"};
+  props.isOpen ? "translateX(0)" : "translateX(-100%)"};
   transition: transform 0.3s ease;
   background-color: #dceae6;
   @media screen and (max-width: 430px) {
