@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.parameters.P;
@@ -139,22 +140,31 @@ public class PostService {
         return postDtos;
     }
 
-    public List<PostDto> getSearchIntroduction(String keyword) {
-        List<Post> posts = postRepository.findByIntroductionContaining(keyword);
-        List<PostDto> postDtos = new ArrayList<>();
-        for(Post post : posts) {
-            postDtos.add(convertEntityToDto(post));
-        }
-        return postDtos;
+    public Page<PostDto> getSearchTitle(String keyword, Pageable pageable) {
+        Page<Post> postPage = postRepository.findByTitleContaining(keyword, pageable);
+        return postPage.map(this::convertEntityToDto);
     }
-    public List<PostDto> getSearchTitle(String keyword) {
-        List<Post> posts = postRepository.findByTitleContaining(keyword);
-        List<PostDto> postDtos = new ArrayList<>();
-        for(Post post : posts) {
-            postDtos.add(convertEntityToDto(post));
-        }
-        return postDtos;
+    public Page<PostDto> getSearchIntroduction(String keyword, Pageable pageable) {
+        Page<Post> postPage = postRepository.findByIntroductionContaining(keyword, pageable);
+        return postPage.map(this::convertEntityToDto);
     }
+
+//    public List<PostDto> getSearchIntroduction(String keyword) {
+//        List<Post> posts = postRepository.findByIntroductionContaining(keyword);
+//        List<PostDto> postDtos = new ArrayList<>();
+//        for(Post post : posts) {
+//            postDtos.add(convertEntityToDto(post));
+//        }
+//        return postDtos;
+//    }
+//    public List<PostDto> getSearchTitle(String keyword) {
+//        List<Post> posts = postRepository.findByTitleContaining(keyword);
+//        List<PostDto> postDtos = new ArrayList<>();
+//        for(Post post : posts) {
+//            postDtos.add(convertEntityToDto(post));
+//        }
+//        return postDtos;
+//    }
 
     //userEmail로 게시글 리스트 가져오기
     public List<PostDto> getPostByUserEmail(String userEmail) {

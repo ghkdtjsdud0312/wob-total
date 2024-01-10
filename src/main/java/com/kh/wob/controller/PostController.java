@@ -5,7 +5,9 @@ import com.kh.wob.dto.ScheduleDto;
 import com.kh.wob.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -103,17 +105,31 @@ public class PostController {
     }
 
     @GetMapping("/searchtitle")
-    public ResponseEntity<List<PostDto>> getSearchTitle(@RequestParam String keyword) {
+    public ResponseEntity<Page<PostDto>> getSearchTitle(@RequestParam String keyword, Pageable pageable) {
         log.info("keyword : " + keyword);
-        List<PostDto> list = postService.getSearchTitle(keyword);
-        return ResponseEntity.ok(list);
+        Page<PostDto> page = postService.getSearchTitle(keyword, pageable);
+        return ResponseEntity.ok(page);
     }
+
     @GetMapping("/searchintroduction")
-    public ResponseEntity<List<PostDto>> getSearchIntroduction(@RequestParam String keyword) {
+    public ResponseEntity<Page<PostDto>> getSearchIntroduction(@RequestParam String keyword, Pageable pageable) {
         log.info("keyword : " + keyword);
-        List<PostDto> list = postService.getSearchIntroduction(keyword);
-        return ResponseEntity.ok(list);
+        Page<PostDto> page = postService.getSearchIntroduction(keyword, pageable);
+        return ResponseEntity.ok(page);
     }
+
+//    @GetMapping("/searchtitle")
+//    public ResponseEntity<List<PostDto>> getSearchTitle(@RequestParam String keyword) {
+//        log.info("keyword : " + keyword);
+//        List<PostDto> list = postService.getSearchTitle(keyword);
+//        return ResponseEntity.ok(list);
+//    }
+//    @GetMapping("/searchintroduction")
+//    public ResponseEntity<List<PostDto>> getSearchIntroduction(@RequestParam String keyword) {
+//        log.info("keyword : " + keyword);
+//        List<PostDto> list = postService.getSearchIntroduction(keyword);
+//        return ResponseEntity.ok(list);
+//    }
 
 }
 

@@ -19,6 +19,9 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findByUserEmail(String userEmail);
     Page<Post> findAllByOrderByDateDesc(Pageable pageable);
 
-    List<Post> findByTitleContaining(String keyword);
-    List<Post> findByIntroductionContaining(String keyword);
+    Page<Post> findByTitleContaining(String keyword, Pageable pageable);
+    Page<Post> findByIntroductionContaining(String keyword, Pageable pageable);
+
+//    List<Post> findByTitleContaining(String keyword);
+//    List<Post> findByIntroductionContaining(String keyword);
 }

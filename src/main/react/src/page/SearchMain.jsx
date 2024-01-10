@@ -16,12 +16,12 @@ const Container = styled.div`
   margin: 0 auto;
   margin-bottom: 100px;
   @media only screen and (max-width: 768px) {
-    width: 100%;
+    width: 30em;
   }
 `;
 
 const Logo = styled.img`
-  width: 150px;
+  width: 100px;
   margin: 10px;
   &:hover {
     cursor: pointer;
@@ -40,7 +40,6 @@ const AlignBox = styled.div`
 const SearchContainer = styled.div`
   text-align: center;
   margin-top: 20px;
-  margin-right: 20px;
 `;
 
 const SearchInput = styled.input`
@@ -51,9 +50,6 @@ const SearchInput = styled.input`
   border-bottom: 2px solid #04bf8a;
   outline: none;
   margin-right: 10px;
-  @media only screen and (max-width: 768px) {
-    width: 35%;
-  }
 `;
 
 const SearchButton = styled.button`
@@ -93,16 +89,11 @@ const RecentResult = styled.div`
   opacity: 0.5;
 `;
 
-const RecentResultContents = styled.div`
+const RecentResultContents = styled.span`
   margin: 10px 10px;
   background-color: #dfede9;
-  text-align: center;
-  width: 100px;
   padding: 10px;
   border-radius: 40px;
-  @media only screen and (max-width: 768px) {
-    width: 70%;
-  }
 `;
 
 const SearchResult = styled.h3`
@@ -182,15 +173,15 @@ const SearchMain = () => {
   const [recentSearches, setRecentSearches] = useState([]);
 
   useEffect(() => {
+    // 페이지가 변경될 때마다 검색 다시 요청
+    handleSearch();
+  }, [currentPage]); // currentPage가 변경될 때마다 실행
+
+  useEffect(() => {
     const storedRecentSearches =
       JSON.parse(localStorage.getItem("recentSearches")) || [];
     setRecentSearches(storedRecentSearches);
-    const delayTimer = setTimeout(() => {
-      // 1초 후 최근 검색어 갱신 실행
-      handleSearch();
-    }, 1000);
-    return () => clearTimeout(delayTimer); // 컴포넌트 언마운트 시 타이머 클리어
-  }, [searchQuery]);
+  }, []);
 
   useEffect(() => {
     if (state && state.searchQuery) {
@@ -219,13 +210,22 @@ const SearchMain = () => {
         return;
       }
 
+      // Spring Boot에서 pageable을 사용하도록 수정
       const response =
         searchCriteria === "title"
-          ? await SearchAxiosApi.searchTitle(searchQuery)
-          : await SearchAxiosApi.searchIntroduction(searchQuery);
+          ? await SearchAxiosApi.searchTitle(
+              searchQuery,
+              currentPage - 1,
+              ITEMS_PER_PAGE
+            )
+          : await SearchAxiosApi.searchIntroduction(
+              searchQuery,
+              currentPage - 1,
+              ITEMS_PER_PAGE
+            );
 
       setSearchResults(response.data);
-      setCurrentPage(1);
+      console.log(response.data.content);
 
       const maxRecentSearches = 5;
       const storedRecentSearches =
@@ -257,19 +257,14 @@ const SearchMain = () => {
     }
   };
 
-  const totalPages = Math.ceil(searchResults.length / ITEMS_PER_PAGE);
-
-  const paginatedResults = searchResults.slice(
-    (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE
-  );
+  const paginatedResults = searchResults.content || []; // 받아온 데이터에서 현재 페이지의 결과 목록
 
   return (
     <Container>
       <Logo
         src="https://firebasestorage.googleapis.com/v0/b/mini-project-1f72d.appspot.com/o/wob-logo-green.png?alt=media&token=b89ea23a-e1f1-4863-a76f-54811d63edcb"
         alt="main logo"
-        onClick={() => navigate("/")}
+        onClick={() => navigate("/main")}
       />
       <AlignBox>
         <SearchContainer>
@@ -328,7 +323,7 @@ const SearchMain = () => {
             </StyledLink>
           ))
         )}
-        {searchResults.length > ITEMS_PER_PAGE && (
+        {searchResults.totalPages > 1 && (
           <PaginationContainer>
             <PaginationButton
               onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
@@ -337,13 +332,15 @@ const SearchMain = () => {
               이전
             </PaginationButton>
             <PaginationInfo>
-              {currentPage} / {totalPages}
+              {currentPage} / {searchResults.totalPages}
             </PaginationInfo>
             <PaginationButton
               onClick={() =>
-                setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                setCurrentPage((prev) =>
+                  Math.min(prev + 1, searchResults.totalPages)
+                )
               }
-              disabled={currentPage === totalPages}
+              disabled={currentPage === searchResults.totalPages}
             >
               다음
             </PaginationButton>
