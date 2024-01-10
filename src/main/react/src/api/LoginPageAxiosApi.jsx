@@ -24,6 +24,13 @@ const LoginPageAxiosApi = {
     );
   },
 
+  getUUIDEmail: async (data) => {
+    console.log("socialId", data);
+    return await customAxios.post(KH_DOMAIN + "/kakao/email", {
+      socialId: data,
+    });
+  },
+
   userLogin: async (props) => {
     const params = {
       email: props.email,

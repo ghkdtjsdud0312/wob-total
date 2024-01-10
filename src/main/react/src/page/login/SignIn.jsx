@@ -13,6 +13,7 @@ import LoginPageAxiosApi from "../../api/LoginPageAxiosApi";
 import LoginModal from "../../utils/LoginModal";
 import PolicyModal from "./SignUpPolicy";
 import axios from "axios";
+import KakaoSignin from "../../component/kakaoOauth/KakaoLogin";
 
 const Container = styled.div`
   max-width: 768px;
@@ -236,6 +237,9 @@ const SignIn = () => {
             <BlackButton onClick={handleSignUpClick}>회원가입</BlackButton>
           </RowAlignBox>
 
+          {/* 카카오 로그인 */}
+          <KakaoSignin />
+
           {/*           <div> */}
           {/*             <button onClick={() => handleOAuthLogin("google")}> */}
           {/*               Google 로그인 */}
@@ -260,7 +264,7 @@ const SignIn = () => {
             <OauthLogo src="https://firebasestorage.googleapis.com/v0/b/mini-project-1f72d.appspot.com/o/kakao-log.png?alt=media&token=aefe60b6-c0e5-41dd-b2c3-43ed4249873a" />
           </Link> */}
 
-          <a href={`${KH_DOMAIN}/oauth2/authorization/google`}>
+          {/* <a href={`${KH_DOMAIN}/oauth2/authorization/google`}>
             <OauthLogo src="https://firebasestorage.googleapis.com/v0/b/mini-project-1f72d.appspot.com/o/google-log.png?alt=media&token=a417ad1a-6da7-4f81-b28f-0226d8f0096c" />
           </a>
           <a href={`${KH_DOMAIN}/oauth2/authorization/naver`}>
@@ -268,7 +272,7 @@ const SignIn = () => {
           </a>
           <a href={`${KH_DOMAIN}/oauth2/authorization/kakao`}>
             <OauthLogo src="https://firebasestorage.googleapis.com/v0/b/mini-project-1f72d.appspot.com/o/kakao-log.png?alt=media&token=aefe60b6-c0e5-41dd-b2c3-43ed4249873a" />
-          </a>
+          </a> */}
         </LoginBox>
       </AlignBox>
       <LoginModal open={modalOpen} close={closeModal} header={`${modalHeader}`}>

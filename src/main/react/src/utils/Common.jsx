@@ -69,6 +69,12 @@ const Common = {
   getEmail: () => {
     return localStorage.getItem("email");
   },
+  setSocialId: (socialId) => {
+    localStorage.setItem("socialId", socialId);
+  },
+  getSocialId: () => {
+    return localStorage.getItem("socialId");
+  },
   clearLocalStorage: () => {
     localStorage.clear();
   },

@@ -70,6 +70,7 @@ public class SecurityConfig implements WebMvcConfigurer {
                 .authorizeRequests()
 //                .antMatchers( "*").permitAll()
                 .antMatchers( "/static/**","/adminmain").permitAll()
+                .antMatchers( "/kakao/login").permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
                 .antMatchers("/ws/**", "/movies/**", "/elastic/**", "/category/**").permitAll()
