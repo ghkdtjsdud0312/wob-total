@@ -8,7 +8,6 @@ const Container = styled.div`
   justify-content: center;
 `;
 const FooterContainer = styled.div`
-  height: 90px;
   background-color: white;
   display: flex;
   position: fixed;

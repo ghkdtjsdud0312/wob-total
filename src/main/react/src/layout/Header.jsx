@@ -48,6 +48,7 @@ const SearchIcon = styled(FontAwesomeIcon)`
 const GreetingText = styled.span`
   margin-right: 10px;
   padding-top: 13px;
+  font-size: 20px;
   font-weight: bold;
   color: #555555;
 `;

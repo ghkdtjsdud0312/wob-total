@@ -10,7 +10,6 @@ const Container = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-  padding-left: 20px;
   @media only screen and (max-width: 768px) {
     width: 100%;
   }
@@ -141,6 +140,7 @@ const CalendarComp = ({ onDateSelect, selectedDate }) => {
     dots: false,
     infinite: true,
     speed: 500,
+    arrows: false,
     slidesToShow: 1,
     slidesToScroll: 1,
     draggable: true,

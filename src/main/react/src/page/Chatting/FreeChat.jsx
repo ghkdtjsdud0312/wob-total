@@ -42,7 +42,7 @@ const ChatDate = styled.p`
 const CircleFixedButton = styled.button`
   position: fixed; // 버튼을 부모 컨테이너에 대해 절대적 위치로 설정
   bottom: 100px;
-  right: 10%;
+  right: 30%;
   z-index: 10;
 
   width: 60px; // 버튼의 크기를 정사각형으로 설정
@@ -72,6 +72,9 @@ const CircleFixedButton = styled.button`
   &:before {
     // 가상 요소로 플러스 기호 생성
     content: "+";
+  }
+  @media only screen and (max-width: 768px) {
+    right: 5%;
   }
 `;
 

@@ -17,6 +17,9 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   color: var(--GREEN);
+  @media only screen and (max-width: 768px) {
+    margin-bottom: 20%;
+  }
 `;
 
 const TitleBox = styled.div`

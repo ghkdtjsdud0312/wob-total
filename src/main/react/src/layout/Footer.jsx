@@ -29,9 +29,10 @@ const FooterIcon = styled.div`
 `;
 
 const StyledLink = styled.div`
-  margin: 0 1.2em;
+  margin: 0 3.5em;
+  cursor: pointer;
   @media only screen and (max-width: 768px) {
-    margin: 0 0.5em;
+    margin: 0 0.9em;
     width: 100%;
   }
 `;

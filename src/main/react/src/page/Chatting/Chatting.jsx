@@ -81,6 +81,11 @@ const Input = styled.input`
   width: 80%;
   border-radius: 4px;
   border: 1px solid #ddd;
+  // input 창 눌렀을 때 테두리 색 지정
+  &:focus {
+    border-color: #9c9c9c;
+    outline: none;
+  }
 `;
 
 const SendButton = styled.button`
@@ -160,6 +165,7 @@ const Chatting = () => {
       setInputMsg("");
     } else {
       alert("error : 채팅 연결에 실패했습니다. 이전 페이지로 이동합니다.");
+      navigate(-1);
     }
   };
 
@@ -197,6 +203,7 @@ const Chatting = () => {
   //   return () => clearTimeout(timeoutId);
   // }, []);
 
+  // 처음 렌더링 시, 필요한 정보들 요청
   useEffect(() => {
     // 이메일로 회원 닉네임 가져와서 sender에 저장
     const getMember = async () => {
@@ -212,10 +219,7 @@ const Chatting = () => {
         navigate(-1);
       }
     };
-    getMember();
-  });
 
-  useEffect(() => {
     // 채팅방 정보 가져 오기
     const getChatRoom = async () => {
       try {
@@ -228,8 +232,10 @@ const Chatting = () => {
         navigate(-1);
       }
     };
+
+    getMember();
     getChatRoom();
-  });
+  }, []);
 
   useEffect(() => {
     // 웹소켓 연결하는 부분, 이전 대화내용 불러오는 함수 호출

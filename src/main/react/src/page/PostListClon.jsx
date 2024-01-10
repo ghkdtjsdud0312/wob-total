@@ -17,6 +17,18 @@ const Container = styled.div`
 const StyledLink = styled(Link)`
   text-decoration: none;
 `;
+const IsNullText = styled.div`
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--BLACK);
+  font-size: 20px;
+  @media only screen and (max-width: 768px) {
+    height: 100px;
+    font-size: 16px;
+  }
+`;
 
 const PostList = ({ data }) => {
   const { selectedDate, area, interest } = data;
@@ -34,24 +46,24 @@ const PostList = ({ data }) => {
           const allPosts = rsp.data;
           // 선택 날짜에 따라 필터링
           const filteredPosts = selectedDate
-            ? allPosts.filter((post) =>
-                moment(post.date).isSame(selectedDate, "day")
+              ? allPosts.filter((post) =>
+                  moment(post.date).isSame(selectedDate, "day")
               )
-            : allPosts;
+              : allPosts;
           console.log("filteredPosts : ", filteredPosts);
 
           // 선택된 area와 interest에 따라 필터링
           const areaFilteredPosts = area.length
-            ? filteredPosts.filter((post) => area.includes(post.local))
-            : filteredPosts;
+              ? filteredPosts.filter((post) => area.includes(post.local))
+              : filteredPosts;
 
           console.log("areaFilteredPosts : ", areaFilteredPosts);
 
           const interestFilteredPosts = interest.length
-            ? areaFilteredPosts.filter((post) =>
-                interest.includes(post.categoryName)
+              ? areaFilteredPosts.filter((post) =>
+                  interest.includes(post.categoryName)
               )
-            : areaFilteredPosts;
+              : areaFilteredPosts;
 
           console.log("interestFilteredPosts : ", interestFilteredPosts);
           console.log(interest);
@@ -67,26 +79,31 @@ const PostList = ({ data }) => {
   }, [selectedDate, area, interest]);
 
   return (
-    <>
-      <Container>
-        {postList &&
-          postList.map((post) => (
-            // PostPreview 컴포넌트를 호출하면서 필요한 데이터를 전달
-            <StyledLink to={`/postDetail/${post.id}`} key={post.id}>
-              <PostPreview
-                key={post.id}
-                title={post.title}
-                date={post.date}
-                time={post.time}
-                local={post.local}
-                people={post.people}
-                category={post.categoryName}
-                type={post.type}
-              />
-            </StyledLink>
-          ))}
-      </Container>
-    </>
+      <>
+        <Container>
+          {postList.length !== 0 ? (
+              postList.map((post) => (
+                  // PostPreview 컴포넌트를 호출하면서 필요한 데이터를 전달
+                  <StyledLink to={`/postDetail/${post.id}`} key={post.id}>
+                    <PostPreview
+                        key={post.id}
+                        title={post.title}
+                        date={post.date}
+                        time={post.time}
+                        local={post.local}
+                        people={post.people}
+                        category={post.categoryName}
+                        type={post.type}
+                    />
+                  </StyledLink>
+              ))
+          ) : (
+              <IsNullText>
+                <p>조건에 맞는 게시글이 없습니다.</p>
+              </IsNullText>
+          )}
+        </Container>
+      </>
   );
 };
 
