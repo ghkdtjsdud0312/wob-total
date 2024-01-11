@@ -26,7 +26,7 @@ const Container = styled.div`
   height: 100vh;
   /* background-color: #eee; */
   @media only screen and (max-width: 768px) {
-    width: 30em;
+    width: 100%;
   }
 `;
 

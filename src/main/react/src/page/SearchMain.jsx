@@ -16,7 +16,7 @@ const Container = styled.div`
   margin: 0 auto;
   margin-bottom: 100px;
   @media only screen and (max-width: 768px) {
-    width: 30em;
+    width: 100%;
   }
 `;
 
@@ -50,6 +50,9 @@ const SearchInput = styled.input`
   border-bottom: 2px solid #04bf8a;
   outline: none;
   margin-right: 10px;
+  @media only screen and (max-width: 768px) {
+    width: 35%;
+  }
 `;
 
 const SearchButton = styled.button`
@@ -94,6 +97,9 @@ const RecentResultContents = styled.span`
   background-color: #dfede9;
   padding: 10px;
   border-radius: 40px;
+  @media only screen and (max-width: 768px) {
+    width: 70%;
+  }
 `;
 
 const SearchResult = styled.h3`
