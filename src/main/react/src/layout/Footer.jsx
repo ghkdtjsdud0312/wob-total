@@ -62,7 +62,7 @@ const Footer = () => {
   return (
     <Container>
       <FooterIcon>
-        <StyledLink onClick={() => handleLinkClick("/main")}>
+        <StyledLink onClick={() => handleLinkClick("/")}>
           <Icon src={Home} alt="Home" />
         </StyledLink>
         <StyledLink onClick={() => handleLinkClick("/schedule")}>

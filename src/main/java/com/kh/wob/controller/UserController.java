@@ -19,6 +19,11 @@ public class UserController {
 
     private final UserService userService;
 
+    @GetMapping("/healthcheck")
+    public String healthcheck() {
+        return "OK";
+    }
+
     @PostMapping("/sign-up")
     public String signUp(@RequestBody UserSignUpDto userSignUpDto) throws Exception {
         log.info("프론트에서 넘겨받은 userSignUpDto 데이터 : " + userSignUpDto);
