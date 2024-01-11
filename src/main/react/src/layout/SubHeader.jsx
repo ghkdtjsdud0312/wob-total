@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 import { faSearch, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
-
 const Container = styled.div`
   display: flex;
   color: --var(MINT);
@@ -36,23 +35,22 @@ const SearchIcon = styled(FontAwesomeIcon)`
   font-size: 23px;
 `;
 const SubHeader = () => {
-
   const navigate = useNavigate();
 
   const goToSearchPage = () => {
-    navigate("searchMain");
+    navigate("searchmain");
   };
 
-    return(
-     <Container>
-        <HeaderBox> 
-            <ArrowBack onClick={() => navigate(-1)}>
-            <FontAwesomeIcon icon={faChevronLeft} />
-            </ArrowBack>
-          <SearchIcon icon={faSearch} onClick={goToSearchPage} />
-        </HeaderBox>
-      </Container>
-    );
+  return (
+    <Container>
+      <HeaderBox>
+        <ArrowBack onClick={() => navigate(-1)}>
+          <FontAwesomeIcon icon={faChevronLeft} />
+        </ArrowBack>
+        <SearchIcon icon={faSearch} onClick={goToSearchPage} />
+      </HeaderBox>
+    </Container>
+  );
 };
 
 export default SubHeader;
