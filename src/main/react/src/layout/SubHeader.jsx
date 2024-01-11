@@ -9,6 +9,9 @@ const Container = styled.div`
   color: --var(MINT);
   align-items: center;
   width: 100%;
+  @media only screen and (max-width: 768px) {
+    width: 90%;
+  }
 `;
 
 const HeaderBox = styled.div`
@@ -38,7 +41,7 @@ const SubHeader = () => {
   const navigate = useNavigate();
 
   const goToSearchPage = () => {
-    navigate("searchmain");
+    navigate("searchMain");
   };
 
   return (
