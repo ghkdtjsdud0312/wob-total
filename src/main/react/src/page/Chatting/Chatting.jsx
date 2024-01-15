@@ -16,7 +16,7 @@ const Container = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   @media only screen and (max-width: 768px) {
     height: 100%;
-    margin: 0;
+    margin: 70px;
     border-radius: 0;
   }
 `;
