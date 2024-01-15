@@ -147,7 +147,7 @@ const ListButton = styled(FontAwesomeIcon).attrs({ icon: faListUl })`
 const Main = () => {
   const navigate = useNavigate();
   const { email } = useParams();
-  const { addr, temp, sky, pty } = Weather();
+  const { addr, temp, sky, pty, loading, error } = Weather();
   const [isCurrentUser, setIsCurrentUser] = useState(false);
   const [showCalendar, setShowCalender] = useState(false);
   const [selectedDate, setSelectedDate] = useState(moment());
@@ -269,104 +269,110 @@ const Main = () => {
   };
 
   return (
-      <>
-        <Container>
-          <AdCarousel />
-          <CategoryBox>
-            <Button
-                label={allLeisure}
-                size="category"
-                hover="true"
-                onClick={() => handleCategoryButtonClick(allLeisure)}
-            />
-            {interest &&
-                interest.map((interestItem, index) => (
-                    <Button key={index} label={interestItem} size="category">
-                      {interestItem}
-                    </Button>
-                ))}
-          </CategoryBox>
-          <MediumContainer>
-            <CategoryBox2>
-              <Button
-                  label={allArea}
-                  size="category"
-                  onClick={() => handleCategoryButtonClick(allArea)}
-              />
-              {area &&
-                  area.map((areastItem, index) => (
-                      <Button key={index} label={areastItem} size="category">
-                        {areastItem}
-                      </Button>
-                  ))}
-            </CategoryBox2>
-            <WeatherBox>
-              {addr} {temp} {sky === "알 수 없음" ? pty : sky}
-            </WeatherBox>
-          </MediumContainer>
-          <DateBox style={{ position: "relative", zIndex: 1 }}>
-            {selectedDate.format("YYYY년 MM월 DD일")}
-            <FontAwesomeIcon
-                icon={faCalendarDays}
-                style={{
-                  color: "var(--GREEN)",
-                  position: "absolute",
-                  top: 10,
-                  right: 20,
-                }}
-                fontSize="33px"
-                cursor="pointer"
-                onClick={handleIconClick}
-            />
-            {showCalendar && (
-                <div ref={calendarRef} style={{ position: "relative", zIndex: 1 }}>
-                  <DatePicker
-                      selected={selectedDate.toDate()}
-                      onChange={(date) => {
-                        handleDatePickerChange(date);
-                      }}
-                      onSelect={handleDateSelect}
-                      inline
-                  />
-                </div>
-            )}
-          </DateBox>
-          <CalenderBox>
-            <CalendarComp
-                onDateSelect={handleDateSelect}
-                selectedDate={selectedDate}
-                calendarDate={calendarDate}
-            />
-          </CalenderBox>
-          <BottomContainer>
-            <Subtitle>신나게 운동하자 우리 ☺</Subtitle>
-            <PlusButton onClick={handlePlusIconClick} />
-            <ListButton onClick={handleListIconClick} />
-          </BottomContainer>
-          <PostBox>
-            {/* <PostList selectedDate={(selectedDate, area, interest)} /> */}
-            <PostList data={{ selectedDate, area, interest }} />
-          </PostBox>
-          <Modal
-              open={modalOpen}
-              confirm={handleConfirm}
-              header={modalHeader}
-              type={false}
-              close={closeModal}
-              children={
-                <SelectMain
-                    api={selectApi}
-                    closeModal={closeModal}
-                    options={modalOptions}
-                    min={minNumber}
-                    max={maxNumber}
-                    title={modalTitle}
-                    text={selectText}
-                />
-              }
+    <>
+      <Container>
+        <AdCarousel />
+        <CategoryBox>
+          <Button
+            label={allLeisure}
+            size="category"
+            hover="true"
+            onClick={() => handleCategoryButtonClick(allLeisure)}
           />
-        </Container>
-      </>
+          {interest &&
+            interest.map((interestItem, index) => (
+              <Button key={index} label={interestItem} size="category">
+                {interestItem}
+              </Button>
+            ))}
+        </CategoryBox>
+        <MediumContainer>
+          <CategoryBox2>
+            <Button
+              label={allArea}
+              size="category"
+              onClick={() => handleCategoryButtonClick(allArea)}
+            />
+            {area &&
+              area.map((areastItem, index) => (
+                <Button key={index} label={areastItem} size="category">
+                  {areastItem}
+                </Button>
+              ))}
+          </CategoryBox2>
+          <WeatherBox>
+            {loading || error ? (
+              <p>{addr} 날씨 정보 로딩 중..</p>
+            ) : (
+              <>
+                {addr} {temp} {sky === "알 수 없음" ? pty : sky}
+              </>
+            )}
+          </WeatherBox>
+        </MediumContainer>
+        <DateBox style={{ position: "relative", zIndex: 1 }}>
+          {selectedDate.format("YYYY년 MM월 DD일")}
+          <FontAwesomeIcon
+            icon={faCalendarDays}
+            style={{
+              color: "var(--GREEN)",
+              position: "absolute",
+              top: 10,
+              right: 20,
+            }}
+            fontSize="33px"
+            cursor="pointer"
+            onClick={handleIconClick}
+          />
+          {showCalendar && (
+            <div ref={calendarRef} style={{ position: "relative", zIndex: 1 }}>
+              <DatePicker
+                selected={selectedDate.toDate()}
+                onChange={(date) => {
+                  handleDatePickerChange(date);
+                }}
+                onSelect={handleDateSelect}
+                inline
+              />
+            </div>
+          )}
+        </DateBox>
+        <CalenderBox>
+          <CalendarComp
+            onDateSelect={handleDateSelect}
+            selectedDate={selectedDate}
+            calendarDate={calendarDate}
+          />
+        </CalenderBox>
+        <BottomContainer>
+          <Subtitle>신나게 운동하자 우리 ☺</Subtitle>
+          <PlusButton onClick={handlePlusIconClick} />
+          <ListButton onClick={handleListIconClick} />
+        </BottomContainer>
+        <PostBox>
+          {/* <PostList selectedDate={(selectedDate, area, interest)} /> */}
+          <PostList data={{ selectedDate, area, interest }} />
+        </PostBox>
+        <Modal
+          open={modalOpen}
+          confirm={handleConfirm}
+          header={modalHeader}
+          type={false}
+          close={closeModal}
+          children={
+            <SelectMain
+              api={selectApi}
+              closeModal={closeModal}
+              options={modalOptions}
+              min={minNumber}
+              max={maxNumber}
+              title={modalTitle}
+              text={selectText}
+            />
+          }
+        />
+      </Container>
+    </>
   );
 };
 

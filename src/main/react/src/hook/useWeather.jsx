@@ -10,6 +10,8 @@ const Weather = () => {
   const updateInterval = 6000000; // 주기적 갱신 간격 (예: 1시간)
   const [sky, setSky] = useState(""); // 하늘 상태
   const [pty, setPty] = useState(""); // 강우량 상태
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   // 현재 위치 가져오기
   useEffect(() => {
@@ -148,6 +150,7 @@ const Weather = () => {
 
   const getWeather = async () => {
     console.log("weather Call", coords.x, coords.y);
+    setLoading(true); // 로딩 시작
     try {
       const response = await axios.get(
         `http://127.0.0.1:5000/api/weather2?x=${coords.x}&y=${coords.y}`
@@ -159,12 +162,16 @@ const Weather = () => {
       setTemp(response.data.tmp); // context에 저장
       setSky(response.data.sky);
       setPty(response.data.pty);
+      setError(false); //에러 상태 초기화
+      setLoading(false);
     } catch (error) {
-      console.error("Weather error:", error);
+      console.error("Weather 오류:", error);
+      setError(true); // 에러 발생
+      setLoading(false);
     }
   };
 
-  return { addr, temp, sky, location };
+  return { addr, temp, sky, location, loading, error };
 };
 
 export default Weather;
