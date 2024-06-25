@@ -3,13 +3,13 @@
 # WOB(WorkOut Buddy)
 🔗 **WOB 사이트** 
 
-https://workoutbuddys.store/signin <br>
+https://workoutbuddys.store/signin </br>
 
 🔗 **발표 PPT**
 
 [WOB발표자료.pdf](https://github.com/user-attachments/files/15969808/WOB.pdf)
 
-🔗 **WOB 페이지 **
+🔗 **WOB 페이지**
 
 [WOB 전체이미지.pdf](https://github.com/user-attachments/files/15969844/WOB.pdf) </br>
 
